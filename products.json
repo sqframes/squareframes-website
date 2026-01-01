@@ -1,0 +1,20 @@
+[
+  {
+    "id": "001",
+    "slug": "nebula-glass-lamp",
+    "name": "Nebula Glass Lamp",
+    "category": "Lighting",
+    "price": "$120.00",
+    "description": "A modern minimalist lamp featuring hand-blown glass.",
+    "images": ["https://images.unsplash.com/photo-1513506003011-3b03c80165bd?auto=format&fit=crop&w=800&q=80"]
+  },
+  {
+    "id": "002",
+    "slug": "ergonomic-chair-x1",
+    "name": "Aergonomic Chair X1",
+    "category": "Furniture",
+    "price": "Contact for Price",
+    "description": "Designed for maximum comfort with breathable mesh.",
+    "images": ["https://images.unsplash.com/photo-1505843490538-5133c6c7d0e1?auto=format&fit=crop&w=800&q=80"]
+  }
+]
