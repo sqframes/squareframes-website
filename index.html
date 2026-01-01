@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XXX Company | Product Catalog</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <title>XXX | Archive</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -12,20 +11,20 @@
     <header>
         <a href="/" class="logo" onclick="closeModal(); return false;">XXX COMPANY</a>
         <nav>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a href="#">Index</a>
+            <a href="#">Info</a>
+            <a href="#">Contact</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Selected Works.</h1>
-        <p>A curated catalog of design and utility.</p>
+        <h1>Objects of<br>Utility & Design.</h1>
     </section>
 
     <div class="controls">
-        <input type="text" id="searchInput" placeholder="Search catalog...">
+        <input type="text" id="searchInput" placeholder="SEARCH ARCHIVE...">
         <select id="categorySelect">
-            <option value="all">All Categories</option>
+            <option value="all">ALL CATEGORIES</option>
         </select>
     </div>
 
@@ -33,49 +32,27 @@
         </div>
 
     <div id="product-modal">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
-        
-        <div class="modal-wrapper">
-            <div class="modal-header">
-                <h2 id="m-title">Product Name</h2>
-            </div>
-
-            <div class="modal-split">
+        <div class="modal-content">
+            
+            <div class="modal-left">
+                <span id="m-cat" style="font-family:'Courier New'; text-transform:uppercase; margin-bottom:20px; display:block;"></span>
+                <h2 id="m-title"></h2>
+                <h3 id="m-price" style="font-weight:400; margin-bottom:40px;"></h3>
+                <p id="m-desc"></p>
                 
-                <div class="modal-details">
-                    <h4>Category</h4>
-                    <p id="m-cat">Furniture</p>
-                    
-                    <h4>Price</h4>
-                    <p id="m-price">$500.00</p>
-                    
-                    <h4>Availability</h4>
-                    <p>In Stock</p>
-
-                    <a id="m-contact" href="#" class="cta-btn" target="_blank">Inquire Now</a>
-                    
-                    <div style="margin-top: 30px;">
-                        <button onclick="shareProduct()" style="background:none; border:none; border-bottom:1px solid black; cursor:pointer; padding:0; font-size:0.9rem;">Share this item</button>
-                    </div>
-                </div>
-
-                <div class="modal-content">
-                    <p id="m-desc">Description text goes here.</p>
-                    
-                    <div class="modal-images">
-                        <img src="" id="m-img" alt="Product Detail">
-                    </div>
+                <div>
+                    <a id="m-contact" href="#" class="cta-btn" target="_blank">Inquire</a>
+                    <button onclick="closeModal()" style="background:none; border:none; text-decoration:underline; margin-left:20px; cursor:pointer;">Back</button>
                 </div>
             </div>
+
+            <div class="modal-right">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <img src="" id="m-img" class="modal-img">
+            </div>
+
         </div>
     </div>
-
-    <footer id="contact" style="padding: 80px 5%; border-top: 1px solid #eee; margin-top: 80px;">
-        <div style="max-width: 1400px; margin: 0 auto;">
-            <h3 style="font-size: 1.5rem;">XXX Company</h3>
-            <p style="color: #666; margin-top: 20px;">info@xxxcompany.com<br>+1 555 0100</p>
-        </div>
-    </footer>
 
     <script>
         let products = [];
@@ -88,7 +65,6 @@
                 initCategories();
                 renderProducts(products);
                 
-                // Check URL for direct link
                 const slug = window.location.pathname.substring(1);
                 if (slug && slug.length > 1) openProduct(slug, false);
             });
@@ -99,9 +75,11 @@
                 <a href="/${p.slug}" class="card" onclick="handleLinkClick(event, '${p.slug}')">
                     <img src="${p.images[0]}" class="card-img" alt="${p.name}">
                     <div class="card-info">
-                        <div class="card-cat">${p.category}</div>
-                        <h3 class="card-title">${p.name}</h3>
-                        <div class="price">${p.price}</div>
+                        <div>
+                            <div class="card-title">${p.name}</div>
+                            <div class="card-cat">${p.category}</div>
+                        </div>
+                        <div style="font-family:'Courier New';">${p.price}</div>
                     </div>
                 </a>
             `).join('');
@@ -119,19 +97,17 @@
 
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
-            // Populate Data
             document.getElementById('m-title').innerText = p.name;
             document.getElementById('m-cat').innerText = p.category;
             document.getElementById('m-price').innerText = p.price;
             document.getElementById('m-desc').innerText = p.description;
             document.getElementById('m-img').src = p.images[0];
             
-            // WhatsApp Link
-            const msg = `Hi, I am interested in: ${window.location.href}`;
-            document.getElementById('m-contact').href = `https://wa.me/15550000000?text=${encodeURIComponent(msg)}`;
+            const msg = `Inquiry regarding: ${p.name}`;
+            document.getElementById('m-contact').href = `mailto:info@xxx.com?subject=${encodeURIComponent(msg)}`;
 
-            modal.style.display = 'block'; // Block display for full page overlay
-            document.body.style.overflow = 'hidden'; // Stop background scrolling
+            modal.style.display = 'block';
+            document.body.style.overflow = 'hidden';
         }
 
         function closeModal() {
@@ -148,26 +124,14 @@
         function initCategories() {
             const cats = [...new Set(products.map(p => p.category))];
             const sel = document.getElementById('categorySelect');
-            cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
+            cats.forEach(c => sel.innerHTML += `<option value="${c}">${c.toUpperCase()}</option>`);
         }
-
+        
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            const cat = document.getElementById('categorySelect').value;
-            const filtered = products.filter(p => 
-                (p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)) &&
-                (cat === 'all' || p.category === cat)
-            );
+            const filtered = products.filter(p => p.name.toLowerCase().includes(term));
             renderProducts(filtered);
         });
-        
-        async function shareProduct() {
-            if (navigator.share) {
-                try { await navigator.share({title: document.title, url: window.location.href}); } catch(e){}
-            } else {
-                alert("Link copied: " + window.location.href);
-            }
-        }
     </script>
 </body>
 </html>
