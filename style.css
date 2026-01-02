@@ -2,10 +2,8 @@
     --bg: #ffffff;
     --text: #111111;
     --gray: #757575;
-    --brand-light: #34B0E0;
-    --brand-dark: #216BBF;
     --brand-gradient: linear-gradient(135deg, #34B0E0 0%, #216BBF 100%);
-    --gap: 40px;
+    --gap: 20px; /* Tighter gap for masonry look */
 }
 
 body {
@@ -16,19 +14,19 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- Header (New Layout with Search Inside) --- */
+/* --- Header --- */
 header {
-    padding: 15px 5%;
+    padding: 15px 40px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
-    background: rgba(255,255,255,0.98);
+    background: rgba(255,255,255,0.95);
     backdrop-filter: blur(10px);
     z-index: 100;
     border-bottom: 1px solid #f0f0f0;
-    height: 70px;
+    height: 60px;
 }
 
 .logo {
@@ -39,111 +37,110 @@ header {
     background: var(--brand-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    flex-shrink: 0; /* Prevents logo from squishing */
 }
 
-/* Search Bar in Header */
 .header-controls {
     display: flex;
     gap: 10px;
     flex-grow: 1;
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 40px;
 }
-
 .header-controls input, .header-controls select {
-    background: #f4f4f4;
+    background: #f8f8f8;
     border: 1px solid transparent;
-    padding: 10px 15px;
-    border-radius: 4px;
+    padding: 8px 12px;
+    border-radius: 6px;
     font-size: 0.9rem;
     outline: none;
     width: 100%;
 }
-.header-controls input:focus { background: white; border-color: var(--brand-light); }
+.header-controls input:focus { background: white; border-color: #34B0E0; }
 
 nav a {
     text-decoration: none;
     color: var(--text);
     margin-left: 20px;
     font-size: 0.9rem;
-    font-weight: 500;
+    font-weight: 600;
 }
-nav a:hover { color: var(--brand-light); }
 
-/* --- Hero (Centered & Animated) --- */
+/* --- Hero (Tagline Only & Modern) --- */
 .hero {
-    padding: 100px 5%;
-    max-width: 800px;
+    padding: 120px 5%;
+    max-width: 1000px;
     margin: 0 auto;
-    text-align: center; /* Center Align */
+    text-align: center;
 }
 
-.hero-content {
-    animation: fadeInUp 1s ease-out forwards;
-    opacity: 0; /* Starts hidden */
-    transform: translateY(20px);
-}
-
-.hero h1 {
-    font-size: 4rem;
-    font-weight: 700;
-    letter-spacing: -0.03em;
+.tagline {
+    font-size: 4rem; /* Big */
+    font-weight: 800;
     line-height: 1.1;
-    margin: 0 0 20px 0;
+    background: linear-gradient(90deg, #111 0%, #555 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    
+    /* Animation */
+    opacity: 0;
+    transform: translateY(30px);
+    animation: textReveal 1s cubic-bezier(0.2, 1, 0.3, 1) forwards;
 }
 
-.hero p {
-    font-size: 1.2rem;
-    color: var(--gray);
-    line-height: 1.6;
-}
-
-@keyframes fadeInUp {
+@keyframes textReveal {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- The Grid --- */
+/* --- The Cool "Random" Grid --- */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    /* This creates a dense packing of items */
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-auto-rows: 250px; /* Base height for standard unit */
+    grid-auto-flow: dense; /* Fills gaps automatically */
     gap: var(--gap);
     padding: 0 5% 100px 5%;
-    max-width: 1400px;
+    max-width: 1600px;
     margin: 0 auto;
 }
 
 .card {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+    position: relative;
+    overflow: hidden;
+    border-radius: 12px; /* Smooth corners */
     cursor: pointer;
 }
 
-.card-img-wrap {
-    overflow: hidden;
-    margin-bottom: 15px;
-    background: #f4f4f4;
-    aspect-ratio: 1 / 1;
-    border-radius: 4px;
-}
+/* CSS Classes for Random Sizes (Applied via JS) */
+.card.wide { grid-column: span 2; }
+.card.tall { grid-row: span 2; }
+.card.big  { grid-column: span 2; grid-row: span 2; }
 
 .card-img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.5s ease;
+    transition: transform 0.6s ease;
 }
+.card:hover .card-img { transform: scale(1.05); }
 
-.card:hover .card-img { transform: scale(1.03); }
+/* Overlay Text (Only appears on hover for cleaner look) */
+.card-overlay {
+    position: absolute;
+    bottom: 0; left: 0; width: 100%;
+    padding: 20px;
+    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    color: white;
+    opacity: 0;
+    transition: opacity 0.3s;
+    box-sizing: border-box;
+}
+.card:hover .card-overlay { opacity: 1; }
 
-.card-info { display: flex; justify-content: space-between; }
-.card-title { font-size: 1rem; font-weight: 600; margin: 0 0 4px 0; }
-.card:hover .card-title { color: var(--brand-dark); }
-.card-cat { font-size: 0.85rem; color: var(--gray); }
-.price { font-size: 1rem; font-weight: 500; }
+.card-title { font-weight: 600; font-size: 1.1rem; margin: 0; }
+.card-price { font-size: 0.9rem; opacity: 0.9; }
 
-/* --- Product Modal --- */
+/* --- Modal --- */
 #product-modal {
     display: none;
     position: fixed;
@@ -152,107 +149,80 @@ nav a:hover { color: var(--brand-light); }
     z-index: 200;
     overflow-y: auto;
 }
-
 .modal-content {
-    max-width: 1000px;
-    margin: 80px auto;
+    max-width: 1100px;
+    margin: 60px auto;
     padding: 0 5%;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1.5fr 1fr;
     gap: 60px;
     align-items: start;
 }
-
-.modal-img { width: 100%; border-radius: 4px; }
+.modal-img { width: 100%; border-radius: 8px; }
 .modal-info { position: sticky; top: 100px; }
+#m-title { font-size: 3rem; margin: 0 0 10px 0; line-height: 1; letter-spacing: -1px; }
+#m-cat { color: #34B0E0; font-weight: 700; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; }
 
-#m-title { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.1; }
-#m-cat { color: var(--brand-light); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
-#m-price { font-size: 1.5rem; margin-bottom: 20px; font-weight: 500; }
-#m-desc { margin-bottom: 40px; color: #444; line-height: 1.6; }
-
-/* Main Button */
-.cta-btn {
-    display: inline-block;
-    background: var(--brand-gradient);
-    color: white;
-    padding: 15px 40px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: 600;
-    border: none;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(52, 176, 224, 0.3);
-    transition: transform 0.2s;
-}
-.cta-btn:hover { transform: translateY(-2px); }
-
-/* --- Inquiry Form Overlay --- */
+/* --- Form Overlay --- */
 #inquiry-form-overlay {
     display: none;
     position: fixed;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.5); /* Dimmed background */
+    background: rgba(0,0,0,0.6);
+    backdrop-filter: blur(5px);
     z-index: 300;
     align-items: center;
     justify-content: center;
 }
-
 .form-box {
     background: white;
     padding: 40px;
-    border-radius: 8px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    border-radius: 12px;
+    width: 90%;
+    max-width: 450px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     position: relative;
-    animation: fadeInUp 0.3s ease-out forwards;
 }
-
-.form-group { margin-bottom: 20px; }
-.form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+.form-group { margin-bottom: 15px; }
+.form-group label { display: block; margin-bottom: 6px; font-weight: 600; font-size: 0.85rem; color: #444; }
 .form-group input, .form-group textarea {
     width: 100%;
     padding: 12px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
     font-family: inherit;
-    box-sizing: border-box; /* Fix padding issues */
+    box-sizing: border-box;
 }
-.form-group textarea { height: 120px; resize: none; }
+.form-group textarea { height: 100px; resize: none; }
 
-.close-btn {
-    position: absolute;
-    top: 20px; right: 20px;
-    font-size: 1.5rem;
+.cta-btn {
+    width: 100%;
+    background: var(--brand-gradient);
+    color: white;
+    padding: 14px;
+    border-radius: 6px;
+    border: none;
+    font-weight: 600;
     cursor: pointer;
-    color: #999;
+    margin-top: 10px;
 }
-.close-btn:hover { color: black; }
 
-/* --- Footer --- */
+/* --- Footer (Clean) --- */
 footer {
     border-top: 1px solid #eee;
-    padding: 60px 5%;
+    padding: 40px 5%;
     text-align: center;
-    margin-top: 100px;
+    color: var(--gray);
+    font-size: 0.85rem;
+    margin-top: 80px;
 }
-.footer-logo {
-    font-weight: 800;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    background: var(--brand-gradient);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    display: inline-block;
-    margin-bottom: 20px;
-}
-.footer-copy { color: var(--gray); font-size: 0.9rem; }
 
 /* Mobile */
-@media (max-width: 900px) {
-    header { flex-wrap: wrap; height: auto; gap: 10px; }
-    .header-controls { order: 3; width: 100%; margin: 10px 0; }
+@media (max-width: 768px) {
+    .grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
+    .card.wide, .card.tall, .card.big { grid-column: auto; grid-row: auto; } /* Disable masonry on mobile */
+    .hero { padding: 80px 5%; }
+    .tagline { font-size: 2.5rem; }
     .modal-content { grid-template-columns: 1fr; }
-    .hero h1 { font-size: 2.5rem; }
+    .card-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); } /* Always show text on mobile */
 }
