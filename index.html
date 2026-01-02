@@ -3,36 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XXX Company | Catalog</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+    <title>XXX Company | Collection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <a href="/" class="logo" onclick="closeModal(); return false;">XXX COMPANY</a>
+        
+        <div class="header-controls">
+            <input type="text" id="searchInput" placeholder="Search products...">
+            <select id="categorySelect">
+                <option value="all">All Categories</option>
+            </select>
+        </div>
+
         <nav>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a href="#footer">Contact</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Design Collection.</h1>
+        <div class="hero-content">
+            <h1>Design Collection.</h1>
+            <p>aaa bbbbb ccccccc dddddd fffffffff gggggggg rrrrr tttttttt</p>
+        </div>
     </section>
-
-    <div class="controls">
-        <input type="text" id="searchInput" placeholder="Search...">
-        <select id="categorySelect">
-            <option value="all">All Categories</option>
-        </select>
-    </div>
 
     <div id="grid" class="grid">
         </div>
 
     <div id="product-modal">
-        <span class="close-btn" onclick="closeModal()">&times;</span>
+        <div class="close-btn" onclick="closeModal()" style="position:fixed; top:30px; right:40px;">&times;</div>
         
         <div class="modal-content">
             <div class="modal-left">
@@ -43,15 +46,46 @@
                 <h2 id="m-title"></h2>
                 <div id="m-price"></div>
                 <p id="m-desc"></p>
-                <a id="m-contact" href="#" class="cta-btn" target="_blank">Inquire to Purchase</a>
+                <button onclick="openInquiryForm()" class="cta-btn">Inquire Now</button>
             </div>
         </div>
     </div>
 
+    <div id="inquiry-form-overlay">
+        <div class="form-box">
+            <span class="close-btn" onclick="closeInquiryForm()">&times;</span>
+            <h3 style="margin-top:0;">Request Information</h3>
+            <p style="color:#666; font-size:0.9rem; margin-bottom:20px;">Complete this form to send an email to our team.</p>
+            
+            <form onsubmit="handleFormSubmit(event)">
+                <div class="form-group">
+                    <label>Product Name</label>
+                    <input type="text" id="form-product" readonly style="background:#f9f9f9; color:#555;">
+                </div>
+                <div class="form-group">
+                    <label>Your Name</label>
+                    <input type="text" id="form-name" required placeholder="John Doe">
+                </div>
+                <div class="form-group">
+                    <label>Message</label>
+                    <textarea id="form-msg" required>I am interested in this product. Please provide more details.</textarea>
+                </div>
+                <button type="submit" class="cta-btn" style="width:100%; border-radius:4px;">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <footer id="footer">
+        <div class="footer-logo">XXX COMPANY</div>
+        <p class="footer-copy">&copy; 2025 XXX Company. All rights reserved.</p>
+    </footer>
+
     <script>
         let products = [];
         const modal = document.getElementById('product-modal');
+        const inquiryOverlay = document.getElementById('inquiry-form-overlay');
 
+        // 1. Fetch Data
         fetch('products.json')
             .then(res => res.json())
             .then(data => {
@@ -59,10 +93,12 @@
                 initCategories();
                 renderProducts(products);
                 
+                // URL Routing
                 const slug = window.location.pathname.substring(1);
                 if (slug && slug.length > 1) openProduct(slug, false);
             });
 
+        // 2. Render
         function renderProducts(data) {
             const grid = document.getElementById('grid');
             grid.innerHTML = data.map(p => `
@@ -87,20 +123,22 @@
             openProduct(slug, true);
         }
 
+        // 3. Open Product Modal
         function openProduct(slug, pushState) {
             const p = products.find(i => i.slug === slug);
             if (!p) return;
 
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
+            // Fill Product Info
             document.getElementById('m-img').src = p.images[0];
             document.getElementById('m-cat').innerText = p.category;
             document.getElementById('m-title').innerText = p.name;
             document.getElementById('m-price').innerText = p.price;
             document.getElementById('m-desc').innerText = p.description;
             
-            const msg = `Hi, I am interested in: ${window.location.href}`;
-            document.getElementById('m-contact').href = `https://wa.me/15550000000?text=${encodeURIComponent(msg)}`;
+            // Pre-fill form input with product name
+            document.getElementById('form-product').value = p.name;
 
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -112,11 +150,33 @@
             history.pushState(null, '', '/');
         }
 
-        window.onpopstate = () => {
-            const slug = window.location.pathname.substring(1);
-            slug && slug.length > 1 ? openProduct(slug, false) : closeModal();
-        };
+        // 4. Inquiry Form Logic
+        function openInquiryForm() {
+            inquiryOverlay.style.display = 'flex';
+        }
 
+        function closeInquiryForm() {
+            inquiryOverlay.style.display = 'none';
+        }
+
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const product = document.getElementById('form-product').value;
+            const name = document.getElementById('form-name').value;
+            const msg = document.getElementById('form-msg').value;
+            
+            // Construct Email Logic
+            const subject = `Inquiry: ${product}`;
+            const body = `Name: ${name}%0D%0A%0D%0AProduct: ${product}%0D%0A%0D%0AMessage:%0D%0A${msg}`;
+            
+            // Open user's email client
+            window.location.href = `mailto:xxx@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
+            
+            closeInquiryForm();
+        }
+
+        // 5. Search & Filter
         function initCategories() {
             const cats = [...new Set(products.map(p => p.category))];
             const sel = document.getElementById('categorySelect');
@@ -125,9 +185,28 @@
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(term));
-            renderProducts(filtered);
+            const cat = document.getElementById('categorySelect').value;
+            filterGrid(term, cat);
         });
+
+        document.getElementById('categorySelect').addEventListener('change', (e) => {
+            const term = document.getElementById('searchInput').value.toLowerCase();
+            const cat = e.target.value;
+            filterGrid(term, cat);
+        });
+
+        function filterGrid(term, cat) {
+            const filtered = products.filter(p => 
+                (p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)) &&
+                (cat === 'all' || p.category === cat)
+            );
+            renderProducts(filtered);
+        }
+
+        window.onpopstate = () => {
+            const slug = window.location.pathname.substring(1);
+            slug && slug.length > 1 ? openProduct(slug, false) : closeModal();
+        };
     </script>
 </body>
 </html>
