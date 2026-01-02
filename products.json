@@ -1,6 +1,6 @@
 [
   {
-    "id": "001",
+    "id": 1,
     "slug": "safety-harness",
     "name": "Safety Harness",
     "category": "OH&S",
@@ -14,7 +14,7 @@
       "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765356575/muraya-githiga-HeGdyTwHZy8-unsplash_wakqto.jpg""
     ]  },
   {
-    "id": "002",
+    "id": 2,
     "slug": "ergonomic-chair-x1",
     "name": "Aergonomic Chair X1",
     "category": "Furniture",
@@ -24,6 +24,7 @@
   }
 
 ]
+
 
 
 
