@@ -4,48 +4,43 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XXX Company | Collection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
     <header>
         <a href="/" class="logo" onclick="closeModal(); return false;">XXX COMPANY</a>
-        
         <div class="header-controls">
-            <input type="text" id="searchInput" placeholder="Search products...">
+            <input type="text" id="searchInput" placeholder="Search...">
             <select id="categorySelect">
                 <option value="all">All Categories</option>
             </select>
         </div>
-
         <nav>
             <a href="#footer">Contact</a>
         </nav>
     </header>
 
     <section class="hero">
-        <div class="hero-content">
-            <h1>Design Collection.</h1>
-            <p>aaa bbbbb ccccccc dddddd fffffffff gggggggg rrrrr tttttttt</p>
+        <div class="tagline">
+            aaa bbbbb ccccccc dddddd fffffffff gggggggg rrrrr tttttttt
         </div>
     </section>
 
-    <div id="grid" class="grid">
-        </div>
+    <div id="grid" class="grid"></div>
 
     <div id="product-modal">
-        <div class="close-btn" onclick="closeModal()" style="position:fixed; top:30px; right:40px;">&times;</div>
-        
+        <div class="close-btn" onclick="closeModal()" style="position:fixed; top:30px; right:40px; font-size:2rem; cursor:pointer; z-index:210;">&times;</div>
         <div class="modal-content">
             <div class="modal-left">
-                <img src="" id="m-img" class="modal-img" alt="Product">
+                <img src="" id="m-img" class="modal-img">
             </div>
             <div class="modal-info">
                 <span id="m-cat"></span>
                 <h2 id="m-title"></h2>
-                <div id="m-price"></div>
-                <p id="m-desc"></p>
+                <div id="m-price" style="font-size:1.5rem; margin-bottom:20px;"></div>
+                <p id="m-desc" style="line-height:1.6; color:#555; margin-bottom:30px;"></p>
                 <button onclick="openInquiryForm()" class="cta-btn">Inquire Now</button>
             </div>
         </div>
@@ -53,31 +48,39 @@
 
     <div id="inquiry-form-overlay">
         <div class="form-box">
-            <span class="close-btn" onclick="closeInquiryForm()">&times;</span>
-            <h3 style="margin-top:0;">Request Information</h3>
-            <p style="color:#666; font-size:0.9rem; margin-bottom:20px;">Complete this form to send an email to our team.</p>
+            <span onclick="closeInquiryForm()" style="position:absolute; top:15px; right:20px; font-size:1.5rem; cursor:pointer;">&times;</span>
+            <h3 style="margin-top:0;">Inquire</h3>
             
             <form onsubmit="handleFormSubmit(event)">
-                <div class="form-group">
-                    <label>Product Name</label>
-                    <input type="text" id="form-product" readonly style="background:#f9f9f9; color:#555;">
-                </div>
+                <input type="hidden" id="form-product">
+                
                 <div class="form-group">
                     <label>Your Name</label>
-                    <input type="text" id="form-name" required placeholder="John Doe">
+                    <input type="text" id="form-name" required>
                 </div>
+                
+                <div class="form-group">
+                    <label>Your Email</label>
+                    <input type="email" id="form-email" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Location</label>
+                    <input type="text" id="form-location" placeholder="City, Country" required>
+                </div>
+
                 <div class="form-group">
                     <label>Message</label>
-                    <textarea id="form-msg" required>I am interested in this product. Please provide more details.</textarea>
+                    <textarea id="form-msg"></textarea>
                 </div>
-                <button type="submit" class="cta-btn" style="width:100%; border-radius:4px;">Send Inquiry</button>
+
+                <button type="submit" class="cta-btn">Send Inquiry</button>
             </form>
         </div>
     </div>
 
-    <footer id="footer">
-        <div class="footer-logo">XXX COMPANY</div>
-        <p class="footer-copy">&copy; 2025 XXX Company. All rights reserved.</p>
+    <footer>
+        &copy; 2025 XXX Company. All rights reserved.
     </footer>
 
     <script>
@@ -85,7 +88,6 @@
         const modal = document.getElementById('product-modal');
         const inquiryOverlay = document.getElementById('inquiry-form-overlay');
 
-        // 1. Fetch Data
         fetch('products.json')
             .then(res => res.json())
             .then(data => {
@@ -93,51 +95,43 @@
                 initCategories();
                 renderProducts(products);
                 
-                // URL Routing
                 const slug = window.location.pathname.substring(1);
                 if (slug && slug.length > 1) openProduct(slug, false);
             });
 
-        // 2. Render
         function renderProducts(data) {
             const grid = document.getElementById('grid');
-            grid.innerHTML = data.map(p => `
-                <a href="/${p.slug}" class="card" onclick="handleLinkClick(event, '${p.slug}')">
-                    <div class="card-img-wrap">
-                        <img src="${p.images[0]}" class="card-img" alt="${p.name}">
+            
+            // Random Size Generator
+            // Patterns: 'wide' (2 cols), 'tall' (2 rows), 'big' (2x2), '' (standard 1x1)
+            const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
+            
+            grid.innerHTML = data.map((p, index) => {
+                // Pick a size based on index pattern (so it stays consistent on refresh)
+                const sizeClass = patterns[index % patterns.length]; 
+                
+                return `
+                <div class="card ${sizeClass}" onclick="openProduct('${p.slug}', true)">
+                    <img src="${p.images[0]}" class="card-img" loading="lazy" alt="${p.name}">
+                    <div class="card-overlay">
+                        <div class="card-title">${p.name}</div>
+                        <div class="card-price">${p.price}</div>
                     </div>
-                    <div class="card-info">
-                        <div>
-                            <div class="card-title">${p.name}</div>
-                            <div class="card-cat">${p.category}</div>
-                        </div>
-                        <div class="price">${p.price}</div>
-                    </div>
-                </a>
-            `).join('');
+                </div>
+                `;
+            }).join('');
         }
 
-        function handleLinkClick(e, slug) {
-            if (e.ctrlKey || e.metaKey) return;
-            e.preventDefault();
-            openProduct(slug, true);
-        }
-
-        // 3. Open Product Modal
         function openProduct(slug, pushState) {
             const p = products.find(i => i.slug === slug);
             if (!p) return;
-
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
-            // Fill Product Info
             document.getElementById('m-img').src = p.images[0];
             document.getElementById('m-cat').innerText = p.category;
             document.getElementById('m-title').innerText = p.name;
             document.getElementById('m-price').innerText = p.price;
             document.getElementById('m-desc').innerText = p.description;
-            
-            // Pre-fill form input with product name
             document.getElementById('form-product').value = p.name;
 
             modal.style.display = 'block';
@@ -150,58 +144,37 @@
             history.pushState(null, '', '/');
         }
 
-        // 4. Inquiry Form Logic
-        function openInquiryForm() {
-            inquiryOverlay.style.display = 'flex';
-        }
-
-        function closeInquiryForm() {
-            inquiryOverlay.style.display = 'none';
-        }
+        function openInquiryForm() { inquiryOverlay.style.display = 'flex'; }
+        function closeInquiryForm() { inquiryOverlay.style.display = 'none'; }
 
         function handleFormSubmit(e) {
             e.preventDefault();
             
             const product = document.getElementById('form-product').value;
             const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const location = document.getElementById('form-location').value;
             const msg = document.getElementById('form-msg').value;
             
-            // Construct Email Logic
-            const subject = `Inquiry: ${product}`;
-            const body = `Name: ${name}%0D%0A%0D%0AProduct: ${product}%0D%0A%0D%0AMessage:%0D%0A${msg}`;
+            const subject = `Inquiry: ${product} (${name})`;
+            // Formatting the email body
+            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ALocation: ${location}%0D%0A%0D%0AProduct: ${product}%0D%0A%0D%0AMessage:%0D%0A${msg}`;
             
-            // Open user's email client
             window.location.href = `mailto:xxx@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
-            
             closeInquiryForm();
         }
 
-        // 5. Search & Filter
         function initCategories() {
             const cats = [...new Set(products.map(p => p.category))];
             const sel = document.getElementById('categorySelect');
             cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
         }
-
+        
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            const cat = document.getElementById('categorySelect').value;
-            filterGrid(term, cat);
-        });
-
-        document.getElementById('categorySelect').addEventListener('change', (e) => {
-            const term = document.getElementById('searchInput').value.toLowerCase();
-            const cat = e.target.value;
-            filterGrid(term, cat);
-        });
-
-        function filterGrid(term, cat) {
-            const filtered = products.filter(p => 
-                (p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term)) &&
-                (cat === 'all' || p.category === cat)
-            );
+            const filtered = products.filter(p => p.name.toLowerCase().includes(term));
             renderProducts(filtered);
-        }
+        });
 
         window.onpopstate = () => {
             const slug = window.location.pathname.substring(1);
