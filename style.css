@@ -2,12 +2,9 @@
     --bg: #ffffff;
     --text: #111111;
     --gray: #757575;
-    
-    /* BRAND COLORS */
     --brand-light: #34B0E0;
     --brand-dark: #216BBF;
     --brand-gradient: linear-gradient(135deg, #34B0E0 0%, #216BBF 100%);
-    
     --gap: 40px;
 }
 
@@ -19,90 +16,97 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* --- Navigation --- */
+/* --- Header (New Layout with Search Inside) --- */
 header {
-    padding: 30px 5%;
+    padding: 15px 5%;
     display: flex;
     justify-content: space-between;
     align-items: center;
     position: sticky;
     top: 0;
-    background: rgba(255,255,255,0.95);
+    background: rgba(255,255,255,0.98);
     backdrop-filter: blur(10px);
     z-index: 100;
     border-bottom: 1px solid #f0f0f0;
+    height: 70px;
 }
 
 .logo {
-    font-weight: 800; /* Bolder to match strong colors */
+    font-weight: 800;
     font-size: 1.2rem;
     text-transform: uppercase;
     text-decoration: none;
-    
-    /* OPTIONAL: Make the Logo Text itself the gradient */
     background: var(--brand-gradient);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    flex-shrink: 0; /* Prevents logo from squishing */
 }
+
+/* Search Bar in Header */
+.header-controls {
+    display: flex;
+    gap: 10px;
+    flex-grow: 1;
+    max-width: 600px;
+    margin: 0 40px;
+}
+
+.header-controls input, .header-controls select {
+    background: #f4f4f4;
+    border: 1px solid transparent;
+    padding: 10px 15px;
+    border-radius: 4px;
+    font-size: 0.9rem;
+    outline: none;
+    width: 100%;
+}
+.header-controls input:focus { background: white; border-color: var(--brand-light); }
 
 nav a {
     text-decoration: none;
     color: var(--text);
-    margin-left: 2rem;
+    margin-left: 20px;
     font-size: 0.9rem;
     font-weight: 500;
-    transition: color 0.2s;
 }
+nav a:hover { color: var(--brand-light); }
 
-nav a:hover {
-    color: var(--brand-light); /* Hover turns bright blue */
-}
-
-/* --- Hero --- */
+/* --- Hero (Centered & Animated) --- */
 .hero {
-    padding: 80px 5%;
-    max-width: 1400px;
+    padding: 100px 5%;
+    max-width: 800px;
     margin: 0 auto;
+    text-align: center; /* Center Align */
+}
+
+.hero-content {
+    animation: fadeInUp 1s ease-out forwards;
+    opacity: 0; /* Starts hidden */
+    transform: translateY(20px);
 }
 
 .hero h1 {
-    font-size: 3.5rem;
+    font-size: 4rem;
     font-weight: 700;
     letter-spacing: -0.03em;
     line-height: 1.1;
-    margin: 0;
+    margin: 0 0 20px 0;
 }
 
-/* --- Controls --- */
-.controls {
-    padding: 0 5% 40px 5%;
-    max-width: 1400px;
-    margin: 0 auto;
-    display: flex;
-    gap: 20px;
+.hero p {
+    font-size: 1.2rem;
+    color: var(--gray);
+    line-height: 1.6;
 }
 
-input, select {
-    border: none;
-    border-bottom: 1px solid #e5e5e5;
-    padding: 15px 0;
-    font-size: 1rem;
-    font-family: inherit;
-    background: transparent;
-    outline: none;
-    width: 250px;
-    transition: border-color 0.3s;
-}
-
-/* When you click search, the line turns Blue */
-input:focus, select:focus { 
-    border-bottom-color: var(--brand-dark); 
+@keyframes fadeInUp {
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* --- The Grid --- */
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: var(--gap);
     padding: 0 5% 100px 5%;
     max-width: 1400px;
@@ -121,7 +125,7 @@ input:focus, select:focus {
     margin-bottom: 15px;
     background: #f4f4f4;
     aspect-ratio: 1 / 1;
-    border-radius: 4px; /* Slight softening */
+    border-radius: 4px;
 }
 
 .card-img {
@@ -131,32 +135,15 @@ input:focus, select:focus {
     transition: transform 0.5s ease;
 }
 
-.card:hover .card-img {
-    transform: scale(1.03);
-}
+.card:hover .card-img { transform: scale(1.03); }
 
-.card-info {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-}
-
-.card-title {
-    font-size: 1rem;
-    font-weight: 600;
-    margin: 0 0 4px 0;
-    transition: color 0.2s;
-}
-
-/* Hovering a card turns the title Blue */
-.card:hover .card-title {
-    color: var(--brand-dark);
-}
-
+.card-info { display: flex; justify-content: space-between; }
+.card-title { font-size: 1rem; font-weight: 600; margin: 0 0 4px 0; }
+.card:hover .card-title { color: var(--brand-dark); }
 .card-cat { font-size: 0.85rem; color: var(--gray); }
 .price { font-size: 1rem; font-weight: 500; }
 
-/* --- Modal --- */
+/* --- Product Modal --- */
 #product-modal {
     display: none;
     position: fixed;
@@ -167,69 +154,105 @@ input:focus, select:focus {
 }
 
 .modal-content {
-    max-width: 1200px;
-    margin: 60px auto;
+    max-width: 1000px;
+    margin: 80px auto;
     padding: 0 5%;
     display: grid;
-    grid-template-columns: 1.2fr 0.8fr;
+    grid-template-columns: 1fr 1fr;
     gap: 60px;
     align-items: start;
 }
 
-.modal-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    background: #f4f4f4;
-    border-radius: 4px;
-}
-
+.modal-img { width: 100%; border-radius: 4px; }
 .modal-info { position: sticky; top: 100px; }
 
-#m-title { font-size: 2.5rem; letter-spacing: -0.02em; margin: 0 0 10px 0; line-height: 1.1; }
-#m-cat { font-size: 0.9rem; color: var(--brand-light); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 20px; display: block; font-weight: 600;}
-#m-price { font-size: 1.5rem; margin-bottom: 30px; font-weight: 500; }
-#m-desc { font-size: 1.1rem; line-height: 1.6; color: #444; margin-bottom: 40px; }
+#m-title { font-size: 2.5rem; margin-bottom: 10px; line-height: 1.1; }
+#m-cat { color: var(--brand-light); font-weight: 600; text-transform: uppercase; font-size: 0.9rem; }
+#m-price { font-size: 1.5rem; margin-bottom: 20px; font-weight: 500; }
+#m-desc { margin-bottom: 40px; color: #444; line-height: 1.6; }
 
-/* --- THE MAIN BUTTON (Gradient Blend) --- */
+/* Main Button */
 .cta-btn {
     display: inline-block;
-    
-    /* The Blend */
     background: var(--brand-gradient);
-    
     color: white;
-    padding: 18px 40px;
-    border-radius: 50px; /* Pill shape looks more modern with gradients */
+    padding: 15px 40px;
+    border-radius: 50px;
     text-decoration: none;
     font-weight: 600;
-    transition: transform 0.2s, box-shadow 0.2s;
     border: none;
     cursor: pointer;
-    box-shadow: 0 4px 15px rgba(52, 176, 224, 0.3); /* Blue glow */
+    box-shadow: 0 4px 15px rgba(52, 176, 224, 0.3);
+    transition: transform 0.2s;
+}
+.cta-btn:hover { transform: translateY(-2px); }
+
+/* --- Inquiry Form Overlay --- */
+#inquiry-form-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.5); /* Dimmed background */
+    z-index: 300;
+    align-items: center;
+    justify-content: center;
 }
 
-.cta-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(52, 176, 224, 0.5);
+.form-box {
+    background: white;
+    padding: 40px;
+    border-radius: 8px;
+    width: 100%;
+    max-width: 500px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    position: relative;
+    animation: fadeInUp 0.3s ease-out forwards;
 }
+
+.form-group { margin-bottom: 20px; }
+.form-group label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+.form-group input, .form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-family: inherit;
+    box-sizing: border-box; /* Fix padding issues */
+}
+.form-group textarea { height: 120px; resize: none; }
 
 .close-btn {
-    position: fixed;
-    top: 30px; right: 40px;
-    font-size: 2rem;
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 1.5rem;
     cursor: pointer;
-    z-index: 210;
-    padding: 10px;
-    color: var(--text);
-    transition: color 0.2s;
+    color: #999;
 }
+.close-btn:hover { color: black; }
 
-.close-btn:hover { color: var(--brand-light); }
+/* --- Footer --- */
+footer {
+    border-top: 1px solid #eee;
+    padding: 60px 5%;
+    text-align: center;
+    margin-top: 100px;
+}
+.footer-logo {
+    font-weight: 800;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    background: var(--brand-gradient);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    display: inline-block;
+    margin-bottom: 20px;
+}
+.footer-copy { color: var(--gray); font-size: 0.9rem; }
 
 /* Mobile */
 @media (max-width: 900px) {
-    .modal-content { grid-template-columns: 1fr; margin-top: 40px; }
-    .modal-info { position: static; }
+    header { flex-wrap: wrap; height: auto; gap: 10px; }
+    .header-controls { order: 3; width: 100%; margin: 10px 0; }
+    .modal-content { grid-template-columns: 1fr; }
     .hero h1 { font-size: 2.5rem; }
 }
