@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>XXX Company | Collection</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -32,15 +32,24 @@
 
     <div id="product-modal">
         <div class="close-btn" onclick="closeModal()" style="position:fixed; top:30px; right:40px; font-size:2rem; cursor:pointer; z-index:210;">&times;</div>
+        
         <div class="modal-content">
             <div class="modal-left">
-                <img src="" id="m-img" class="modal-img">
+                <div class="carousel-container">
+                    <button id="prevBtn" class="nav-arrow prev" onclick="changeImage(-1)">&#10094;</button>
+                    <img src="" id="m-img" class="modal-img" alt="Product Image">
+                    <button id="nextBtn" class="nav-arrow next" onclick="changeImage(1)">&#10095;</button>
+                </div>
             </div>
+
             <div class="modal-info">
                 <span id="m-cat"></span>
                 <h2 id="m-title"></h2>
                 <div id="m-price" style="font-size:1.5rem; margin-bottom:20px;"></div>
-                <p id="m-desc" style="line-height:1.6; color:#555; margin-bottom:30px;"></p>
+                
+                <ul id="m-desc-list">
+                    </ul>
+
                 <button onclick="openInquiryForm()" class="cta-btn">Inquire Now</button>
             </div>
         </div>
@@ -50,41 +59,24 @@
         <div class="form-box">
             <span onclick="closeInquiryForm()" style="position:absolute; top:15px; right:20px; font-size:1.5rem; cursor:pointer;">&times;</span>
             <h3 style="margin-top:0;">Inquire</h3>
-            
             <form onsubmit="handleFormSubmit(event)">
                 <input type="hidden" id="form-product">
-                
-                <div class="form-group">
-                    <label>Your Name</label>
-                    <input type="text" id="form-name" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>Your Email</label>
-                    <input type="email" id="form-email" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Location</label>
-                    <input type="text" id="form-location" placeholder="City, Country" required>
-                </div>
-
-                <div class="form-group">
-                    <label>Message</label>
-                    <textarea id="form-msg"></textarea>
-                </div>
-
+                <div class="form-group"><label>Your Name</label><input type="text" id="form-name" required></div>
+                <div class="form-group"><label>Your Email</label><input type="email" id="form-email" required></div>
+                <div class="form-group"><label>Location</label><input type="text" id="form-location" placeholder="City, Country" required></div>
+                <div class="form-group"><label>Message</label><textarea id="form-msg"></textarea></div>
                 <button type="submit" class="cta-btn">Send Inquiry</button>
             </form>
         </div>
     </div>
 
-    <footer>
-        &copy; 2025 XXX Company. All rights reserved.
-    </footer>
+    <footer>&copy; 2025 XXX Company. All rights reserved.</footer>
 
     <script>
         let products = [];
+        let currentImages = []; // Stores images for the open product
+        let currentImgIndex = 0; // Tracks which image is showing
+
         const modal = document.getElementById('product-modal');
         const inquiryOverlay = document.getElementById('inquiry-form-overlay');
 
@@ -101,15 +93,10 @@
 
         function renderProducts(data) {
             const grid = document.getElementById('grid');
-            
-            // Random Size Generator
-            // Patterns: 'wide' (2 cols), 'tall' (2 rows), 'big' (2x2), '' (standard 1x1)
             const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
             
             grid.innerHTML = data.map((p, index) => {
-                // Pick a size based on index pattern (so it stays consistent on refresh)
                 const sizeClass = patterns[index % patterns.length]; 
-                
                 return `
                 <div class="card ${sizeClass}" onclick="openProduct('${p.slug}', true)">
                     <img src="${p.images[0]}" class="card-img" loading="lazy" alt="${p.name}">
@@ -127,15 +114,65 @@
             if (!p) return;
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
-            document.getElementById('m-img').src = p.images[0];
+            // 1. Setup Image Slider
+            currentImages = p.images;
+            currentImgIndex = 0;
+            updateImageDisplay();
+
+            // 2. Setup Text
             document.getElementById('m-cat').innerText = p.category;
             document.getElementById('m-title').innerText = p.name;
             document.getElementById('m-price').innerText = p.price;
-            document.getElementById('m-desc').innerText = p.description;
             document.getElementById('form-product').value = p.name;
+
+            // 3. Convert Description to Bullet Points
+            // It splits the text whenever you hit "Enter" in the JSON string
+            const listContainer = document.getElementById('m-desc-list');
+            listContainer.innerHTML = ''; // Clear old
+            
+            // Check if description exists
+            if (p.description) {
+                const lines = p.description.split('\n'); // Split by new line
+                lines.forEach(line => {
+                    if (line.trim().length > 0) {
+                        listContainer.innerHTML += `<li>${line}</li>`;
+                    }
+                });
+            }
 
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
+        }
+
+        // --- NEW: Slider Logic ---
+        function updateImageDisplay() {
+            const imgElement = document.getElementById('m-img');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+
+            // Set Image
+            imgElement.src = currentImages[currentImgIndex];
+
+            // Hide arrows if there is only 1 image
+            if (currentImages.length <= 1) {
+                prevBtn.style.display = 'none';
+                nextBtn.style.display = 'none';
+            } else {
+                prevBtn.style.display = 'flex';
+                nextBtn.style.display = 'flex';
+            }
+        }
+
+        function changeImage(direction) {
+            currentImgIndex += direction;
+            
+            // Loop functionality (End -> Start)
+            if (currentImgIndex >= currentImages.length) {
+                currentImgIndex = 0;
+            } else if (currentImgIndex < 0) {
+                currentImgIndex = currentImages.length - 1;
+            }
+            updateImageDisplay();
         }
 
         function closeModal() {
@@ -149,7 +186,6 @@
 
         function handleFormSubmit(e) {
             e.preventDefault();
-            
             const product = document.getElementById('form-product').value;
             const name = document.getElementById('form-name').value;
             const email = document.getElementById('form-email').value;
@@ -157,7 +193,6 @@
             const msg = document.getElementById('form-msg').value;
             
             const subject = `Inquiry: ${product} (${name})`;
-            // Formatting the email body
             const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ALocation: ${location}%0D%0A%0D%0AProduct: ${product}%0D%0A%0D%0AMessage:%0D%0A${msg}`;
             
             window.location.href = `mailto:xxx@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
