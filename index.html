@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XXX | Archive</title>
+    <title>XXX Company | Catalog</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -11,20 +12,19 @@
     <header>
         <a href="/" class="logo" onclick="closeModal(); return false;">XXX COMPANY</a>
         <nav>
-            <a href="#">Index</a>
-            <a href="#">Info</a>
-            <a href="#">Contact</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
         </nav>
     </header>
 
     <section class="hero">
-        <h1>Objects of<br>Utility & Design.</h1>
+        <h1>Design Collection.</h1>
     </section>
 
     <div class="controls">
-        <input type="text" id="searchInput" placeholder="SEARCH ARCHIVE...">
+        <input type="text" id="searchInput" placeholder="Search...">
         <select id="categorySelect">
-            <option value="all">ALL CATEGORIES</option>
+            <option value="all">All Categories</option>
         </select>
     </div>
 
@@ -32,25 +32,19 @@
         </div>
 
     <div id="product-modal">
+        <span class="close-btn" onclick="closeModal()">&times;</span>
+        
         <div class="modal-content">
-            
             <div class="modal-left">
-                <span id="m-cat" style="font-family:'Courier New'; text-transform:uppercase; margin-bottom:20px; display:block;"></span>
+                <img src="" id="m-img" class="modal-img" alt="Product">
+            </div>
+            <div class="modal-info">
+                <span id="m-cat"></span>
                 <h2 id="m-title"></h2>
-                <h3 id="m-price" style="font-weight:400; margin-bottom:40px;"></h3>
+                <div id="m-price"></div>
                 <p id="m-desc"></p>
-                
-                <div>
-                    <a id="m-contact" href="#" class="cta-btn" target="_blank">Inquire</a>
-                    <button onclick="closeModal()" style="background:none; border:none; text-decoration:underline; margin-left:20px; cursor:pointer;">Back</button>
-                </div>
+                <a id="m-contact" href="#" class="cta-btn" target="_blank">Inquire to Purchase</a>
             </div>
-
-            <div class="modal-right">
-                <span class="close-btn" onclick="closeModal()">&times;</span>
-                <img src="" id="m-img" class="modal-img">
-            </div>
-
         </div>
     </div>
 
@@ -73,13 +67,15 @@
             const grid = document.getElementById('grid');
             grid.innerHTML = data.map(p => `
                 <a href="/${p.slug}" class="card" onclick="handleLinkClick(event, '${p.slug}')">
-                    <img src="${p.images[0]}" class="card-img" alt="${p.name}">
+                    <div class="card-img-wrap">
+                        <img src="${p.images[0]}" class="card-img" alt="${p.name}">
+                    </div>
                     <div class="card-info">
                         <div>
                             <div class="card-title">${p.name}</div>
                             <div class="card-cat">${p.category}</div>
                         </div>
-                        <div style="font-family:'Courier New';">${p.price}</div>
+                        <div class="price">${p.price}</div>
                     </div>
                 </a>
             `).join('');
@@ -97,14 +93,14 @@
 
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
-            document.getElementById('m-title').innerText = p.name;
+            document.getElementById('m-img').src = p.images[0];
             document.getElementById('m-cat').innerText = p.category;
+            document.getElementById('m-title').innerText = p.name;
             document.getElementById('m-price').innerText = p.price;
             document.getElementById('m-desc').innerText = p.description;
-            document.getElementById('m-img').src = p.images[0];
             
-            const msg = `Inquiry regarding: ${p.name}`;
-            document.getElementById('m-contact').href = `mailto:info@xxx.com?subject=${encodeURIComponent(msg)}`;
+            const msg = `Hi, I am interested in: ${window.location.href}`;
+            document.getElementById('m-contact').href = `https://wa.me/15550000000?text=${encodeURIComponent(msg)}`;
 
             modal.style.display = 'block';
             document.body.style.overflow = 'hidden';
@@ -124,9 +120,9 @@
         function initCategories() {
             const cats = [...new Set(products.map(p => p.category))];
             const sel = document.getElementById('categorySelect');
-            cats.forEach(c => sel.innerHTML += `<option value="${c}">${c.toUpperCase()}</option>`);
+            cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
         }
-        
+
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
             const filtered = products.filter(p => p.name.toLowerCase().includes(term));
