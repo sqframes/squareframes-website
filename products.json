@@ -7,11 +7,11 @@
     "price": "Contact for Price",
     "description": "AS/NZS1891 series compliant.\nHigh quality webbing material.\nWater/UV resistant material.\nAS/NZS standard connectors",
     "images": [
-      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765355274/Harness_bare_skqx5s.png,
-      https://res.cloudinary.com/dydfvc4lz/image/upload/v1765356008/Harness_demo_ruowon.png,
-      https://res.cloudinary.com/dydfvc4lz/image/upload/v1765341729/pexels-ricky-rijan-2853632_iimbqs.jpg,
-      https://res.cloudinary.com/dydfvc4lz/image/upload/v1765341709/pexels-hanna-alves-1907982668-28812508_gsmfpd.jpg,
-      https://res.cloudinary.com/dydfvc4lz/image/upload/v1765356575/muraya-githiga-HeGdyTwHZy8-unsplash_wakqto.jpg"
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765355274/Harness_bare_skqx5s.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765356008/Harness_demo_ruowon.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765341729/pexels-ricky-rijan-2853632_iimbqs.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765341709/pexels-hanna-alves-1907982668-28812508_gsmfpd.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765356575/muraya-githiga-HeGdyTwHZy8-unsplash_wakqto.jpg""
     ]  },
   {
     "id": "002",
@@ -24,5 +24,6 @@
   }
 
 ]
+
 
 
