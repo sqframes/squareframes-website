@@ -28,7 +28,9 @@
         </div>
     </section>
 
-    <div id="grid" class="grid"></div>
+    <div id="grid" class="grid">
+        <div style="grid-column: 1/-1; text-align:center; padding:50px; color:#999;">Loading collection...</div>
+    </div>
 
     <div id="product-modal">
         <div class="close-btn" onclick="closeModal()" style="position:fixed; top:30px; right:40px; font-size:2rem; cursor:pointer; z-index:210;">&times;</div>
@@ -70,25 +72,50 @@
         </div>
     </div>
 
-    <footer>&copy; 2025 XXX Company. All rights reserved.</footer>
+    <footer id="footer">&copy; 2025 XXX Company. All rights reserved.</footer>
 
     <script>
         let products = [];
-        let currentImages = []; // Stores images for the open product
-        let currentImgIndex = 0; // Tracks which image is showing
+        let currentImages = []; 
+        let currentImgIndex = 0; 
 
         const modal = document.getElementById('product-modal');
         const inquiryOverlay = document.getElementById('inquiry-form-overlay');
 
-        fetch('products.json')
+        // --- GOOGLE SHEETS CONFIG ---
+        // UPDATED ID HERE:
+        const sheetID = '1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0'; 
+        const sheetName = 'Sheet1'; 
+
+        // 1. Fetch Data from Google Sheets
+        fetch(`https://opensheet.elk.sh/${sheetID}/${sheetName}`)
             .then(res => res.json())
             .then(data => {
-                products = data;
+                // Transform Sheet Data (String -> Array)
+                products = data.map(item => {
+                    return {
+                        ...item,
+                        // Fix Images: Split "link1, link2" into ["link1", "link2"]
+                        images: item.images ? item.images.split(',').map(url => url.trim()) : [],
+                        // Fix Description: Handle undefined cells
+                        description: item.description || ""
+                    };
+                });
+
+                if (products.length === 0) {
+                    document.getElementById('grid').innerHTML = '<p style="text-align:center;">No products found in Sheet (Check tab name "Sheet1").</p>';
+                    return;
+                }
+
                 initCategories();
                 renderProducts(products);
                 
                 const slug = window.location.pathname.substring(1);
                 if (slug && slug.length > 1) openProduct(slug, false);
+            })
+            .catch(err => {
+                console.error(err);
+                document.getElementById('grid').innerHTML = '<p style="text-align:center;">Error loading database.</p>';
             });
 
         function renderProducts(data) {
@@ -97,9 +124,13 @@
             
             grid.innerHTML = data.map((p, index) => {
                 const sizeClass = patterns[index % patterns.length]; 
+                
+                // Safety check for image display on grid
+                const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
+
                 return `
                 <div class="card ${sizeClass}" onclick="openProduct('${p.slug}', true)">
-                    <img src="${p.images[0]}" class="card-img" loading="lazy" alt="${p.name}">
+                    <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name}">
                     <div class="card-overlay">
                         <div class="card-title">${p.name}</div>
                         <div class="card-price">${p.price}</div>
@@ -115,26 +146,25 @@
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
             // 1. Setup Image Slider
-            currentImages = p.images;
+            currentImages = p.images || [];
             currentImgIndex = 0;
             updateImageDisplay();
 
             // 2. Setup Text
-            document.getElementById('m-cat').innerText = p.category;
-            document.getElementById('m-title').innerText = p.name;
-            document.getElementById('m-price').innerText = p.price;
-            document.getElementById('form-product').value = p.name;
+            document.getElementById('m-cat').innerText = p.category || '';
+            document.getElementById('m-title').innerText = p.name || '';
+            document.getElementById('m-price').innerText = p.price || '';
+            document.getElementById('form-product').value = p.name || '';
 
-            // 3. Convert Description to Bullet Points
-            // It splits the text whenever you hit "Enter" in the JSON string
+            // 3. Bullet Points (Split by New Line)
             const listContainer = document.getElementById('m-desc-list');
-            listContainer.innerHTML = ''; // Clear old
+            listContainer.innerHTML = ''; 
             
-            // Check if description exists
             if (p.description) {
-                const lines = p.description.split('\n'); // Split by new line
+                // Google Sheets uses \n for alt-enter
+                const lines = p.description.split('\n');
                 lines.forEach(line => {
-                    if (line.trim().length > 0) {
+                    if (line && line.trim().length > 0) {
                         listContainer.innerHTML += `<li>${line}</li>`;
                     }
                 });
@@ -144,16 +174,20 @@
             document.body.style.overflow = 'hidden';
         }
 
-        // --- NEW: Slider Logic ---
+        // --- Slider Logic ---
         function updateImageDisplay() {
             const imgElement = document.getElementById('m-img');
             const prevBtn = document.getElementById('prevBtn');
             const nextBtn = document.getElementById('nextBtn');
 
-            // Set Image
-            imgElement.src = currentImages[currentImgIndex];
+            if (currentImages.length > 0) {
+                imgElement.src = currentImages[currentImgIndex];
+                imgElement.style.display = 'block';
+            } else {
+                imgElement.style.display = 'none';
+            }
 
-            // Hide arrows if there is only 1 image
+            // Hide arrows if < 2 images
             if (currentImages.length <= 1) {
                 prevBtn.style.display = 'none';
                 nextBtn.style.display = 'none';
@@ -165,13 +199,8 @@
 
         function changeImage(direction) {
             currentImgIndex += direction;
-            
-            // Loop functionality (End -> Start)
-            if (currentImgIndex >= currentImages.length) {
-                currentImgIndex = 0;
-            } else if (currentImgIndex < 0) {
-                currentImgIndex = currentImages.length - 1;
-            }
+            if (currentImgIndex >= currentImages.length) currentImgIndex = 0;
+            else if (currentImgIndex < 0) currentImgIndex = currentImages.length - 1;
             updateImageDisplay();
         }
 
@@ -200,14 +229,15 @@
         }
 
         function initCategories() {
-            const cats = [...new Set(products.map(p => p.category))];
+            const cats = [...new Set(products.map(p => p.category).filter(c => c))];
             const sel = document.getElementById('categorySelect');
+            sel.innerHTML = '<option value="all">All Categories</option>';
             cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
         }
         
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const term = e.target.value.toLowerCase();
-            const filtered = products.filter(p => p.name.toLowerCase().includes(term));
+            const filtered = products.filter(p => (p.name && p.name.toLowerCase().includes(term)));
             renderProducts(filtered);
         });
 
