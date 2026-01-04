@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>XXX Company | Curated Design Collection</title>
+    <title>XXX | VISUAL ARCHIVE</title>
     <meta name="description" content="Browse our exclusive collection of design-forward furniture, lighting, and objects. Curated for modern living.">
-    <meta name="keywords" content="furniture, design, modern, catalog, interior, architecture">
+    <meta name="keywords" content="furniture, design, modern, catalog, interior, architecture, visual archive">
     <meta name="author" content="XXX Company">
     <link rel="canonical" href="https://your-domain.com/">
 
@@ -22,350 +22,249 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 
     <script type="application/ld+json" id="json-ld-data">
     {
       "@context": "https://schema.org",
       "@type": "CollectionPage",
-      "name": "XXX Company Catalog",
-      "description": "A curated list of design products."
+      "name": "XXX Visual Archive",
+      "description": "A curated visual list of design products."
     }
     </script>
 
     <style>
+        /* --- THEME: IMMERSIVE GALLERY (Option 3) --- */
         :root {
-            --bg: #FAFAFA; /* Off-white, easier on eyes */
-            --text: #050505;
-            --gray: #666666;
-            --light-gray: #E5E5E5;
-            --accent: #2563EB; /* Vibrant Blue */
-            --brand-gradient: linear-gradient(135deg, #1e1e1e 0%, #444 100%);
-            --glass: rgba(255, 255, 255, 0.85);
-            --shadow: 0 10px 40px -10px rgba(0,0,0,0.08);
-            --radius: 16px;
+            --bg: #000000;
+            --text: #ffffff;
+            --accent: #ffffff;
         }
 
-        /* --- MODERN RESET --- */
         * { box-sizing: border-box; }
+
         body {
             background-color: var(--bg);
             color: var(--text);
-            font-family: 'Plus Jakarta Sans', sans-serif;
+            font-family: 'Inter', Helvetica, Arial, sans-serif;
             margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
             overflow-x: hidden;
         }
 
-        /* --- GLASS HEADER --- */
+        /* --- HEADER (Floating & Minimal) --- */
         header {
-            padding: 20px 40px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            background: var(--glass);
-            backdrop-filter: blur(20px); /* Frosted Glass Effect */
-            -webkit-backdrop-filter: blur(20px);
+            position: fixed; top: 0; left: 0; width: 100%;
+            padding: 30px 40px;
+            display: flex; justify-content: space-between; align-items: center;
             z-index: 100;
-            border-bottom: 1px solid rgba(0,0,0,0.05);
-            transition: transform 0.3s;
+            mix-blend-mode: difference; /* Text adapts to background color */
+            pointer-events: none; /* Allows clicks to pass through empty space */
         }
+        
+        /* Re-enable clicks for header items */
+        header a, header input, header select, header .logo { pointer-events: auto; }
 
         .logo {
-            font-weight: 800;
-            font-size: 1.4rem;
-            letter-spacing: -0.5px;
-            text-decoration: none;
-            color: var(--text);
+            font-weight: 700; font-size: 1.4rem; letter-spacing: -0.5px;
+            text-decoration: none; color: white; text-transform: uppercase;
         }
 
-        .header-controls {
-            display: flex;
-            gap: 12px;
-            flex-grow: 1;
-            max-width: 400px;
-            margin: 0 40px;
-        }
-
+        .header-controls { display: flex; gap: 10px; }
+        
         .header-controls input, .header-controls select {
-            background: rgba(0,0,0,0.03);
-            border: 1px solid transparent;
-            padding: 12px 16px;
-            border-radius: 50px; /* Pill Shape */
-            font-size: 0.9rem;
-            font-weight: 500;
-            outline: none;
-            width: 100%;
-            transition: all 0.2s;
-            font-family: inherit;
+            background: transparent; border: 1px solid rgba(255,255,255,0.3);
+            color: white; padding: 8px 15px; border-radius: 50px;
+            font-family: 'Inter', sans-serif; font-size: 0.85rem; outline: none;
+            backdrop-filter: blur(10px); transition: border 0.3s;
         }
-
-        .header-controls input:focus { 
-            background: white; 
-            box-shadow: 0 0 0 2px var(--light-gray);
-        }
+        .header-controls input:focus { border-color: white; }
+        .header-controls select { cursor: pointer; }
+        .header-controls option { background: black; color: white; }
 
         nav a {
-            text-decoration: none;
-            color: var(--text);
-            margin-left: 24px;
-            font-size: 0.95rem;
+            color: white; text-decoration: none; font-size: 0.9rem;
+            margin-left: 20px; text-transform: uppercase; letter-spacing: 1px;
             font-weight: 600;
-            position: relative;
-        }
-        /* Underline Animation */
-        nav a::after {
-            content: ''; position: absolute; width: 0; height: 2px;
-            bottom: -4px; left: 0; background: var(--text);
-            transition: width 0.3s;
-        }
-        nav a:hover::after { width: 100%; }
-
-        /* --- HERO --- */
-        .hero {
-            padding: 140px 5%;
-            max-width: 1100px;
-            margin: 0 auto;
-            text-align: center;
         }
 
-        .tagline {
-            font-size: clamp(2rem, 5vw, 4rem); /* Responsive Font Size */
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -0.03em;
-            background: linear-gradient(180deg, #000 0%, #444 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            opacity: 0;
-            animation: heroFade 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-        }
+        /* --- HERO SPACER --- */
+        /* Pushes grid down slightly on desktop so header doesn't overlap top images immediately */
+        .hero-spacer { height: 120px; } 
 
-        @keyframes heroFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-
-        /* --- MASONRY GRID --- */
+        /* --- THE WALL GRID --- */
         .grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            grid-auto-rows: 300px;
-            grid-auto-flow: dense;
-            gap: 24px;
-            padding: 0 40px 120px 40px;
-            max-width: 1800px;
-            margin: 0 auto;
+            grid-template-columns: repeat(4, 1fr); /* 4 Columns */
+            gap: 0; /* ZERO GAPS */
+            width: 100%; margin: 0; padding: 0;
         }
 
         .card {
             position: relative;
-            border-radius: var(--radius);
+            aspect-ratio: 1 / 1;
             overflow: hidden;
             cursor: pointer;
-            background: #fff;
-            transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.02);
-            opacity: 0; /* Loaded via JS animation */
+            border: 1px solid rgba(255,255,255,0.05);
         }
-        
-        .card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
-
-        /* Variable Sizes */
-        .card.wide { grid-column: span 2; }
-        .card.tall { grid-row: span 2; }
-        .card.big  { grid-column: span 2; grid-row: span 2; }
 
         .card-img {
-            width: 100%; height: 100%;
-            object-fit: cover;
-            transition: transform 0.7s;
+            width: 100%; height: 100%; object-fit: cover;
+            transition: transform 0.6s cubic-bezier(0.25, 1, 0.5, 1);
+            filter: brightness(0.9);
         }
-        .card:hover .card-img { transform: scale(1.08); }
-
-        .card-overlay {
-            position: absolute;
-            bottom: 0; left: 0; width: 100%;
-            padding: 30px;
-            background: linear-gradient(to top, rgba(0,0,0,0.6), transparent);
-            color: white;
-            opacity: 0;
-            transform: translateY(10px);
-            transition: all 0.3s;
-        }
-        .card:hover .card-overlay { opacity: 1; transform: translateY(0); }
-
-        .card-title { font-size: 1.1rem; font-weight: 700; margin: 0; text-shadow: 0 2px 4px rgba(0,0,0,0.3); }
-        .card-price { font-size: 0.9rem; font-weight: 500; opacity: 0.9; margin-top: 4px; }
-
-        /* --- MODAL --- */
-        #product-modal {
-            display: none;
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.8); /* Light backdrop */
-            backdrop-filter: blur(15px);
-            z-index: 200;
-            overflow-y: auto;
-            animation: modalFade 0.3s ease;
-        }
-
-        .modal-content {
-            max-width: 1200px;
-            margin: 80px auto;
-            padding: 40px;
-            background: #fff;
-            border-radius: 24px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
-            display: grid;
-            grid-template-columns: 1.4fr 1fr;
-            gap: 60px;
-            align-items: start;
-            position: relative;
-        }
-
-        /* Carousel */
-        .carousel-container {
-            position: relative;
-            border-radius: 16px;
-            overflow: hidden;
-            background: #f4f4f4;
-            aspect-ratio: 4/3;
-        }
-        .modal-img { width: 100%; height: 100%; object-fit: cover; display: block; }
         
+        .card:hover .card-img { 
+            transform: scale(1.1); 
+            filter: brightness(1.1);
+        }
+
+        /* Overlay Text */
+        .card-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.4);
+            display: flex; flex-direction: column; justify-content: center; align-items: center;
+            opacity: 0; transition: opacity 0.3s;
+            text-align: center; pointer-events: none;
+        }
+        .card:hover .card-overlay { opacity: 1; }
+
+        .card-title { 
+            font-size: 1.5rem; font-weight: 600; margin: 0 0 10px 0; 
+            text-transform: uppercase; letter-spacing: -1px;
+        }
+        .card-price { 
+            font-size: 1rem; border: 1px solid white; padding: 6px 16px; 
+            border-radius: 50px; font-weight: 300;
+        }
+
+        /* --- MODAL (Split View) --- */
+        #product-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #000; z-index: 200; overflow-y: auto;
+        }
+        
+        .modal-content {
+            display: grid; grid-template-columns: 65% 35%;
+            height: 100%; min-height: 100vh;
+        }
+
+        /* Left: Slider Area */
+        .modal-left {
+            background: #111; position: relative;
+            display: flex; align-items: center; justify-content: center;
+        }
+        .carousel-container { width: 100%; height: 100%; position: relative; }
+        .modal-img { 
+            width: 100%; height: 100%; object-fit: contain; 
+            display: block;
+        }
+
         .nav-arrow {
             position: absolute; top: 50%; transform: translateY(-50%);
-            width: 48px; height: 48px;
-            background: white; border: none; border-radius: 50%;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            cursor: pointer; display: flex; align-items: center; justify-content: center;
-            transition: transform 0.2s;
-            z-index: 2;
+            background: transparent; border: none; font-size: 3rem; color: white;
+            cursor: pointer; padding: 20px; opacity: 0.5; transition: opacity 0.2s;
         }
-        .nav-arrow:hover { transform: translateY(-50%) scale(1.1); }
-        .nav-arrow.prev { left: 20px; }
-        .nav-arrow.next { right: 20px; }
+        .nav-arrow:hover { opacity: 1; }
+        .prev { left: 0; } .next { right: 0; }
 
-        .modal-info { position: sticky; top: 40px; }
-        
-        #m-cat { 
-            display: inline-block; padding: 6px 12px; 
-            background: #F0F0F0; border-radius: 6px; 
-            font-size: 0.75rem; font-weight: 700; 
-            text-transform: uppercase; letter-spacing: 0.5px;
-            margin-bottom: 20px; color: #555;
+        /* Right: Info Area */
+        .modal-info {
+            padding: 80px 60px;
+            background: #000; border-left: 1px solid #222;
+            display: flex; flex-direction: column; justify-content: center;
         }
-        #m-title { font-size: 2.5rem; margin: 0 0 10px 0; letter-spacing: -1px; line-height: 1.1; }
-        #m-price { font-size: 1.5rem; font-weight: 500; color: var(--gray); margin-bottom: 30px; }
-        
+
+        #m-cat { color: #666; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 20px; display: block;}
+        #m-title { font-size: 3rem; line-height: 1; margin: 0 0 20px 0; font-weight: 600; letter-spacing: -1px; }
+        #m-price { font-size: 1.5rem; font-weight: 300; color: #aaa; margin-bottom: 40px; }
+
         #m-desc-list { 
-            list-style: none; padding: 0; margin-bottom: 40px; 
+            list-style: none; padding: 0; margin-bottom: 40px; color: #ccc; 
+            font-size: 1rem; line-height: 1.6;
         }
-        #m-desc-list li {
-            position: relative; padding-left: 24px; margin-bottom: 12px;
-            color: #444; line-height: 1.6;
-        }
-        #m-desc-list li::before {
-            content: "•"; position: absolute; left: 0; color: #000; font-weight: bold;
-        }
+        #m-desc-list li { margin-bottom: 10px; }
 
         .cta-btn {
-            width: 100%;
-            background: #111;
-            color: white;
-            padding: 18px;
-            border-radius: 12px;
-            border: none;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s;
+            background: white; color: black; border: none; padding: 20px;
+            text-transform: uppercase; font-weight: 700; letter-spacing: 1px;
+            cursor: pointer; transition: background 0.3s; width: 100%;
         }
-        .cta-btn:hover { transform: translateY(-2px); background: #333; shadow: 0 10px 20px rgba(0,0,0,0.1); }
+        .cta-btn:hover { background: #ddd; }
 
         .close-btn {
-            position: absolute; top: 20px; right: 20px;
-            width: 40px; height: 40px;
-            border-radius: 50%; background: #F5F5F5;
-            display: flex; align-items: center; justify-content: center;
-            cursor: pointer; font-size: 1.2rem; transition: background 0.2s;
+            position: fixed; top: 30px; right: 40px; 
+            font-size: 3rem; line-height: 0.5; cursor: pointer; color: white; 
+            z-index: 210; mix-blend-mode: difference;
         }
-        .close-btn:hover { background: #E0E0E0; }
 
         /* --- INQUIRY FORM --- */
         #inquiry-form-overlay {
             display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(10px);
             z-index: 300; align-items: center; justify-content: center;
         }
         .form-box {
-            background: white; padding: 40px; border-radius: 20px; width: 90%; max-width: 480px;
-            box-shadow: 0 25px 50px -12px rgba(0,0,0,0.25); position: relative;
+            background: #111; padding: 50px; width: 90%; max-width: 500px;
+            border: 1px solid #333; position: relative;
         }
-        .form-group { margin-bottom: 16px; }
-        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; margin-bottom: 8px; color: #333; }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { color: #666; font-size: 0.75rem; text-transform: uppercase; margin-bottom: 8px; display: block;}
         .form-group input, .form-group textarea {
-            width: 100%; padding: 14px; border: 1px solid #E5E5E5; border-radius: 8px;
-            font-family: inherit; font-size: 0.95rem; transition: border 0.2s;
+            width: 100%; background: black; border: 1px solid #333; color: white;
+            padding: 15px; font-family: 'Inter', sans-serif; font-size: 1rem; outline: none;
         }
-        .form-group input:focus, .form-group textarea:focus { border-color: #111; outline: none; }
+        .form-group input:focus, .form-group textarea:focus { border-color: white; }
 
-        /* Footer */
-        footer { 
-            padding: 60px 40px; text-align: center; color: #888; font-size: 0.9rem; border-top: 1px solid #eee;
+        /* Mobile */
+        @media (max-width: 1024px) {
+            .grid { grid-template-columns: repeat(2, 1fr); }
+            .modal-content { grid-template-columns: 1fr; }
+            .modal-img { max-height: 60vh; }
+            .modal-info { padding: 40px; border-left: none; }
         }
 
-        @keyframes modalFade { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        
-        @media (max-width: 768px) {
-            .grid { grid-template-columns: 1fr; grid-auto-rows: auto; padding: 0 20px 80px 20px; }
-            .card.wide, .card.tall, .card.big { grid-column: auto; grid-row: auto; }
-            .modal-content { grid-template-columns: 1fr; margin: 0; height: 100%; border-radius: 0; padding: 20px 20px 100px 20px; overflow-y: scroll; }
-            .hero { padding: 100px 20px; }
-            .header-controls { display: none; } /* Hide search on mobile for clean look */
-            .card-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.5), transparent); }
+        @media (max-width: 600px) {
+            .grid { grid-template-columns: 1fr; }
+            header { padding: 20px; flex-direction: column; gap: 15px; background: black; mix-blend-mode: normal; position: relative;}
+            .header-controls { display: none; } 
+            .hero-spacer { height: 0; }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <a href="/" class="logo" onclick="closeModal(); return false;">XXX COMPANY</a>
+        <a href="/" class="logo" onclick="closeModal(); return false;">XXX VISUALS</a>
+        
         <div class="header-controls">
-            <input type="text" id="searchInput" placeholder="Type to search collection..." aria-label="Search">
-            <select id="categorySelect" aria-label="Filter Category">
-                <option value="all">Filter by Category</option>
+            <input type="text" id="searchInput" placeholder="Search Archive...">
+            <select id="categorySelect">
+                <option value="all">All</option>
             </select>
         </div>
+
         <nav>
             <a href="#footer">Contact</a>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1 class="tagline">
-                aaa bbbbb ccccccc dddddd fffffffff gggggggg rrrrr tttttttt
-            </h1>
-        </section>
+    <div class="hero-spacer"></div>
 
-        <div id="grid" class="grid">
-            <div style="grid-column: 1/-1; text-align:center; padding:100px; color:#999; font-weight:500;">
-                Loading curated collection...
-            </div>
+    <div id="grid" class="grid">
+        <div style="grid-column: 1/-1; text-align:center; padding:100px; color:#333;">
+            Loading visuals...
         </div>
-    </main>
+    </div>
 
-    <div id="product-modal" role="dialog" aria-modal="true">
+    <div id="product-modal">
+        <div class="close-btn" onclick="closeModal()">&times;</div>
+        
         <div class="modal-content">
-            <div class="close-btn" onclick="closeModal()" aria-label="Close">&times;</div>
-            
             <div class="modal-left">
                 <div class="carousel-container">
-                    <button id="prevBtn" class="nav-arrow prev" onclick="changeImage(-1)" aria-label="Previous Image">&#10094;</button>
-                    <img src="" id="m-img" class="modal-img" alt="Product Detail">
-                    <button id="nextBtn" class="nav-arrow next" onclick="changeImage(1)" aria-label="Next Image">&#10095;</button>
+                    <button id="prevBtn" class="nav-arrow prev" onclick="changeImage(-1)">&#8249;</button>
+                    <img src="" id="m-img" class="modal-img" alt="Detail">
+                    <button id="nextBtn" class="nav-arrow next" onclick="changeImage(1)">&#8250;</button>
                 </div>
             </div>
 
@@ -373,30 +272,28 @@
                 <span id="m-cat"></span>
                 <h2 id="m-title"></h2>
                 <div id="m-price"></div>
+                
                 <ul id="m-desc-list"></ul>
-                <button onclick="openInquiryForm()" class="cta-btn">Request Pricing & Info</button>
+
+                <button onclick="openInquiryForm()" class="cta-btn">Acquire Object</button>
             </div>
         </div>
     </div>
 
     <div id="inquiry-form-overlay">
         <div class="form-box">
-            <div class="close-btn" onclick="closeInquiryForm()" style="position:absolute; top:20px; right:20px; background:none;">&times;</div>
-            <h3 style="margin:0 0 20px 0; font-size:1.5rem;">Inquire</h3>
+            <div onclick="closeInquiryForm()" style="position:absolute; top:20px; right:20px; color:white; font-size:2rem; cursor:pointer;">&times;</div>
+            <h3 style="color:white; text-transform:uppercase; margin:0 0 30px 0; font-weight:300;">Inquire</h3>
+            
             <form onsubmit="handleFormSubmit(event)">
                 <input type="hidden" id="form-product">
-                <div class="form-group"><label>Name</label><input type="text" id="form-name" required placeholder="Jane Doe"></div>
-                <div class="form-group"><label>Email</label><input type="email" id="form-email" required placeholder="jane@company.com"></div>
-                <div class="form-group"><label>Location</label><input type="text" id="form-location" placeholder="London, UK"></div>
-                <div class="form-group"><label>Message</label><textarea id="form-msg" rows="3"></textarea></div>
-                <button type="submit" class="cta-btn">Send Inquiry</button>
+                <div class="form-group"><label>Name</label><input type="text" id="form-name" required></div>
+                <div class="form-group"><label>Email</label><input type="email" id="form-email" required></div>
+                <div class="form-group"><label>Message</label><textarea id="form-msg" rows="4"></textarea></div>
+                <button type="submit" class="cta-btn">Send Request</button>
             </form>
         </div>
     </div>
-
-    <footer id="footer">
-        &copy; 2025 XXX Company. <br>Curated Design & Architecture.
-    </footer>
 
     <script>
         let products = [];
@@ -406,7 +303,7 @@
         const modal = document.getElementById('product-modal');
         const inquiryOverlay = document.getElementById('inquiry-form-overlay');
 
-        // GOOGLE SHEETS CONFIG
+        // GOOGLE SHEETS ID
         const sheetID = '1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0'; 
         const sheetName = 'Sheet1'; 
 
@@ -423,23 +320,22 @@
                 });
 
                 if (products.length === 0) {
-                    document.getElementById('grid').innerHTML = '<p style="text-align:center;">Collection is empty.</p>';
+                    document.getElementById('grid').innerHTML = '<p style="text-align:center; padding:50px;">NO DATA.</p>';
                     return;
                 }
+                
+                // Generate Structured Data for SEO
+                generateSchema(products);
 
-                generateSchema(products); // SEO Boost
                 initCategories();
                 renderProducts(products);
                 
                 const slug = window.location.pathname.substring(1);
                 if (slug && slug.length > 1) openProduct(slug, false);
             })
-            .catch(err => {
-                console.error(err);
-                document.getElementById('grid').innerHTML = '<p style="text-align:center;">System Error.</p>';
-            });
+            .catch(err => console.error(err));
 
-        // 2. SEO: Generate JSON-LD Structured Data
+        // 2. SEO: JSON-LD Generator
         function generateSchema(items) {
             const schema = {
                 "@context": "https://schema.org",
@@ -454,7 +350,7 @@
                         "description": p.description.replace(/\n/g, " "),
                         "offers": {
                             "@type": "Offer",
-                            "priceCurrency": "USD", // Change currency if needed
+                            "priceCurrency": "USD",
                             "price": p.price ? p.price.replace(/[^0-9.]/g, '') : "0",
                             "availability": "https://schema.org/InStock"
                         }
@@ -467,23 +363,20 @@
             document.head.appendChild(script);
         }
 
+        // 3. Render Grid (Gallery Mode)
         function renderProducts(data) {
             const grid = document.getElementById('grid');
-            const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
             
-            grid.innerHTML = data.map((p, index) => {
-                const sizeClass = patterns[index % patterns.length]; 
+            grid.innerHTML = data.map(p => {
                 const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
-                
-                // SEO: Alt text populated dynamically
                 return `
-                <article class="card ${sizeClass}" onclick="openProduct('${p.slug}', true)" style="animation: modalFade 0.6s ease ${index * 0.05}s forwards; opacity: 0;">
-                    <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name} - ${p.category}">
+                <div class="card" onclick="openProduct('${p.slug}', true)">
+                    <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name}">
                     <div class="card-overlay">
                         <h3 class="card-title">${p.name}</h3>
                         <div class="card-price">${p.price}</div>
                     </div>
-                </article>
+                </div>
                 `;
             }).join('');
         }
@@ -493,15 +386,15 @@
             if (!p) return;
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
-            // SEO: Update Page Title dynamically
-            document.title = `${p.name} | XXX Company`;
+            // Update Title for SEO
+            document.title = `${p.name} | XXX VISUALS`;
 
             currentImages = p.images || [];
             currentImgIndex = 0;
             updateImageDisplay();
 
             document.getElementById('m-cat').innerText = p.category || '';
-            document.getElementById('m-title').innerText = p.name || '';
+            document.getElementById('m-title').innerText = p.name || 'UNTITLED';
             document.getElementById('m-price').innerText = p.price || '';
             document.getElementById('form-product').value = p.name || '';
 
@@ -534,8 +427,8 @@
                 prevBtn.style.display = 'none';
                 nextBtn.style.display = 'none';
             } else {
-                prevBtn.style.display = 'flex';
-                nextBtn.style.display = 'flex';
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
             }
         }
 
@@ -550,7 +443,7 @@
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
             history.pushState(null, '', '/');
-            document.title = "XXX Company | Collection"; // Reset Title
+            document.title = "XXX | VISUAL ARCHIVE";
         }
 
         function openInquiryForm() { inquiryOverlay.style.display = 'flex'; }
@@ -561,11 +454,10 @@
             const product = document.getElementById('form-product').value;
             const name = document.getElementById('form-name').value;
             const email = document.getElementById('form-email').value;
-            const location = document.getElementById('form-location').value;
             const msg = document.getElementById('form-msg').value;
             
-            const subject = `Inquiry: ${product} (${name})`;
-            const body = `Name: ${name}%0D%0AEmail: ${email}%0D%0ALocation: ${location}%0D%0A%0D%0AProduct: ${product}%0D%0A%0D%0AMessage:%0D%0A${msg}`;
+            const subject = `ACQUISITION: ${product} (${name})`;
+            const body = `NAME: ${name}%0D%0AEMAIL: ${email}%0D%0A%0D%0AITEM: ${product}%0D%0ANOTE:%0D%0A${msg}`;
             
             window.location.href = `mailto:xxx@gmail.com?subject=${encodeURIComponent(subject)}&body=${body}`;
             closeInquiryForm();
@@ -574,7 +466,7 @@
         function initCategories() {
             const cats = [...new Set(products.map(p => p.category).filter(c => c))];
             const sel = document.getElementById('categorySelect');
-            sel.innerHTML = '<option value="all">Filter by Category</option>';
+            sel.innerHTML = '<option value="all">All</option>';
             cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
         }
         
