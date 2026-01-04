@@ -3,154 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>XXX Company | Archive</title>
     
-    <title>XXX Company | Curated Design Collection</title>
-    <meta name="description" content="Browse our exclusive collection of design-forward furniture, lighting, and objects. Curated for modern living.">
-    <meta name="keywords" content="furniture, design, modern, catalog, interior, architecture">
-    <meta name="author" content="XXX Company">
-    <link rel="canonical" href="https://your-domain.com/">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://your-domain.com/">
-    <meta property="og:title" content="XXX Company | Design Collection">
-    <meta property="og:description" content="Browse our exclusive collection of design-forward furniture, lighting, and objects.">
-    <meta property="og:image" content="https://via.placeholder.com/1200x630">
-
-    <meta property="twitter:card" content="summary_large_image">
-    <meta property="twitter:title" content="XXX Company | Design Collection">
-    <meta property="twitter:description" content="Browse our exclusive collection of design-forward furniture, lighting, and objects.">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;800&display=swap" rel="stylesheet">
-
-    <script type="application/ld+json" id="json-ld-data">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "XXX Company Catalog",
-      "description": "A curated list of design products."
-    }
-    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 
     <style>
-    /* --- THEME: ARCHITECTURAL EDITORIAL --- */
-    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap');
+        /* --- THEME: ARCHITECTURAL EDITORIAL --- */
+        :root {
+            --bg: #ffffff;
+            --text: #1a1a1a;
+            --border: #e0e0e0;
+            --font-serif: 'Playfair Display', serif;
+            --font-sans: 'Inter', sans-serif;
+        }
 
-    :root {
-        --bg: #ffffff;
-        --text: #1a1a1a;
-        --border: #e0e0e0;
-    }
+        * { box-sizing: border-box; }
 
-    body {
-        background-color: var(--bg);
-        color: var(--text);
-        font-family: 'Inter', sans-serif;
-        margin: 0;
-    }
+        body {
+            background-color: var(--bg);
+            color: var(--text);
+            font-family: var(--font-sans);
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
 
-    /* Minimal Header */
-    header {
-        padding: 40px 5%;
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        border-bottom: 1px solid var(--border);
-    }
-    .logo { font-family: 'Playfair Display', serif; font-size: 1.5rem; color: black; text-decoration: none; font-style: italic;}
-    .header-controls { display: none; } /* Hide search for cleaner look */
-    nav a { text-decoration: none; color: #000; text-transform: uppercase; font-size: 0.75rem; letter-spacing: 2px; }
+        /* --- HEADER --- */
+        header {
+            padding: 40px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center; /* Aligned center */
+            border-bottom: 1px solid var(--border);
+            position: sticky; top: 0; background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(5px); z-index: 100;
+        }
 
-    /* Big Text Hero */
-    .hero { padding: 100px 5% 60px 5%; max-width: 900px; }
-    .tagline {
-        font-family: 'Playfair Display', serif;
-        font-size: 3.5rem;
-        line-height: 1.2;
-        font-weight: 400;
-        animation: fadeIn 1.5s ease;
-    }
+        .logo {
+            font-family: var(--font-serif);
+            font-size: 1.6rem;
+            color: black;
+            text-decoration: none;
+            font-style: italic;
+            font-weight: 600;
+        }
 
-    /* List Layout Grid */
-    .grid {
-        display: grid;
-        grid-template-columns: 1fr; /* Single Column List */
-        max-width: 900px;
-        margin: 0 auto;
-        padding-bottom: 100px;
-    }
+        /* Minimal Search Bar */
+        .header-controls {
+            display: flex; gap: 20px;
+        }
+        .header-controls input, .header-controls select {
+            border: none; border-bottom: 1px solid #ccc;
+            font-family: var(--font-sans); font-size: 0.85rem;
+            padding: 5px 0; background: transparent; outline: none;
+            width: 150px; text-transform: uppercase; letter-spacing: 1px;
+        }
+        .header-controls input:focus { border-bottom-color: black; }
 
-    .card {
-        display: grid;
-        grid-template-columns: 1fr 1fr; /* Image Left, Text Right */
-        gap: 40px;
-        align-items: center;
-        padding: 60px 0;
-        border-bottom: 1px solid var(--border);
-        cursor: pointer;
-    }
-    
-    .card-img { width: 100%; aspect-ratio: 4/3; object-fit: cover; }
-    .card-overlay { position: static; background: none; color: black; opacity: 1; transform: none; padding: 0;}
-    .card-title { font-family: 'Playfair Display', serif; font-size: 2rem; margin-bottom: 10px; font-weight: 400; }
-    .card-price { font-family: 'Inter', sans-serif; color: #666; }
+        nav a {
+            text-decoration: none; color: #000;
+            text-transform: uppercase; font-size: 0.75rem;
+            letter-spacing: 2px; margin-left: 30px;
+        }
 
-    /* Mobile Adjustment */
-    @media (max-width: 768px) {
-        .card { grid-template-columns: 1fr; gap: 20px; }
-        .tagline { font-size: 2.5rem; }
-    }
+        /* --- HERO --- */
+        .hero { padding: 120px 5% 80px 5%; max-width: 1000px; margin: 0 auto; }
+        .tagline {
+            font-family: var(--font-serif);
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            line-height: 1.1;
+            font-weight: 400;
+            color: #111;
+            animation: fadeIn 1.2s ease;
+        }
 
-    /* Keep Modal Styles Standard */
-    #product-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: white; z-index: 200; overflow-y: auto; }
-    .modal-content { max-width: 1200px; margin: 50px auto; padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-    .modal-img { width: 100%; }
-    .close-btn { position: fixed; top: 20px; right: 20px; font-size: 2rem; cursor: pointer; }
-    .cta-btn { background: black; color: white; border: none; padding: 15px 30px; cursor: pointer; margin-top: 20px;}
-    
-    /* Animation */
-    @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
-</style>
+        /* --- EDITORIAL LIST LAYOUT --- */
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr; /* Single Column List */
+            max-width: 1000px;
+            margin: 0 auto;
+            padding-bottom: 100px;
+        }
+
+        .card {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr; /* Image wider than text */
+            gap: 60px;
+            align-items: center;
+            padding: 80px 0;
+            border-bottom: 1px solid var(--border);
+            cursor: pointer;
+            text-decoration: none; color: inherit;
+            transition: opacity 0.3s;
+        }
+        .card:hover { opacity: 0.8; }
+
+        /* Image Styling */
+        .card-img {
+            width: 100%; aspect-ratio: 4/3; object-fit: cover;
+            filter: grayscale(10%); transition: filter 0.5s;
+        }
+        .card:hover .card-img { filter: grayscale(0%); }
+
+        /* Text Styling */
+        .card-info { padding-right: 20px; }
+        .card-cat {
+            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
+            color: #888; margin-bottom: 15px; display: block;
+        }
+        .card-title {
+            font-family: var(--font-serif); font-size: 2.2rem;
+            margin: 0 0 15px 0; font-weight: 400; line-height: 1.2;
+        }
+        .card-price {
+            font-family: var(--font-sans); font-size: 1.1rem; color: #444;
+        }
+        .card-overlay { display: none; } /* Hide the old overlay style */
+
+        /* --- MODAL (Clean & Split) --- */
+        #product-modal {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(255,255,255,0.98); z-index: 200; overflow-y: auto;
+        }
+        .modal-content {
+            max-width: 1200px; margin: 60px auto; padding: 40px 5%;
+            display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start;
+        }
+        
+        .modal-info { position: sticky; top: 100px; }
+        #m-cat { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 20px; display: block; }
+        #m-title { font-family: var(--font-serif); font-size: 3rem; margin: 0 0 20px 0; line-height: 1; }
+        #m-price { font-size: 1.5rem; margin-bottom: 40px; font-weight: 400; }
+        
+        /* List Points */
+        #m-desc-list { list-style: none; padding: 0; margin-bottom: 40px; font-size: 1rem; line-height: 1.7; color: #444; }
+        #m-desc-list li { margin-bottom: 10px; position: relative; padding-left: 15px;}
+        #m-desc-list li::before { content: "—"; position: absolute; left: 0; color: #ccc; }
+
+        /* Image Slider */
+        .carousel-container { position: relative; width: 100%; }
+        .modal-img { width: 100%; height: auto; display: block; }
+        .nav-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: transparent; border: none; font-size: 2rem;
+            cursor: pointer; color: #000; padding: 0 10px;
+            transition: opacity 0.2s;
+        }
+        .nav-arrow:hover { opacity: 0.5; }
+        .prev { left: -40px; }
+        .next { right: -40px; }
+
+        /* Buttons */
+        .cta-btn {
+            background: #1a1a1a; color: white; border: none;
+            padding: 18px 36px; font-family: var(--font-sans);
+            font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
+            cursor: pointer; width: 100%; transition: background 0.3s;
+        }
+        .cta-btn:hover { background: #333; }
+        .close-btn {
+            position: fixed; top: 30px; right: 40px;
+            font-size: 2.5rem; cursor: pointer; color: #000; z-index: 210;
+        }
+
+        /* --- INQUIRY FORM --- */
+        #inquiry-form-overlay {
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
+            z-index: 300; align-items: center; justify-content: center;
+        }
+        .form-box {
+            background: white; padding: 50px; width: 90%; max-width: 500px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.1); position: relative;
+        }
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: #666; }
+        .form-group input, .form-group textarea {
+            width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #ddd;
+            font-family: var(--font-serif); font-size: 1.1rem; outline: none;
+        }
+        .form-group input:focus, .form-group textarea:focus { border-bottom-color: black; }
+
+        footer { 
+            padding: 80px 5%; border-top: 1px solid var(--border);
+            text-align: center; font-size: 0.8rem; color: #999;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+
+        @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
+
+        /* Mobile */
+        @media (max-width: 900px) {
+            .card { grid-template-columns: 1fr; gap: 20px; text-align: left; }
+            .card-img { aspect-ratio: 1/1; }
+            .modal-content { grid-template-columns: 1fr; padding-top: 20px; }
+            .nav-arrow { background: rgba(255,255,255,0.8); padding: 5px; }
+            .prev { left: 10px; } .next { right: 10px; }
+            .header-controls { display: none; } /* Simpler mobile header */
+            .hero { padding: 80px 5%; }
+        }
+    </style>
 </head>
 <body>
 
     <header>
         <a href="/" class="logo" onclick="closeModal(); return false;">XXX COMPANY</a>
+        
         <div class="header-controls">
-            <input type="text" id="searchInput" placeholder="Type to search collection..." aria-label="Search">
-            <select id="categorySelect" aria-label="Filter Category">
-                <option value="all">Filter by Category</option>
+            <input type="text" id="searchInput" placeholder="SEARCH COLLECTION...">
+            <select id="categorySelect">
+                <option value="all">ALL CATEGORIES</option>
             </select>
         </div>
+
         <nav>
             <a href="#footer">Contact</a>
         </nav>
     </header>
 
-    <main>
-        <section class="hero">
-            <h1 class="tagline">
-                aaa bbbbb ccccccc dddddd fffffffff gggggggg rrrrr tttttttt
-            </h1>
-        </section>
-
-        <div id="grid" class="grid">
-            <div style="grid-column: 1/-1; text-align:center; padding:100px; color:#999; font-weight:500;">
-                Loading curated collection...
-            </div>
+    <section class="hero">
+        <div class="tagline">
+            aaa bbbbb ccccccc dddddd fffffffff gggggggg rrrrr tttttttt
         </div>
-    </main>
+    </section>
 
-    <div id="product-modal" role="dialog" aria-modal="true">
+    <div id="grid" class="grid">
+        <div style="text-align:center; padding:100px; color:#999; font-family:'Inter'; letter-spacing:1px; text-transform:uppercase; font-size:0.8rem;">
+            Loading Archive...
+        </div>
+    </div>
+
+    <div id="product-modal">
+        <div class="close-btn" onclick="closeModal()">&times;</div>
+        
         <div class="modal-content">
-            <div class="close-btn" onclick="closeModal()" aria-label="Close">&times;</div>
-            
             <div class="modal-left">
                 <div class="carousel-container">
-                    <button id="prevBtn" class="nav-arrow prev" onclick="changeImage(-1)" aria-label="Previous Image">&#10094;</button>
-                    <img src="" id="m-img" class="modal-img" alt="Product Detail">
-                    <button id="nextBtn" class="nav-arrow next" onclick="changeImage(1)" aria-label="Next Image">&#10095;</button>
+                    <button id="prevBtn" class="nav-arrow prev" onclick="changeImage(-1)">&#8249;</button>
+                    <img src="" id="m-img" class="modal-img" alt="Detail">
+                    <button id="nextBtn" class="nav-arrow next" onclick="changeImage(1)">&#8250;</button>
                 </div>
             </div>
 
@@ -158,21 +251,24 @@
                 <span id="m-cat"></span>
                 <h2 id="m-title"></h2>
                 <div id="m-price"></div>
+                
                 <ul id="m-desc-list"></ul>
-                <button onclick="openInquiryForm()" class="cta-btn">Request Pricing & Info</button>
+
+                <button onclick="openInquiryForm()" class="cta-btn">Request Information</button>
             </div>
         </div>
     </div>
 
     <div id="inquiry-form-overlay">
         <div class="form-box">
-            <div class="close-btn" onclick="closeInquiryForm()" style="position:absolute; top:20px; right:20px; background:none;">&times;</div>
-            <h3 style="margin:0 0 20px 0; font-size:1.5rem;">Inquire</h3>
+            <div onclick="closeInquiryForm()" style="position:absolute; top:20px; right:20px; font-size:1.5rem; cursor:pointer;">&times;</div>
+            <h3 style="font-family:'Playfair Display'; font-size:2rem; margin:0 0 30px 0;">Inquire</h3>
+            
             <form onsubmit="handleFormSubmit(event)">
                 <input type="hidden" id="form-product">
-                <div class="form-group"><label>Name</label><input type="text" id="form-name" required placeholder="Jane Doe"></div>
-                <div class="form-group"><label>Email</label><input type="email" id="form-email" required placeholder="jane@company.com"></div>
-                <div class="form-group"><label>Location</label><input type="text" id="form-location" placeholder="London, UK"></div>
+                <div class="form-group"><label>Name</label><input type="text" id="form-name" required></div>
+                <div class="form-group"><label>Email</label><input type="email" id="form-email" required></div>
+                <div class="form-group"><label>Location</label><input type="text" id="form-location"></div>
                 <div class="form-group"><label>Message</label><textarea id="form-msg" rows="3"></textarea></div>
                 <button type="submit" class="cta-btn">Send Inquiry</button>
             </form>
@@ -180,7 +276,7 @@
     </div>
 
     <footer id="footer">
-        &copy; 2025 XXX Company. <br>Curated Design & Architecture.
+        &copy; 2025 XXX Company. All rights reserved.
     </footer>
 
     <script>
@@ -191,11 +287,11 @@
         const modal = document.getElementById('product-modal');
         const inquiryOverlay = document.getElementById('inquiry-form-overlay');
 
-        // GOOGLE SHEETS CONFIG
+        // GOOGLE SHEETS ID
         const sheetID = '1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0'; 
         const sheetName = 'Sheet1'; 
 
-        // 1. Fetch & Optimize Data
+        // 1. Fetch Data
         fetch(`https://opensheet.elk.sh/${sheetID}/${sheetName}`)
             .then(res => res.json())
             .then(data => {
@@ -208,69 +304,40 @@
                 });
 
                 if (products.length === 0) {
-                    document.getElementById('grid').innerHTML = '<p style="text-align:center;">Collection is empty.</p>';
+                    document.getElementById('grid').innerHTML = '<p style="text-align:center;">Empty Archive.</p>';
                     return;
                 }
 
-                generateSchema(products); // SEO Boost
                 initCategories();
                 renderProducts(products);
                 
                 const slug = window.location.pathname.substring(1);
                 if (slug && slug.length > 1) openProduct(slug, false);
-            })
-            .catch(err => {
-                console.error(err);
-                document.getElementById('grid').innerHTML = '<p style="text-align:center;">System Error.</p>';
             });
 
-        // 2. SEO: Generate JSON-LD Structured Data
-        function generateSchema(items) {
-            const schema = {
-                "@context": "https://schema.org",
-                "@type": "ItemList",
-                "itemListElement": items.map((p, index) => ({
-                    "@type": "ListItem",
-                    "position": index + 1,
-                    "item": {
-                        "@type": "Product",
-                        "name": p.name,
-                        "image": p.images[0] || "",
-                        "description": p.description.replace(/\n/g, " "),
-                        "offers": {
-                            "@type": "Offer",
-                            "priceCurrency": "USD", // Change currency if needed
-                            "price": p.price ? p.price.replace(/[^0-9.]/g, '') : "0",
-                            "availability": "https://schema.org/InStock"
-                        }
-                    }
-                }))
-            };
-            const script = document.createElement('script');
-            script.type = 'application/ld+json';
-            script.text = JSON.stringify(schema);
-            document.head.appendChild(script);
-        }
-
+        // 2. Render List Layout
         function renderProducts(data) {
             const grid = document.getElementById('grid');
-            const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
             
-            grid.innerHTML = data.map((p, index) => {
-                const sizeClass = patterns[index % patterns.length]; 
+            grid.innerHTML = data.map(p => {
                 const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
-                
-                // SEO: Alt text populated dynamically
                 return `
-                <article class="card ${sizeClass}" onclick="openProduct('${p.slug}', true)" style="animation: modalFade 0.6s ease ${index * 0.05}s forwards; opacity: 0;">
-                    <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name} - ${p.category}">
-                    <div class="card-overlay">
+                <a href="/${p.slug}" class="card" onclick="handleLinkClick(event, '${p.slug}')">
+                    <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name}">
+                    <div class="card-info">
+                        <span class="card-cat">${p.category}</span>
                         <h3 class="card-title">${p.name}</h3>
                         <div class="card-price">${p.price}</div>
                     </div>
-                </article>
+                </a>
                 `;
             }).join('');
+        }
+
+        function handleLinkClick(e, slug) {
+            if (e.ctrlKey || e.metaKey) return;
+            e.preventDefault();
+            openProduct(slug, true);
         }
 
         function openProduct(slug, pushState) {
@@ -278,18 +345,18 @@
             if (!p) return;
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
-            // SEO: Update Page Title dynamically
-            document.title = `${p.name} | XXX Company`;
-
+            // Slider Setup
             currentImages = p.images || [];
             currentImgIndex = 0;
             updateImageDisplay();
 
+            // Text Setup
             document.getElementById('m-cat').innerText = p.category || '';
             document.getElementById('m-title').innerText = p.name || '';
             document.getElementById('m-price').innerText = p.price || '';
             document.getElementById('form-product').value = p.name || '';
 
+            // Bullet Points
             const listContainer = document.getElementById('m-desc-list');
             listContainer.innerHTML = ''; 
             if (p.description) {
@@ -315,12 +382,13 @@
                 imgElement.style.display = 'none';
             }
 
+            // Hide arrows if < 2 images
             if (currentImages.length <= 1) {
                 prevBtn.style.display = 'none';
                 nextBtn.style.display = 'none';
             } else {
-                prevBtn.style.display = 'flex';
-                nextBtn.style.display = 'flex';
+                prevBtn.style.display = 'block';
+                nextBtn.style.display = 'block';
             }
         }
 
@@ -335,7 +403,6 @@
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
             history.pushState(null, '', '/');
-            document.title = "XXX Company | Collection"; // Reset Title
         }
 
         function openInquiryForm() { inquiryOverlay.style.display = 'flex'; }
@@ -359,7 +426,7 @@
         function initCategories() {
             const cats = [...new Set(products.map(p => p.category).filter(c => c))];
             const sel = document.getElementById('categorySelect');
-            sel.innerHTML = '<option value="all">Filter by Category</option>';
+            sel.innerHTML = '<option value="all">ALL CATEGORIES</option>';
             cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
         }
         
@@ -382,4 +449,3 @@
     </script>
 </body>
 </html>
-
