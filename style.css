@@ -270,3 +270,4 @@ footer {
     .modal-content { grid-template-columns: 1fr; }
     .card-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); }
 }
+
