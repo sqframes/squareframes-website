@@ -3,206 +3,275 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>XXX Company | Archive</title>
     
+    <title>XXX Company | Curated Archive</title>
+    <meta name="description" content="Browse our exclusive collection of design-forward furniture, lighting, and objects. Curated for modern living.">
+    <meta name="keywords" content="furniture, design, modern, catalog, interior, architecture">
+    <meta name="author" content="XXX Company">
+    <link rel="canonical" href="https://your-domain.com/">
+
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-domain.com/">
+    <meta property="og:title" content="XXX Company | Design Collection">
+    <meta property="og:description" content="Browse our exclusive collection of design-forward furniture, lighting, and objects.">
+    <meta property="og:image" content="https://via.placeholder.com/1200x630">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Playfair+Display:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+
+    <script type="application/ld+json" id="json-ld-data">
+    {
+      "@context": "https://schema.org",
+      "@type": "CollectionPage",
+      "name": "XXX Company Catalog",
+      "description": "A curated list of design products."
+    }
+    </script>
 
     <style>
-        /* --- THEME: ARCHITECTURAL EDITORIAL --- */
+        /* --- VARIATION A: ZIG-ZAG EDITORIAL --- */
         :root {
             --bg: #ffffff;
-            --text: #1a1a1a;
-            --border: #e0e0e0;
-            --font-serif: 'Playfair Display', serif;
+            --text: #111;
+            --border: #ddd;
+            --font-serif: 'Cormorant Garamond', serif; 
             --font-sans: 'Inter', sans-serif;
         }
 
         * { box-sizing: border-box; }
-
-        body {
-            background-color: var(--bg);
-            color: var(--text);
-            font-family: var(--font-sans);
-            margin: 0;
+        
+        body { 
+            background: var(--bg); 
+            color: var(--text); 
+            font-family: var(--font-sans); 
+            margin: 0; 
             -webkit-font-smoothing: antialiased;
         }
 
         /* --- HEADER --- */
-        header {
-            padding: 40px 5%;
-            display: flex;
-            justify-content: space-between;
-            align-items: center; /* Aligned center */
-            border-bottom: 1px solid var(--border);
-            position: sticky; top: 0; background: rgba(255,255,255,0.95);
-            backdrop-filter: blur(5px); z-index: 100;
+        header { 
+            padding: 40px 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            position: sticky; 
+            top: 0; 
+            background: rgba(255,255,255,0.98); 
+            z-index: 100; 
+            border-bottom: 1px solid transparent;
+            transition: border-bottom 0.3s;
         }
-
-        .logo {
-            font-family: var(--font-serif);
-            font-size: 1.6rem;
-            color: black;
-            text-decoration: none;
-            font-style: italic;
+        
+        .logo { 
+            font-family: var(--font-serif); 
+            font-size: 2rem; 
+            font-style: italic; 
+            text-decoration: none; 
+            color: black; 
             font-weight: 600;
         }
 
-        /* Minimal Search Bar */
-        .header-controls {
-            display: flex; gap: 20px;
-        }
-        .header-controls input, .header-controls select {
-            border: none; border-bottom: 1px solid #ccc;
-            font-family: var(--font-sans); font-size: 0.85rem;
-            padding: 5px 0; background: transparent; outline: none;
-            width: 150px; text-transform: uppercase; letter-spacing: 1px;
+        .header-controls { display: flex; gap: 15px; }
+        
+        .header-controls input, .header-controls select { 
+            border: none; 
+            border-bottom: 1px solid #ccc; 
+            background: transparent; 
+            padding: 5px 0; 
+            outline: none; 
+            font-family: var(--font-sans); 
+            font-size: 0.8rem;
+            width: 150px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
         .header-controls input:focus { border-bottom-color: black; }
 
-        nav a {
-            text-decoration: none; color: #000;
-            text-transform: uppercase; font-size: 0.75rem;
-            letter-spacing: 2px; margin-left: 30px;
+        nav a { 
+            text-decoration: none; 
+            color: black; 
+            text-transform: uppercase; 
+            font-size: 0.7rem; 
+            letter-spacing: 2px; 
+            margin-left: 30px; 
+            font-weight: 500;
         }
 
         /* --- HERO --- */
-        .hero { padding: 120px 5% 80px 5%; max-width: 1000px; margin: 0 auto; }
-        .tagline {
-            font-family: var(--font-serif);
-            font-size: clamp(2.5rem, 5vw, 4rem);
-            line-height: 1.1;
-            font-weight: 400;
-            color: #111;
-            animation: fadeIn 1.2s ease;
+        .hero { 
+            padding: 160px 5% 120px 5%; 
+            text-align: center; 
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        .tagline { 
+            font-family: var(--font-serif); 
+            font-size: clamp(2.5rem, 5vw, 4rem); 
+            font-weight: 400; 
+            margin: 0; 
+            line-height: 1.1; 
+            animation: fadeIn 1.5s ease;
         }
 
-        /* --- EDITORIAL LIST LAYOUT --- */
-        .grid {
-            display: grid;
-            grid-template-columns: 1fr; /* Single Column List */
-            max-width: 1000px;
-            margin: 0 auto;
-            padding-bottom: 100px;
+        /* --- THE ZIG ZAG GRID --- */
+        .grid { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding-bottom: 100px; 
         }
 
         .card {
-            display: grid;
-            grid-template-columns: 1.2fr 1fr; /* Image wider than text */
-            gap: 60px;
+            display: flex;
             align-items: center;
-            padding: 80px 0;
-            border-bottom: 1px solid var(--border);
+            gap: 80px;
+            padding: 80px 5%;
+            text-decoration: none; 
+            color: inherit;
             cursor: pointer;
-            text-decoration: none; color: inherit;
-            transition: opacity 0.3s;
+            opacity: 0; /* Animated in via JS */
+            transition: opacity 0.5s;
         }
-        .card:hover { opacity: 0.8; }
 
-        /* Image Styling */
-        .card-img {
-            width: 100%; aspect-ratio: 4/3; object-fit: cover;
-            filter: grayscale(10%); transition: filter 0.5s;
+        /* The Magic: Even items (2, 4, 6...) swap direction */
+        .card:nth-child(even) { 
+            flex-direction: row-reverse; 
+            text-align: right; 
         }
-        .card:hover .card-img { filter: grayscale(0%); }
 
-        /* Text Styling */
-        .card-info { padding-right: 20px; }
-        .card-cat {
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px;
-            color: #888; margin-bottom: 15px; display: block;
+        .card-img-wrap {
+            width: 50%;
+            aspect-ratio: 3/4;
+            overflow: hidden;
         }
-        .card-title {
-            font-family: var(--font-serif); font-size: 2.2rem;
-            margin: 0 0 15px 0; font-weight: 400; line-height: 1.2;
-        }
-        .card-price {
-            font-family: var(--font-sans); font-size: 1.1rem; color: #444;
-        }
-        .card-overlay { display: none; } /* Hide the old overlay style */
 
-        /* --- MODAL (Clean & Split) --- */
-        #product-modal {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255,255,255,0.98); z-index: 200; overflow-y: auto;
+        .card-img { 
+            width: 100%; 
+            height: 100%;
+            object-fit: cover; 
+            transition: transform 0.7s ease; 
+            filter: grayscale(10%);
         }
-        .modal-content {
-            max-width: 1200px; margin: 60px auto; padding: 40px 5%;
-            display: grid; grid-template-columns: 1.5fr 1fr; gap: 60px; align-items: start;
+        .card:hover .card-img { 
+            transform: scale(1.05); 
+            filter: grayscale(0%);
+        }
+
+        .card-info { width: 50%; }
+        
+        .card-cat { 
+            font-size: 0.7rem; 
+            text-transform: uppercase; 
+            letter-spacing: 2px; 
+            color: #888; 
+            display: block; 
+            margin-bottom: 15px; 
         }
         
+        .card-title { 
+            font-family: var(--font-serif); 
+            font-size: 3rem; 
+            margin: 0 0 15px 0; 
+            font-weight: 400; 
+            line-height: 1;
+        }
+        
+        .card-price { 
+            font-size: 1.1rem; 
+            color: #444; 
+            font-family: var(--font-sans);
+        }
+        
+        /* Hide default overlay form other versions */
+        .card-overlay { display: none; }
+
+        /* --- MODAL --- */
+        #product-modal { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(255,255,255,0.98); z-index: 200; overflow-y: auto; 
+        }
+        
+        .modal-content { 
+            max-width: 1200px; margin: 60px auto; padding: 40px 5%; 
+            display: grid; grid-template-columns: 1fr 1fr; gap: 60px; 
+            align-items: start;
+        }
+
+        /* Slider */
+        .carousel-container { position: relative; width: 100%; background: #f9f9f9; }
+        .modal-img { width: 100%; display: block; object-fit: contain;}
+        
+        .nav-arrow {
+            position: absolute; top: 50%; transform: translateY(-50%);
+            background: transparent; border: none; font-size: 2.5rem; 
+            cursor: pointer; padding: 0 20px; transition: opacity 0.2s;
+            font-family: var(--font-serif);
+        }
+        .nav-arrow:hover { opacity: 0.5; }
+        .prev { left: -50px; } 
+        .next { right: -50px; }
+        
         .modal-info { position: sticky; top: 100px; }
-        #m-cat { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 20px; display: block; }
+        
+        #m-cat { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 2px; color: #888; margin-bottom: 20px; display: block; }
         #m-title { font-family: var(--font-serif); font-size: 3rem; margin: 0 0 20px 0; line-height: 1; }
         #m-price { font-size: 1.5rem; margin-bottom: 40px; font-weight: 400; }
         
-        /* List Points */
         #m-desc-list { list-style: none; padding: 0; margin-bottom: 40px; font-size: 1rem; line-height: 1.7; color: #444; }
-        #m-desc-list li { margin-bottom: 10px; position: relative; padding-left: 15px;}
+        #m-desc-list li { margin-bottom: 10px; padding-left: 15px; position: relative; }
         #m-desc-list li::before { content: "—"; position: absolute; left: 0; color: #ccc; }
 
-        /* Image Slider */
-        .carousel-container { position: relative; width: 100%; }
-        .modal-img { width: 100%; height: auto; display: block; }
-        .nav-arrow {
-            position: absolute; top: 50%; transform: translateY(-50%);
-            background: transparent; border: none; font-size: 2rem;
-            cursor: pointer; color: #000; padding: 0 10px;
-            transition: opacity 0.2s;
-        }
-        .nav-arrow:hover { opacity: 0.5; }
-        .prev { left: -40px; }
-        .next { right: -40px; }
-
         /* Buttons */
-        .cta-btn {
-            background: #1a1a1a; color: white; border: none;
-            padding: 18px 36px; font-family: var(--font-sans);
-            font-size: 0.9rem; letter-spacing: 1px; text-transform: uppercase;
-            cursor: pointer; width: 100%; transition: background 0.3s;
+        .cta-btn { 
+            background: #111; color: white; border: none; padding: 18px; 
+            cursor: pointer; margin-top: 20px; width: 100%; 
+            text-transform: uppercase; letter-spacing: 1px; font-size: 0.8rem;
+            transition: background 0.2s;
         }
         .cta-btn:hover { background: #333; }
-        .close-btn {
-            position: fixed; top: 30px; right: 40px;
-            font-size: 2.5rem; cursor: pointer; color: #000; z-index: 210;
+        
+        .close-btn { 
+            position: fixed; top: 30px; right: 40px; 
+            font-size: 2.5rem; cursor: pointer; z-index: 210;
         }
 
         /* --- INQUIRY FORM --- */
-        #inquiry-form-overlay {
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); backdrop-filter: blur(5px);
-            z-index: 300; align-items: center; justify-content: center;
+        #inquiry-form-overlay { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.6); backdrop-filter: blur(5px);
+            z-index: 300; align-items: center; justify-content: center; 
         }
-        .form-box {
-            background: white; padding: 50px; width: 90%; max-width: 500px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.1); position: relative;
+        .form-box { 
+            background: white; padding: 50px; width: 90%; max-width: 500px; 
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1); position: relative;
         }
         .form-group { margin-bottom: 20px; }
-        .form-group label { display: block; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: #666; }
-        .form-group input, .form-group textarea {
-            width: 100%; padding: 10px 0; border: none; border-bottom: 1px solid #ddd;
-            font-family: var(--font-serif); font-size: 1.1rem; outline: none;
+        .form-group label { display: block; font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; color: #666; }
+        .form-group input, .form-group textarea { 
+            width: 100%; padding: 10px 0; margin-bottom: 5px; 
+            border: none; border-bottom: 1px solid #ddd; 
+            font-family: var(--font-serif); font-size: 1.2rem; outline: none;
         }
         .form-group input:focus, .form-group textarea:focus { border-bottom-color: black; }
 
         footer { 
-            padding: 80px 5%; border-top: 1px solid var(--border);
-            text-align: center; font-size: 0.8rem; color: #999;
-            text-transform: uppercase; letter-spacing: 1px;
+            text-align: center; padding: 60px; 
+            font-size: 0.8rem; text-transform: uppercase; letter-spacing: 1px; 
+            color: #888; border-top: 1px solid #eee; margin-top: 100px;
         }
 
         @keyframes fadeIn { from { opacity:0; transform:translateY(20px); } to { opacity:1; transform:translateY(0); } }
 
-        /* Mobile */
+        /* Mobile Responsive */
         @media (max-width: 900px) {
-            .card { grid-template-columns: 1fr; gap: 20px; text-align: left; }
-            .card-img { aspect-ratio: 1/1; }
-            .modal-content { grid-template-columns: 1fr; padding-top: 20px; }
-            .nav-arrow { background: rgba(255,255,255,0.8); padding: 5px; }
-            .prev { left: 10px; } .next { right: 10px; }
-            .header-controls { display: none; } /* Simpler mobile header */
-            .hero { padding: 80px 5%; }
+            .card, .card:nth-child(even) { flex-direction: column; text-align: left; gap: 30px; padding: 40px 5%; }
+            .card-img-wrap { width: 100%; aspect-ratio: 1/1; }
+            .card-info { width: 100%; }
+            .card-title { font-size: 2.5rem; }
+            .modal-content { grid-template-columns: 1fr; }
+            .header-controls { display: none; }
+            .nav-arrow { padding: 0 10px; background: rgba(255,255,255,0.8); }
+            .prev { left: 0; } .next { right: 0; }
         }
     </style>
 </head>
@@ -212,7 +281,7 @@
         <a href="/" class="logo" onclick="closeModal(); return false;">XXX COMPANY</a>
         
         <div class="header-controls">
-            <input type="text" id="searchInput" placeholder="SEARCH COLLECTION...">
+            <input type="text" id="searchInput" placeholder="SEARCH ARCHIVE...">
             <select id="categorySelect">
                 <option value="all">ALL CATEGORIES</option>
             </select>
@@ -223,17 +292,19 @@
         </nav>
     </header>
 
-    <section class="hero">
-        <div class="tagline">
-            aaa bbbbb ccccccc dddddd fffffffff gggggggg rrrrr tttttttt
-        </div>
-    </section>
+    <main>
+        <section class="hero">
+            <h1 class="tagline">
+                aaa bbbbb ccccccc dddddd fffffffff gggggggg rrrrr tttttttt
+            </h1>
+        </section>
 
-    <div id="grid" class="grid">
-        <div style="text-align:center; padding:100px; color:#999; font-family:'Inter'; letter-spacing:1px; text-transform:uppercase; font-size:0.8rem;">
-            Loading Archive...
+        <div id="grid" class="grid">
+            <div style="text-align:center; padding:100px; color:#999; font-family:'Inter'; font-size:0.8rem; letter-spacing:1px; text-transform:uppercase;">
+                Loading Collection...
+            </div>
         </div>
-    </div>
+    </main>
 
     <div id="product-modal">
         <div class="close-btn" onclick="closeModal()">&times;</div>
@@ -261,8 +332,8 @@
 
     <div id="inquiry-form-overlay">
         <div class="form-box">
-            <div onclick="closeInquiryForm()" style="position:absolute; top:20px; right:20px; font-size:1.5rem; cursor:pointer;">&times;</div>
-            <h3 style="font-family:'Playfair Display'; font-size:2rem; margin:0 0 30px 0;">Inquire</h3>
+            <div onclick="closeInquiryForm()" style="position:absolute; top:20px; right:20px; font-size:2rem; cursor:pointer;">&times;</div>
+            <h3 style="font-family:'Cormorant Garamond'; font-size:2.5rem; margin:0 0 30px 0; font-weight:400;">Inquire</h3>
             
             <form onsubmit="handleFormSubmit(event)">
                 <input type="hidden" id="form-product">
@@ -304,40 +375,61 @@
                 });
 
                 if (products.length === 0) {
-                    document.getElementById('grid').innerHTML = '<p style="text-align:center;">Empty Archive.</p>';
+                    document.getElementById('grid').innerHTML = '<p style="text-align:center;">Archive Empty.</p>';
                     return;
                 }
 
+                generateSchema(products); // SEO
                 initCategories();
                 renderProducts(products);
                 
                 const slug = window.location.pathname.substring(1);
                 if (slug && slug.length > 1) openProduct(slug, false);
-            });
+            })
+            .catch(err => console.error(err));
 
-        // 2. Render List Layout
+        // 2. SEO: JSON-LD
+        function generateSchema(items) {
+            const schema = {
+                "@context": "https://schema.org",
+                "@type": "ItemList",
+                "itemListElement": items.map((p, index) => ({
+                    "@type": "ListItem",
+                    "position": index + 1,
+                    "item": {
+                        "@type": "Product",
+                        "name": p.name,
+                        "image": p.images[0] || "",
+                        "description": p.description.replace(/\n/g, " "),
+                        "offers": { "@type": "Offer", "price": p.price ? p.price.replace(/[^0-9.]/g, '') : "0" }
+                    }
+                }))
+            };
+            const script = document.createElement('script');
+            script.type = 'application/ld+json';
+            script.text = JSON.stringify(schema);
+            document.head.appendChild(script);
+        }
+
+        // 3. Render Zig Zag Layout
         function renderProducts(data) {
             const grid = document.getElementById('grid');
             
-            grid.innerHTML = data.map(p => {
+            grid.innerHTML = data.map((p, index) => {
                 const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
                 return `
-                <a href="/${p.slug}" class="card" onclick="handleLinkClick(event, '${p.slug}')">
-                    <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name}">
+                <article class="card" onclick="openProduct('${p.slug}', true)" style="animation: fadeIn 1s ease ${index * 0.1}s forwards;">
+                    <div class="card-img-wrap">
+                        <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name}">
+                    </div>
                     <div class="card-info">
                         <span class="card-cat">${p.category}</span>
                         <h3 class="card-title">${p.name}</h3>
                         <div class="card-price">${p.price}</div>
                     </div>
-                </a>
+                </article>
                 `;
             }).join('');
-        }
-
-        function handleLinkClick(e, slug) {
-            if (e.ctrlKey || e.metaKey) return;
-            e.preventDefault();
-            openProduct(slug, true);
         }
 
         function openProduct(slug, pushState) {
@@ -345,18 +437,18 @@
             if (!p) return;
             if (pushState) history.pushState({slug}, '', '/' + slug);
 
-            // Slider Setup
+            // SEO Title
+            document.title = `${p.name} | XXX Archive`;
+
             currentImages = p.images || [];
             currentImgIndex = 0;
             updateImageDisplay();
 
-            // Text Setup
             document.getElementById('m-cat').innerText = p.category || '';
-            document.getElementById('m-title').innerText = p.name || '';
+            document.getElementById('m-title').innerText = p.name || 'Untitled';
             document.getElementById('m-price').innerText = p.price || '';
             document.getElementById('form-product').value = p.name || '';
 
-            // Bullet Points
             const listContainer = document.getElementById('m-desc-list');
             listContainer.innerHTML = ''; 
             if (p.description) {
@@ -382,7 +474,6 @@
                 imgElement.style.display = 'none';
             }
 
-            // Hide arrows if < 2 images
             if (currentImages.length <= 1) {
                 prevBtn.style.display = 'none';
                 nextBtn.style.display = 'none';
@@ -403,6 +494,7 @@
             modal.style.display = 'none';
             document.body.style.overflow = 'auto';
             history.pushState(null, '', '/');
+            document.title = "XXX Company | Curated Archive";
         }
 
         function openInquiryForm() { inquiryOverlay.style.display = 'flex'; }
