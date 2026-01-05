@@ -199,13 +199,13 @@
         .card-overlay {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
-            padding: 30px 25px; /* More padding at bottom */
+            padding: 30px 25px;
             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
             color: white;
             opacity: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Align to bottom */
+            justify-content: flex-end;
             height: 60%;
             pointer-events: none;
         }
@@ -302,28 +302,37 @@
         #m-title { font-size: 2.5rem; margin: 0 0 10px 0; letter-spacing: -1px; line-height: 1.1; }
         #m-price { font-size: 1.5rem; font-weight: 500; color: var(--gray); margin-bottom: 30px; }
 
-        /* DIMENSION PILLS */
+        /* --- UPDATED: HIGH CONTRAST DIMENSION PILLS --- */
         .dimension-box {
-            margin-bottom: 30px;
+            margin-bottom: 35px;
             display: none; 
         }
         .dim-label {
-            font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
-            color: #888; margin-bottom: 12px; font-weight: 700;
+            font-size: 0.85rem; /* Larger label */
+            text-transform: uppercase; letter-spacing: 1px;
+            color: #000; /* Darker label */
+            margin-bottom: 15px; 
+            font-weight: 800; /* Bolder label */
         }
-        .dim-list { display: flex; flex-wrap: wrap; gap: 10px; }
+        .dim-list { display: flex; flex-wrap: wrap; gap: 12px; }
+        
         .dim-pill {
             display: inline-block;
-            background: #F8F9FA;
-            border: 1px solid #E9ECEF;
+            background: #000; /* Solid Black Background */
+            border: 2px solid #000; /* Thicker border for hover state */
             border-radius: 50px;
-            padding: 10px 20px;
-            font-size: 0.9rem;
-            color: #333;
-            font-weight: 500;
+            padding: 12px 24px; /* Slightly plumper */
+            font-size: 0.95rem; /* Slightly larger text */
+            color: #fff; /* White text */
+            font-weight: 700; /* Bolder text */
+            cursor: default;
             transition: all 0.2s;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Add subtle depth */
         }
-        .dim-pill:hover { border-color: #333; background: #fff; }
+        .dim-pill:hover {
+            background: transparent; /* Invert on hover */
+            color: #000;
+        }
         
         #m-desc-list { list-style: none; padding: 0; margin-bottom: 40px; }
         #m-desc-list li { position: relative; padding-left: 24px; margin-bottom: 12px; color: #444; line-height: 1.6; }
@@ -483,11 +492,16 @@
             .then(res => res.json())
             .then(data => {
                 products = data.map(item => {
+                    // Normalize dimensions to be safe
+                    let safeDims = "";
+                    if (item.dimensions) safeDims = item.dimensions;
+                    else if (item.Dimensions) safeDims = item.Dimensions; // check uppercase D
+
                     return {
                         ...item,
                         images: item.images ? item.images.split(',').map(url => url.trim()) : [],
                         description: item.description || "",
-                        dimensions: item.dimensions || "" 
+                        dimensions: safeDims
                     };
                 });
 
@@ -540,9 +554,10 @@
                 const sizeClass = patterns[index % patterns.length]; 
                 const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
                 
-                // Extract top 2 bullet points for the tile
+                // Get first 2 points for the tile display
                 let pointsHtml = '';
                 if(p.description) {
+                    // Split by new line, remove empties, take top 2
                     const lines = p.description.split('\n').filter(l => l.trim().length > 0).slice(0, 2);
                     pointsHtml = lines.map(line => `<li>${line}</li>`).join('');
                 }
@@ -579,6 +594,8 @@
             const dimBox = document.getElementById('m-dims-box');
             const dimList = document.getElementById('m-dims-list');
             dimList.innerHTML = ''; 
+
+            console.log("Checking dims for:", p.name, p.dimensions); // Debug log
 
             if (p.dimensions && p.dimensions.trim() !== "") {
                 dimBox.style.display = "block";
