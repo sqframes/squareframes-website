@@ -87,7 +87,7 @@
         }
 
         .logo img {
-            height: 85px; /* Large Logo */
+            height: 85px; 
             width: auto;
             display: block;
             transition: opacity 0.2s;
@@ -163,7 +163,7 @@
         .grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-            grid-auto-rows: 400px;
+            grid-auto-rows: 400px; 
             grid-auto-flow: dense;
             gap: 24px;
             padding: 0 40px 120px 40px;
@@ -195,42 +195,51 @@
         }
         .card:hover .card-img { transform: scale(1.05); }
 
-        /* ALWAYS VISIBLE OVERLAY */
+        /* --- OVERLAY (Bottom Aligned, No Price) --- */
         .card-overlay {
             position: absolute;
             bottom: 0; left: 0; width: 100%;
-            padding: 25px;
+            padding: 30px 25px; /* More padding at bottom */
             background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 60%, transparent 100%);
             color: white;
             opacity: 1;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end;
-            height: 50%;
+            justify-content: flex-end; /* Align to bottom */
+            height: 60%;
             pointer-events: none;
         }
 
         .card-title { 
-            font-size: 1.2rem; font-weight: 700; margin: 0 0 6px 0; 
+            font-size: 1.3rem; font-weight: 700; margin: 0 0 10px 0; 
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+            text-transform: uppercase;
+            letter-spacing: -0.5px;
         }
         
-        /* 2-Line Description */
-        .card-desc-preview {
+        /* Bullet Points on Tile */
+        .card-points {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            color: rgba(255,255,255,0.9);
             font-size: 0.9rem;
-            color: rgba(255,255,255,0.85);
-            line-height: 1.4;
-            margin-bottom: 8px;
-            display: -webkit-box;
-            -webkit-line-clamp: 2; /* Limits to 2 lines */
-            -webkit-box-orient: vertical;
-            overflow: hidden;
+            font-weight: 500;
+            line-height: 1.5;
+        }
+        .card-points li {
+            position: relative;
+            padding-left: 15px;
+            margin-bottom: 2px;
+            white-space: nowrap; 
+            overflow: hidden; 
             text-overflow: ellipsis;
         }
-
-        .card-price { 
-            font-size: 0.95rem; font-weight: 600; color: #fff; 
-            margin-top: auto; 
+        .card-points li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: rgba(255,255,255,0.6);
         }
 
         /* --- MODAL --- */
@@ -293,39 +302,28 @@
         #m-title { font-size: 2.5rem; margin: 0 0 10px 0; letter-spacing: -1px; line-height: 1.1; }
         #m-price { font-size: 1.5rem; font-weight: 500; color: var(--gray); margin-bottom: 30px; }
 
-        /* --- NEW: DIMENSION PILLS --- */
+        /* DIMENSION PILLS */
         .dimension-box {
             margin-bottom: 30px;
-            display: none; /* Hidden if empty */
+            display: none; 
         }
         .dim-label {
             font-size: 0.75rem; text-transform: uppercase; letter-spacing: 1px;
             color: #888; margin-bottom: 12px; font-weight: 700;
         }
-        
-        /* Container for the round pills */
-        .dim-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        /* The Round Box styling */
+        .dim-list { display: flex; flex-wrap: wrap; gap: 10px; }
         .dim-pill {
             display: inline-block;
             background: #F8F9FA;
             border: 1px solid #E9ECEF;
-            border-radius: 50px; /* Fully rounded */
+            border-radius: 50px;
             padding: 10px 20px;
             font-size: 0.9rem;
             color: #333;
             font-weight: 500;
             transition: all 0.2s;
         }
-        .dim-pill:hover {
-            border-color: #333;
-            background: #fff;
-        }
+        .dim-pill:hover { border-color: #333; background: #fff; }
         
         #m-desc-list { list-style: none; padding: 0; margin-bottom: 40px; }
         #m-desc-list li { position: relative; padding-left: 24px; margin-bottom: 12px; color: #444; line-height: 1.6; }
@@ -439,11 +437,11 @@
                 
                 <div id="m-dims-box" class="dimension-box">
                     <div class="dim-label">Dimensions</div>
-                    <div id="m-dims-list" class="dim-list">
-                        </div>
+                    <div id="m-dims-list" class="dim-list"></div>
                 </div>
 
                 <div id="m-price"></div>
+                
                 <ul id="m-desc-list"></ul>
                 <button onclick="openInquiryForm()" class="cta-btn">Request Pricing & Info</button>
             </div>
@@ -489,7 +487,7 @@
                         ...item,
                         images: item.images ? item.images.split(',').map(url => url.trim()) : [],
                         description: item.description || "",
-                        dimensions: item.dimensions || "" // Fetch new dimension column
+                        dimensions: item.dimensions || "" 
                     };
                 });
 
@@ -533,7 +531,7 @@
             document.head.appendChild(script);
         }
 
-        // 3. Render Tiles
+        // 3. Render Tiles with Points
         function renderProducts(data) {
             const grid = document.getElementById('grid');
             const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
@@ -542,13 +540,19 @@
                 const sizeClass = patterns[index % patterns.length]; 
                 const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
                 
+                // Extract top 2 bullet points for the tile
+                let pointsHtml = '';
+                if(p.description) {
+                    const lines = p.description.split('\n').filter(l => l.trim().length > 0).slice(0, 2);
+                    pointsHtml = lines.map(line => `<li>${line}</li>`).join('');
+                }
+
                 return `
                 <article class="card ${sizeClass}" onclick="openProduct('${p.slug}', true)" style="animation: modalFade 0.6s ease ${index * 0.05}s forwards; opacity: 0;">
                     <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name} - ${p.category}">
                     <div class="card-overlay">
                         <h3 class="card-title">${p.name}</h3>
-                        <div class="card-desc-preview">${p.description}</div>
-                        <div class="card-price">${p.price}</div>
+                        <ul class="card-points">${pointsHtml}</ul>
                     </div>
                 </article>
                 `;
@@ -571,10 +575,10 @@
             document.getElementById('m-price').innerText = p.price || '';
             document.getElementById('form-product').value = p.name || '';
 
-            // DIMENSIONS LOGIC (Rounded Pills)
+            // DIMENSIONS LOGIC (Round Pills)
             const dimBox = document.getElementById('m-dims-box');
             const dimList = document.getElementById('m-dims-list');
-            dimList.innerHTML = ''; // Clear old
+            dimList.innerHTML = ''; 
 
             if (p.dimensions && p.dimensions.trim() !== "") {
                 dimBox.style.display = "block";
