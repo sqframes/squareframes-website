@@ -25,15 +25,15 @@ body {
 }
 
 /* ==========================
-   Header
+   Header (stable, reduced height, no jitter)
    ========================== */
 
 .site-header {
     position: sticky;
     top: 0;
     z-index: 120;
-    background: rgba(255,255,255,0.86);
-    backdrop-filter: blur(14px);
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
     border-bottom: 1px solid rgba(0,0,0,0.06);
     overflow: visible;
 }
@@ -45,21 +45,18 @@ body {
     left: 0;
     right: 0;
 
-    border-bottom: 1px solid rgba(0,0,0,0.05);
     background: rgba(255,255,255,0.6);
+    border-bottom: 1px solid rgba(0,0,0,0.05);
 
-    transition: opacity 180ms ease, transform 240ms cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: transform, opacity;
-    transform: translateY(0);
+    transition: opacity 160ms ease;
     opacity: 1;
-
     z-index: 125;
 }
 
 .topbar-inner {
     max-width: var(--header-maxw);
     margin: 0 auto;
-    padding: 10px 40px;
+    padding: 10px 36px;
     display: flex;
     justify-content: flex-end;
     align-items: center;
@@ -77,62 +74,33 @@ body {
 .topbar a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .topbar .dot { opacity: 0.5; padding: 0 8px; }
 
+.site-header.is-scrolled .topbar {
+    opacity: 0;
+    pointer-events: none;
+}
+
 .header-inner {
     max-width: var(--header-maxw);
     margin: 0 auto;
 
-    /* Space for topbar without overlap */
-    padding: 58px 40px 14px 40px;
+    /* Space for absolute topbar (reduced overall height) */
+    padding: 44px 36px 12px 36px;
 
     display: grid;
     grid-template-columns: 1fr 1.6fr 1fr;
     align-items: center;
     gap: 16px;
 
-    transition: padding 240ms cubic-bezier(0.16, 1, 0.3, 1);
-    will-change: padding;
+    transition: padding 200ms ease;
 }
 
-/* ==========================
-   Scroll behavior
-   - top header disappears on scroll
-   - header reclaims space
-   ========================== */
-
-.site-header.is-scrolled .topbar {
-    transform: translateY(-10px);
-    opacity: 0;
-    pointer-events: none;
-}
-
+/* When scrolled — reclaim topbar space (no bounce) */
 .site-header.is-scrolled .header-inner {
-    padding: 14px 40px;
-}
-
-/* Keep logo size on scroll (NO shrinking) */
-.site-header.is-scrolled .brand img {
-    transform: translateY(0) scale(1);
-    filter:
-        drop-shadow(0 14px 22px rgba(0,0,0,0.18))
-        drop-shadow(0 6px 10px rgba(0,0,0,0.08));
-}
-
-/* optional micro-tightening */
-.site-header.is-scrolled .search-wrap,
-.site-header.is-scrolled .select-wrap {
-    min-height: 42px;
-}
-
-.site-header.is-scrolled .nav-pills a {
-    padding-top: 9px;
-    padding-bottom: 9px;
+    padding: 14px 36px;
 }
 
 /* ==========================
-   Brand / Logo
-   - slightly lower
-   - does not overlap topbar
-   - no snap-back animation
+   Brand / Logo (fixed size, slightly lower, no overlap, no jitter)
    ========================== */
 
 .brand {
@@ -140,32 +108,25 @@ body {
     align-items: center;
     text-decoration: none;
     position: relative;
-    padding-left: 36px;
+    padding-left: 32px;
     z-index: 200;
 }
 
 .brand img {
-    height: 96px;
+    height: 90px;
     width: auto;
     display: block;
     background: transparent;
 
-    /* moved down + no overlap with top header */
-    transform: translateY(0) scale(1);
+    /* Slightly down, no overlap with top header */
+    transform: translateY(4px);
     transform-origin: left center;
 
     filter:
-        drop-shadow(0 14px 22px rgba(0,0,0,0.18))
-        drop-shadow(0 6px 10px rgba(0,0,0,0.08));
+        drop-shadow(0 10px 18px rgba(0,0,0,0.16))
+        drop-shadow(0 4px 8px rgba(0,0,0,0.08));
 
-    transition:
-        transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
-        filter 240ms ease;
-}
-
-/* disable snap-back if class exists */
-.site-header.snap-back .brand img {
-    animation: none !important;
+    transition: none; /* IMPORTANT: prevents scroll jitter */
 }
 
 .brand::before { display: none !important; }
@@ -189,7 +150,7 @@ body {
     padding: 2px;
     display: flex;
     align-items: center;
-    min-height: 44px;
+    min-height: 42px; /* slightly smaller */
 }
 
 .header-controls input, .header-controls select {
@@ -240,7 +201,7 @@ body {
     color: #fff !important;
     border: none !important;
     box-shadow: 0 10px 22px rgba(0,0,0,0.10);
-    min-height: 44px;
+    min-height: 42px;
     padding: 10px 18px !important;
 }
 .btn-cta:hover {
@@ -661,7 +622,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     .topbar-inner { padding: 10px 20px; justify-content: flex-start; }
 
     .header-inner {
-        padding: 54px 20px 12px 20px;
+        padding: 40px 20px 10px 20px;
         grid-template-columns: 1fr;
         gap: 12px;
     }
@@ -672,8 +633,8 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
     .brand { padding-left: 10px; }
     .brand img {
-        height: 78px;
-        transform: translateY(0) scale(1);
+        height: 74px;
+        transform: translateY(2px);
         filter: drop-shadow(0 10px 16px rgba(0,0,0,0.16));
     }
 
@@ -694,8 +655,8 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 520px) {
     .brand img {
-        height: 72px;
-        transform: translateY(0) scale(1);
+        height: 70px;
+        transform: translateY(2px);
         filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14));
     }
 }
