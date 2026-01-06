@@ -145,24 +145,34 @@
   </footer>
 
   <script>
-    function sendContactEmail(e) {
+    async function sendContactEmail(e) {
       e.preventDefault();
-
-      const name = document.getElementById('c-name').value;
-      const email = document.getElementById('c-email').value;
-      const location = document.getElementById('c-location').value;
-      const message = document.getElementById('c-message').value;
-
-      const subject = `Website enquiry (Square Frames) - ${name}`;
-      const body =
-`Name: ${name}
-Email: ${email}
-Location: ${location}
-
-Message:
-${message}`;
-
-      window.location.href = `mailto:admin@sqframes.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+  
+      const payload = {
+        name: document.getElementById('c-name').value,
+        email: document.getElementById('c-email').value,
+        location: document.getElementById('c-location').value,
+        message: document.getElementById('c-message').value,
+        product: "", // none on contact page
+        page: window.location.href,
+        website: "" // honeypot (leave blank)
+      };
+  
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(payload)
+      });
+  
+      const out = await res.json().catch(() => ({}));
+  
+      if (res.ok && out.ok) {
+        alert("Thanks! Your message has been sent.");
+        e.target.reset();
+      } else {
+        alert("Sorry — message failed to send. Please email admin@sqframes.com");
+        console.error(out);
+      }
     }
   </script>
 
