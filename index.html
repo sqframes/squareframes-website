@@ -361,28 +361,41 @@
         function openInquiryForm() { inquiryOverlay.style.display = 'flex'; }
         function closeInquiryForm() { inquiryOverlay.style.display = 'none'; }
 
-        function handleFormSubmit(e) {
+        // ✅ UPDATED: send enquiry directly via Cloudflare Pages Function (no mailto)
+        async function handleFormSubmit(e) {
             e.preventDefault();
 
-            const product = document.getElementById('form-product').value;
-            const name = document.getElementById('form-name').value;
-            const email = document.getElementById('form-email').value;
-            const location = document.getElementById('form-location').value;
-            const msg = document.getElementById('form-msg').value;
+            const payload = {
+                product: document.getElementById('form-product').value,
+                name: document.getElementById('form-name').value,
+                email: document.getElementById('form-email').value,
+                location: document.getElementById('form-location').value,
+                message: document.getElementById('form-msg').value,
+                page: window.location.href,
+                website: "" // honeypot (leave blank)
+            };
 
-            const subject = `Enquiry: ${product} (${name})`;
-            const body =
-`Name: ${name}
-Email: ${email}
-Location: ${location}
+            try {
+                const res = await fetch('/api/contact', {
+                    method: 'POST',
+                    headers: { 'content-type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
 
-Item: ${product}
+                const out = await res.json().catch(() => ({}));
 
-Message:
-${msg}`;
-
-            window.location.href = `mailto:admin@sqframes.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-            closeInquiryForm();
+                if (res.ok && out.ok) {
+                    alert("Sent! We’ll get back to you shortly.");
+                    closeInquiryForm();
+                    e.target.reset();
+                } else {
+                    alert("Sorry — message failed to send. Please email admin@sqframes.com");
+                    console.error(out);
+                }
+            } catch (err) {
+                alert("Sorry — message failed to send. Please email admin@sqframes.com");
+                console.error(err);
+            }
         }
 
         function initCategories() {
@@ -452,10 +465,3 @@ ${msg}`;
 
 </body>
 </html>
-
-
-
-
-
-
-
