@@ -409,9 +409,50 @@ ${msg}`;
             slug && slug.length > 1 ? openProduct(slug, false) : closeModal();
         };
     </script>
+    <script>
+      (function () {
+        const header = document.querySelector('.site-header');
+        if (!header) return;
     
+        let lastY = window.scrollY;
+        let ticking = false;
+        let snapTimer = null;
+    
+        function update() {
+          const y = window.scrollY;
+    
+          // Toggle compression/shrink
+          if (y > 18) header.classList.add('is-scrolled');
+          else header.classList.remove('is-scrolled');
+    
+          // Snap-back on scroll up (only when already compressed)
+          const goingUp = y < lastY;
+          const wasScrolled = lastY > 18;
+    
+          if (goingUp && wasScrolled) {
+            header.classList.add('snap-back');
+            clearTimeout(snapTimer);
+            snapTimer = setTimeout(() => header.classList.remove('snap-back'), 560);
+          }
+    
+          lastY = y;
+          ticking = false;
+        }
+    
+        function onScroll() {
+          if (!ticking) {
+            window.requestAnimationFrame(update);
+            ticking = true;
+          }
+        }
+    
+        window.addEventListener('scroll', onScroll, { passive: true });
+      })();
+    </script>
+
 </body>
 </html>
+
 
 
 
