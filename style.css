@@ -35,7 +35,6 @@ body {
     overflow: visible;
 }
 
-/* Topbar only phone/email right */
 .topbar {
     border-bottom: 1px solid rgba(0,0,0,0.05);
     background: rgba(255,255,255,0.6);
@@ -71,7 +70,7 @@ body {
     gap: 16px;
 }
 
-/* Move logo slightly right */
+/* Move logo MORE to the right */
 .brand {
     display: inline-flex;
     align-items: center;
@@ -79,14 +78,12 @@ body {
     text-decoration: none;
     color: inherit;
     position: relative;
-    padding-left: 10px; /* shift right */
+    padding-left: 28px; /* increased shift right */
 }
 .brand img {
     height: 64px;
     width: auto;
     display: block;
-
-    /* remove overlap + remove animation */
     transform: none !important;
     filter: none !important;
     animation: none !important;
@@ -94,7 +91,7 @@ body {
 .brand::before { display: none !important; }
 .brand-text { display: none; }
 
-/* Shift controls slightly left to fill whitespace */
+/* Move Search/Category LEFT slightly to cover white space */
 .header-controls {
     display: flex;
     gap: 10px;
@@ -102,7 +99,7 @@ body {
     max-width: 620px;
     margin: 0;
     justify-self: center;
-    transform: translateX(-14px); /* nudge left */
+    transform: translateX(-26px); /* moved more left */
 }
 
 .search-wrap, .select-wrap {
@@ -172,7 +169,7 @@ body {
 }
 
 /* ==========================
-   Hero (remove background)
+   Hero
    ========================== */
 
 .hero {
@@ -181,8 +178,6 @@ body {
     margin: 0 auto;
     text-align: center;
     position: relative;
-
-    /* remove any fancy backgrounds */
     background: none !important;
 }
 .hero::before,
@@ -231,7 +226,7 @@ body {
 }
 
 /* ==========================
-   Grid + Cards
+   Grid + Cards (Bullets visible)
    ========================== */
 
 .grid {
@@ -253,7 +248,6 @@ body {
     background: #fff;
 }
 
-/* Random sizes */
 .card.wide { grid-column: span 2; }
 .card.tall { grid-row: span 2; }
 .card.big  { grid-column: span 2; grid-row: span 2; }
@@ -266,19 +260,17 @@ body {
 }
 .card:hover .card-img { transform: scale(1.05); }
 
-/* Make overlay ALWAYS visible */
+/* Overlay ALWAYS visible */
 .card-overlay {
     position: absolute;
     bottom: 0; left: 0; width: 100%;
     padding: 18px 18px 16px 18px;
     background: linear-gradient(to top, rgba(0,0,0,0.88), rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.0) 100%);
     color: white;
-    opacity: 1;                 /* always visible */
-    transition: none;
+    opacity: 1;
     box-sizing: border-box;
 }
 
-/* Title always visible */
 .card-title {
     font-weight: 800;
     font-size: 1.05rem;
@@ -286,24 +278,24 @@ body {
     text-shadow: 0 2px 10px rgba(0,0,0,0.45);
 }
 
-/* Bullet points always visible + exactly 2 lines */
+/* Ensure bullets are clearly visible */
 .card-points {
     list-style: disc;
-    padding-left: 18px;          /* bullets visible */
+    padding-left: 20px; /* makes bullet visible */
     margin: 0;
     opacity: 0.95;
     font-size: 0.92rem;
     line-height: 1.5;
 }
 
-/* Clamp to 2 lines, keep bullets */
+/* Exactly 2 bullets, each one line */
 .card-points li {
-    margin: 0;
+    margin: 0 0 2px 0;
     display: -webkit-box;
     -webkit-box-orient: vertical;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 1;       /* each bullet becomes one line */
+    -webkit-line-clamp: 1;
 }
 
 /* ==========================
