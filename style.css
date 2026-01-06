@@ -11,6 +11,9 @@
     --radius: 12px;
     --shadow: 0 10px 30px rgba(0,0,0,0.06);
     --maxw: 1100px;
+
+    /* Header width control (reduced to remove excess whitespace) */
+    --header-maxw: 1360px;
 }
 
 body {
@@ -32,7 +35,7 @@ body {
     background: rgba(255,255,255,0.86);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(0,0,0,0.06);
-    overflow: visible; /* allow floating logo overlap */
+    overflow: visible;
 }
 
 /* Topbar (absolute overlay — does NOT take layout space) */
@@ -54,7 +57,7 @@ body {
 }
 
 .topbar-inner {
-    max-width: 1600px;
+    max-width: var(--header-maxw);
     margin: 0 auto;
     padding: 10px 40px;
     display: flex;
@@ -75,10 +78,10 @@ body {
 .topbar .dot { opacity: 0.5; padding: 0 8px; }
 
 .header-inner {
-    max-width: 1600px;
+    max-width: var(--header-maxw);
     margin: 0 auto;
 
-    /* IMPORTANT: top padding makes room for the absolute topbar */
+    /* Space for topbar without overlap */
     padding: 58px 40px 14px 40px;
 
     display: grid;
@@ -91,10 +94,9 @@ body {
 }
 
 /* ==========================
-   Smooth header compression on scroll
-   - topbar fades away
-   - header-inner padding collapses to reclaim space
-   (NO height animation => no sticky jitter)
+   Scroll behavior
+   - top header disappears on scroll
+   - header reclaims space
    ========================== */
 
 .site-header.is-scrolled .topbar {
@@ -104,13 +106,21 @@ body {
 }
 
 .site-header.is-scrolled .header-inner {
-    padding: 14px 40px; /* reclaim the space used by topbar */
+    padding: 14px 40px;
+}
+
+/* Keep logo size on scroll (NO shrinking) */
+.site-header.is-scrolled .brand img {
+    transform: translateY(0) scale(1);
+    filter:
+        drop-shadow(0 14px 22px rgba(0,0,0,0.18))
+        drop-shadow(0 6px 10px rgba(0,0,0,0.08));
 }
 
 /* optional micro-tightening */
 .site-header.is-scrolled .search-wrap,
 .site-header.is-scrolled .select-wrap {
-    min-height: 42px; /* was 44px */
+    min-height: 42px;
 }
 
 .site-header.is-scrolled .nav-pills a {
@@ -119,7 +129,10 @@ body {
 }
 
 /* ==========================
-   Floating Logo (transparent) + shrink-on-scroll + snap-back
+   Brand / Logo
+   - slightly lower
+   - does not overlap topbar
+   - no snap-back animation
    ========================== */
 
 .brand {
@@ -127,11 +140,7 @@ body {
     align-items: center;
     text-decoration: none;
     position: relative;
-
-    /* move logo further right */
     padding-left: 36px;
-
-    /* above topbar + header */
     z-index: 200;
 }
 
@@ -139,12 +148,10 @@ body {
     height: 96px;
     width: auto;
     display: block;
-
     background: transparent;
-    padding: 0;
-    border-radius: 0;
 
-    transform: translateY(-22px) scale(1);
+    /* moved down + no overlap with top header */
+    transform: translateY(0) scale(1);
     transform-origin: left center;
 
     filter:
@@ -152,26 +159,13 @@ body {
         drop-shadow(0 6px 10px rgba(0,0,0,0.08));
 
     transition:
-        transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
-        filter 280ms ease;
+        transform 240ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 240ms ease;
 }
 
-/* Shrink state (scroll down) */
-.site-header.is-scrolled .brand img {
-    transform: translateY(-12px) scale(0.78);
-    filter:
-        drop-shadow(0 10px 16px rgba(0,0,0,0.14))
-        drop-shadow(0 4px 8px rgba(0,0,0,0.08));
-}
-
-/* Snap-back bounce (scroll up) */
-@keyframes snapBack {
-    0%   { transform: translateY(-12px) scale(0.78); }
-    55%  { transform: translateY(-24px) scale(1.02); }
-    100% { transform: translateY(-22px) scale(1); }
-}
+/* disable snap-back if class exists */
 .site-header.snap-back .brand img {
-    animation: snapBack 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+    animation: none !important;
 }
 
 .brand::before { display: none !important; }
@@ -665,6 +659,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 900px) {
     .topbar-inner { padding: 10px 20px; justify-content: flex-start; }
+
     .header-inner {
         padding: 54px 20px 12px 20px;
         grid-template-columns: 1fr;
@@ -678,7 +673,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     .brand { padding-left: 10px; }
     .brand img {
         height: 78px;
-        transform: translateY(-18px) scale(1);
+        transform: translateY(0) scale(1);
         filter: drop-shadow(0 10px 16px rgba(0,0,0,0.16));
     }
 
@@ -700,7 +695,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 520px) {
     .brand img {
         height: 72px;
-        transform: translateY(-16px) scale(1);
+        transform: translateY(0) scale(1);
         filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14));
     }
 }
