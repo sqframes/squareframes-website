@@ -35,6 +35,7 @@ body {
     overflow: visible; /* allow floating logo overlap */
 }
 
+/* Topbar (right aligned contact) */
 .topbar {
     border-bottom: 1px solid rgba(0,0,0,0.05);
     background: rgba(255,255,255,0.6);
@@ -71,7 +72,10 @@ body {
 }
 
 /* ==========================
-   Floating Logo (Top Bar + Header)
+   Floating Logo (transparent) + shrink-on-scroll
+   How it works:
+   - JS toggles .is-scrolled on .site-header when scrolling down
+   - JS toggles .snap-back briefly on scroll up to add bounce
    ========================== */
 
 .brand {
@@ -83,33 +87,57 @@ body {
     /* move logo further right */
     padding-left: 36px;
 
-    /* ensure it sits above both topbar + header */
+    /* above topbar + header */
     z-index: 200;
 }
 
-/* BIG floating logo */
 .brand img {
     height: 96px;
     width: auto;
     display: block;
 
-    /* float across topbar + header */
-    margin-top: -34px;
-    margin-bottom: -10px;
-
-    /* keep logo transparent */
+    /* float across topbar + header (transparent logo) */
     background: transparent;
     padding: 0;
     border-radius: 0;
 
-    /* subtle shadow only on the logo itself */
-    filter: drop-shadow(0 14px 22px rgba(0,0,0,0.18))
-            drop-shadow(0 6px 10px rgba(0,0,0,0.08));
+    /* Use transform (animatable) instead of negative margins */
+    transform: translateY(-22px) scale(1);
+    transform-origin: left center;
+
+    /* Shadow follows logo shape (no box) */
+    filter:
+        drop-shadow(0 14px 22px rgba(0,0,0,0.18))
+        drop-shadow(0 6px 10px rgba(0,0,0,0.08));
+
+    /* Smooth transitions */
+    transition:
+        transform 280ms cubic-bezier(0.16, 1, 0.3, 1),
+        filter 280ms ease;
 }
+
+/* Shrink state (scroll down) */
+.site-header.is-scrolled .brand img {
+    transform: translateY(-12px) scale(0.78);
+    filter:
+        drop-shadow(0 10px 16px rgba(0,0,0,0.14))
+        drop-shadow(0 4px 8px rgba(0,0,0,0.08));
+}
+
+/* Snap-back bounce (scroll up) */
+@keyframes snapBack {
+    0%   { transform: translateY(-12px) scale(0.78); }
+    55%  { transform: translateY(-24px) scale(1.02); }
+    100% { transform: translateY(-22px) scale(1); }
+}
+.site-header.snap-back .brand img {
+    animation: snapBack 520ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 .brand::before { display: none !important; }
 .brand-text { display: none; }
 
-/* Move Search/Category LEFT slightly to cover white space */
+/* Controls (nudged left to fill whitespace) */
 .header-controls {
     display: flex;
     gap: 10px;
@@ -607,13 +635,11 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
         gap: 12px;
     }
 
-    /* keep logo large but less overlap on smaller screens */
     .brand { padding-left: 10px; }
     .brand img {
         height: 78px;
-        margin-top: -20px;
-        margin-bottom: -8px;
-        border-radius: 14px;
+        transform: translateY(-18px) scale(1);
+        filter: drop-shadow(0 10px 16px rgba(0,0,0,0.16));
     }
 
     .nav-pills { justify-content: flex-start; flex-wrap: wrap; }
@@ -634,8 +660,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 520px) {
     .brand img {
         height: 72px;
-        margin-top: -16px;
-        border-radius: 12px;
+        transform: translateY(-16px) scale(1);
+        filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14));
     }
 }
-
