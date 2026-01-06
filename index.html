@@ -51,6 +51,27 @@
       "description":"Square Frames supplies hardware, tools, timber products, OHS safety equipment, cleaning supplies, and provides repair and maintenance services across Fiji."
     }
     </script>
+
+    <style>
+      /* Minimal non-invasive toast (keeps your CSS unchanged) */
+      #toast {
+        position: fixed;
+        left: 50%;
+        bottom: 24px;
+        transform: translateX(-50%);
+        padding: 12px 14px;
+        border-radius: 10px;
+        background: rgba(17,17,17,0.92);
+        color: #fff;
+        font-weight: 700;
+        font-size: 0.95rem;
+        z-index: 9999;
+        max-width: min(560px, calc(100% - 24px));
+        box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+        display: none;
+        white-space: pre-wrap;
+      }
+    </style>
 </head>
 
 <body>
@@ -59,7 +80,6 @@
     <header class="site-header">
         <div class="topbar">
             <div class="topbar-inner">
-                <!-- Left text removed -->
                 <div class="topbar-right">
                     <a href="tel:+6797855919">+679 7855919</a>
                     <span class="dot">•</span>
@@ -71,7 +91,6 @@
         <div class="header-inner">
             <a href="/" class="brand" aria-label="Square Frames Home">
                 <img src="images/sqf_logo_transparent.png" alt="Square Frames">
-                <!-- Brand text removed -->
             </a>
 
             <div class="header-controls modern-controls">
@@ -151,7 +170,7 @@
             <div class="close-btn" onclick="closeInquiryForm()" style="position:absolute; top:16px; right:16px; background:none;" aria-label="Close">&times;</div>
             <h3 style="margin:0 0 18px 0; font-size:1.3rem;">Send an Enquiry</h3>
 
-            <form onsubmit="handleFormSubmit(event)">
+            <form id="inquiryForm">
                 <input type="hidden" id="form-product">
 
                 <div class="form-group">
@@ -185,7 +204,12 @@
         &copy; 2026 Square Frames. All rights reserved.
     </footer>
 
+    <div id="toast" role="status" aria-live="polite"></div>
+
     <script>
+        // =========================
+        // State
+        // =========================
         let products = [];
         let currentImages = [];
         let currentImgIndex = 0;
@@ -196,6 +220,30 @@
         const sheetID = '1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0';
         const sheetName = 'Sheet1';
 
+        // =========================
+        // Helpers
+        // =========================
+        function toast(msg, ms = 2600) {
+            const el = document.getElementById('toast');
+            if (!el) return;
+            el.textContent = msg;
+            el.style.display = 'block';
+            clearTimeout(el._t);
+            el._t = setTimeout(() => { el.style.display = 'none'; }, ms);
+        }
+
+        function escapeHtml(s) {
+            return String(s)
+                .replaceAll("&", "&amp;")
+                .replaceAll("<", "&lt;")
+                .replaceAll(">", "&gt;")
+                .replaceAll('"', "&quot;")
+                .replaceAll("'", "&#039;");
+        }
+
+        // =========================
+        // Load products
+        // =========================
         fetch(`https://opensheet.elk.sh/${sheetID}/${sheetName}`)
             .then(res => res.json())
             .then(data => {
@@ -229,6 +277,9 @@
                 document.getElementById('grid').innerHTML = '<p style="text-align:center;">System Error.</p>';
             });
 
+        // =========================
+        // SEO schema (ItemList)
+        // =========================
         function generateItemListSchema(items) {
             const schema = {
                 "@context": "https://schema.org",
@@ -239,7 +290,7 @@
                     "item": {
                         "@type": "Product",
                         "name": p.name,
-                        "image": p.images[0] || "",
+                        "image": (p.images && p.images[0]) ? p.images[0] : "",
                         "description": (p.description || "").replace(/\n/g, " "),
                         "offers": {
                             "@type": "Offer",
@@ -255,6 +306,9 @@
             document.head.appendChild(script);
         }
 
+        // =========================
+        // Render grid
+        // =========================
         function renderProducts(data) {
             const grid = document.getElementById('grid');
             const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
@@ -266,14 +320,15 @@
                 let pointsHtml = '';
                 if (p.description) {
                     const lines = p.description.split('\n').filter(l => l.trim().length > 0).slice(0, 2);
-                    pointsHtml = lines.map(line => `<li>${line}</li>`).join('');
+                    pointsHtml = lines.map(line => `<li>${escapeHtml(line)}</li>`).join('');
                 }
 
+                // Use data-* + delegated click handler in JS (cleaner than inline onclick)
                 return `
-                <article class="card ${sizeClass}" data-cat="${p.category || ''}" onclick="openProduct('${p.slug}', true)">
-                    <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name || ''} - ${(p.category || '')}">
+                <article class="card ${sizeClass}" data-cat="${escapeHtml(p.category || '')}" data-slug="${escapeHtml(p.slug || '')}">
+                    <img src="${escapeHtml(thumb)}" class="card-img" loading="lazy" alt="${escapeHtml(p.name || '')} - ${escapeHtml(p.category || '')}">
                     <div class="card-overlay">
-                        <h3 class="card-title">${p.name || ''}</h3>
+                        <h3 class="card-title">${escapeHtml(p.name || '')}</h3>
                         <ul class="card-points">${pointsHtml}</ul>
                     </div>
                 </article>
@@ -281,6 +336,17 @@
             }).join('');
         }
 
+        // Click-to-open (event delegation)
+        document.getElementById('grid').addEventListener('click', (e) => {
+            const card = e.target.closest('.card');
+            if (!card) return;
+            const slug = card.getAttribute('data-slug');
+            if (slug) openProduct(slug, true);
+        });
+
+        // =========================
+        // Modal logic
+        // =========================
         function openProduct(slug, pushState) {
             const p = products.find(i => i.slug === slug);
             if (!p) return;
@@ -303,9 +369,8 @@
 
             if (p.dimensions && p.dimensions.trim() !== "") {
                 dimBox.style.display = "block";
-                const dims = p.dimensions.split('\n');
-                dims.forEach(d => {
-                    if (d.trim()) dimList.innerHTML += `<span class="dim-pill">${d.trim()}</span>`;
+                p.dimensions.split('\n').forEach(d => {
+                    if (d.trim()) dimList.innerHTML += `<span class="dim-pill">${escapeHtml(d.trim())}</span>`;
                 });
             } else {
                 dimBox.style.display = "none";
@@ -315,7 +380,7 @@
             listContainer.innerHTML = '';
             if (p.description) {
                 p.description.split('\n').forEach(line => {
-                    if (line && line.trim().length > 0) listContainer.innerHTML += `<li>${line}</li>`;
+                    if (line && line.trim().length > 0) listContainer.innerHTML += `<li>${escapeHtml(line)}</li>`;
                 });
             }
 
@@ -358,11 +423,19 @@
             document.title = "Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji";
         }
 
+        // Keep these functions for your existing inline handlers (arrows + close button)
+        window.changeImage = changeImage;
+        window.closeModal = closeModal;
+
         function openInquiryForm() { inquiryOverlay.style.display = 'flex'; }
         function closeInquiryForm() { inquiryOverlay.style.display = 'none'; }
+        window.openInquiryForm = openInquiryForm;
+        window.closeInquiryForm = closeInquiryForm;
 
-        // ✅ UPDATED: send enquiry directly via Cloudflare Pages Function (no mailto)
-        async function handleFormSubmit(e) {
+        // =========================
+        // Enquiry form (direct send via /api/contact using Resend backend)
+        // =========================
+        document.getElementById('inquiryForm').addEventListener('submit', async (e) => {
             e.preventDefault();
 
             const payload = {
@@ -385,30 +458,30 @@
                 const out = await res.json().catch(() => ({}));
 
                 if (res.ok && out.ok) {
-                    alert("Sent! We’ll get back to you shortly.");
+                    toast("Sent! We’ll get back to you shortly.");
                     closeInquiryForm();
                     e.target.reset();
                 } else {
                     const details = out && (out.error || out.details)
-                      ? (out.error + (out.details ? "\n\n" + out.details : ""))
-                      : "No details returned.";
-                    alert("Send failed.\n\n" + details);
+                        ? (out.error + (out.details ? "\n\n" + out.details : ""))
+                        : "Unknown error";
+                    toast("Send failed.\n\n" + details, 6000);
                     console.error(out);
                 }
             } catch (err) {
-                const details = out && (out.error || out.details)
-                  ? (out.error + (out.details ? "\n\n" + out.details : ""))
-                  : "No details returned.";
-                alert("Send failed.\n\n" + details);
-                console.error(out);
+                toast("Send failed.\n\nPlease email admin@sqframes.com", 6000);
+                console.error(err);
             }
-        }
+        });
 
+        // =========================
+        // Filters
+        // =========================
         function initCategories() {
-            const cats = [...new Set(products.map(p => p.category).filter(c => c))];
+            const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
             const sel = document.getElementById('categorySelect');
             sel.innerHTML = '<option value="all">All Categories</option>';
-            cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
+            cats.forEach(c => sel.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`);
         }
 
         document.getElementById('searchInput').addEventListener('input', (e) => {
@@ -423,54 +496,54 @@
             renderProducts(filtered);
         });
 
+        // =========================
+        // Back/forward handling
+        // =========================
         window.onpopstate = () => {
             const slug = window.location.pathname.substring(1);
             slug && slug.length > 1 ? openProduct(slug, false) : closeModal();
         };
     </script>
+
     <script>
+      // Header shrink/snap behavior (unchanged)
       (function () {
         const header = document.querySelector('.site-header');
         if (!header) return;
-    
+
         let lastY = window.scrollY;
         let ticking = false;
         let snapTimer = null;
-    
+
         function update() {
           const y = window.scrollY;
-    
-          // Toggle compression/shrink
+
           if (y > 18) header.classList.add('is-scrolled');
           else header.classList.remove('is-scrolled');
-    
-          // Snap-back on scroll up (only when already compressed)
+
           const goingUp = y < lastY;
           const wasScrolled = lastY > 18;
-    
+
           if (goingUp && wasScrolled) {
             header.classList.add('snap-back');
             clearTimeout(snapTimer);
             snapTimer = setTimeout(() => header.classList.remove('snap-back'), 560);
           }
-    
+
           lastY = y;
           ticking = false;
         }
-    
+
         function onScroll() {
           if (!ticking) {
             window.requestAnimationFrame(update);
             ticking = true;
           }
         }
-    
+
         window.addEventListener('scroll', onScroll, { passive: true });
       })();
     </script>
 
 </body>
 </html>
-
-
-
