@@ -409,47 +409,10 @@ ${msg}`;
             slug && slug.length > 1 ? openProduct(slug, false) : closeModal();
         };
     </script>
-    <script>
-      (function () {
-        const header = document.querySelector('.site-header');
-        if (!header) return;
     
-        let lastY = window.scrollY;
-        let ticking = false;
-        let snapTimer = null;
-    
-        function onScroll() {
-          const y = window.scrollY;
-    
-          // Add shrink when scrolling down beyond a small threshold
-          if (y > 18) header.classList.add('is-scrolled');
-          else header.classList.remove('is-scrolled');
-    
-          // Detect scroll direction for snap-back on scroll up
-          const goingUp = y < lastY;
-          const wasScrolled = lastY > 18;
-    
-          if (goingUp && wasScrolled) {
-            header.classList.add('snap-back');
-            clearTimeout(snapTimer);
-            snapTimer = setTimeout(() => header.classList.remove('snap-back'), 560);
-          }
-    
-          lastY = y;
-          ticking = false;
-        }
-    
-        window.addEventListener('scroll', () => {
-          if (!ticking) {
-            window.requestAnimationFrame(onScroll);
-            ticking = true;
-          }
-        }, { passive: true });
-      })();
-    </script>
-
 </body>
 </html>
+
 
 
 
