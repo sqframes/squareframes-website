@@ -22,7 +22,7 @@ body {
 }
 
 /* ==========================
-   Modern Header Upgrade
+   Header
    ========================== */
 
 .site-header {
@@ -32,10 +32,10 @@ body {
     background: rgba(255,255,255,0.86);
     backdrop-filter: blur(14px);
     border-bottom: 1px solid rgba(0,0,0,0.06);
-    overflow: visible; /* allow logo overlap */
+    overflow: visible;
 }
 
-/* Topbar now only shows phone/email on the right */
+/* Topbar only phone/email right */
 .topbar {
     border-bottom: 1px solid rgba(0,0,0,0.05);
     background: rgba(255,255,255,0.6);
@@ -64,14 +64,14 @@ body {
 .header-inner {
     max-width: 1600px;
     margin: 0 auto;
-    padding: 18px 40px 14px 40px; /* extra top padding so overlap feels intentional */
+    padding: 14px 40px;
     display: grid;
-    grid-template-columns: 1fr 1.5fr 1fr;
+    grid-template-columns: 1fr 1.6fr 1fr;
     align-items: center;
     gap: 16px;
-    overflow: visible; /* allow logo overlap */
 }
 
+/* Move logo slightly right */
 .brand {
     display: inline-flex;
     align-items: center;
@@ -79,54 +79,30 @@ body {
     text-decoration: none;
     color: inherit;
     position: relative;
-    overflow: visible;
+    padding-left: 10px; /* shift right */
 }
-
-/* subtle “anchor” glow behind logo so it doesn’t feel alone */
-.brand::before{
-    content:"";
-    position:absolute;
-    left: -10px;
-    top: -18px;
-    width: 96px;
-    height: 96px;
-    border-radius: 26px;
-    background:
-        radial-gradient(closest-side, rgba(52,176,224,0.28), rgba(255,255,255,0) 70%),
-        radial-gradient(closest-side, rgba(33,107,191,0.18), rgba(255,255,255,0) 72%);
-    filter: blur(2px);
-    pointer-events: none;
-    z-index: 0;
-}
-
-@keyframes logoFloatIn {
-    0%   { transform: translateY(-2px) scale(0.92); opacity: 0; }
-    60%  { transform: translateY(-18px) scale(1.04); opacity: 1; }
-    100% { transform: translateY(-14px) scale(1); opacity: 1; }
-}
-
-/* Bigger logo + overlap above header boundary */
 .brand img {
-    height: 78px;             /* bigger */
+    height: 64px;
     width: auto;
     display: block;
-    position: relative;
-    z-index: 1;
-    transform: translateY(-14px); /* overlap top boundary */
-    filter: drop-shadow(0 16px 22px rgba(0,0,0,0.12));
-    animation: logoFloatIn 700ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
 
-/* Remove text beside logo */
+    /* remove overlap + remove animation */
+    transform: none !important;
+    filter: none !important;
+    animation: none !important;
+}
+.brand::before { display: none !important; }
 .brand-text { display: none; }
 
+/* Shift controls slightly left to fill whitespace */
 .header-controls {
     display: flex;
     gap: 10px;
     flex-grow: 1;
-    max-width: 560px;
+    max-width: 620px;
     margin: 0;
     justify-self: center;
+    transform: translateX(-14px); /* nudge left */
 }
 
 .search-wrap, .select-wrap {
@@ -169,15 +145,12 @@ body {
     padding: 10px 14px;
     border-radius: 999px;
     border: 1px solid transparent;
-
     display: inline-flex;
     align-items: center;
     justify-content: center;
     line-height: 1;
     text-align: center;
 }
-
-/* Hover for normal pills */
 .nav-pills a:hover {
     background: rgba(0,0,0,0.04);
     border-color: rgba(0,0,0,0.06);
@@ -199,79 +172,27 @@ body {
 }
 
 /* ==========================
-   Hero (New Modern Background)
+   Hero (remove background)
    ========================== */
 
-/* Make hero full-width, but keep content centered with max-width on inner elements */
 .hero {
-    padding: 92px 5% 72px 5%;
-    max-width: none;              /* allow full-width background */
-    margin: 0;
+    padding: 80px 5% 40px 5%;
+    max-width: 900px;
+    margin: 0 auto;
     text-align: center;
     position: relative;
-    overflow: hidden;
-    border-bottom: 1px solid rgba(0,0,0,0.06);
 
-    /* Modern “aurora” style background (no dot grid) */
-    background:
-      radial-gradient(900px 380px at 18% 18%, rgba(52,176,224,0.30), rgba(255,255,255,0) 62%),
-      radial-gradient(760px 320px at 78% 28%, rgba(33,107,191,0.22), rgba(255,255,255,0) 60%),
-      radial-gradient(650px 260px at 55% 0%, rgba(17,17,17,0.05), rgba(255,255,255,0) 70%),
-      linear-gradient(180deg, rgba(248,250,252,1) 0%, rgba(255,255,255,1) 70%);
+    /* remove any fancy backgrounds */
+    background: none !important;
 }
-
-/* Soft “glass wave” overlay */
-.hero::before{
-    content:"";
-    position:absolute;
-    inset:-40px -80px auto -80px;
-    height: 220px;
-    background:
-      linear-gradient(135deg,
-        rgba(255,255,255,0.65) 0%,
-        rgba(255,255,255,0.25) 45%,
-        rgba(255,255,255,0.55) 100%);
-    transform: rotate(-6deg);
-    border-radius: 40px;
-    filter: blur(1px);
-    opacity: 0.85;
-    pointer-events:none;
-}
-
-/* subtle diagonal lines for “modern” texture */
-.hero::after{
-    content:"";
-    position:absolute;
-    inset:0;
-    background:
-      repeating-linear-gradient(
-        135deg,
-        rgba(15,23,42,0.04) 0px,
-        rgba(15,23,42,0.04) 1px,
-        rgba(255,255,255,0) 10px,
-        rgba(255,255,255,0) 18px
-      );
-    opacity: 0.35;
-    mask-image: linear-gradient(180deg, rgba(0,0,0,1) 0%, rgba(0,0,0,0) 72%);
-    pointer-events:none;
-}
-
-/* Keep hero content above overlays + constrain width */
-.hero > * { position: relative; z-index: 1; }
-.hero .tagline,
-.hero .subline,
-.hero .badges {
-    max-width: 900px;
-    margin-left: auto;
-    margin-right: auto;
-}
+.hero::before,
+.hero::after { display: none !important; }
 
 .tagline {
-    font-size: 1.7rem;
+    font-size: 1.55rem;
     font-weight: 800;
-    line-height: 1.35;
+    line-height: 1.4;
     color: #0f172a;
-
     opacity: 0;
     transform: translateY(20px);
     animation: textReveal 0.8s ease-out forwards;
@@ -299,8 +220,7 @@ body {
     padding: 10px 14px;
     border-radius: 999px;
     border: 1px solid rgba(0,0,0,0.08);
-    background: rgba(255,255,255,0.85);
-    backdrop-filter: blur(8px);
+    background: #fff;
     box-shadow: 0 10px 20px rgba(0,0,0,0.06);
     font-weight: 800;
     font-size: 0.85rem;
@@ -310,7 +230,10 @@ body {
     to { opacity: 1; transform: translateY(0); }
 }
 
-/* --- Grid --- */
+/* ==========================
+   Grid + Cards
+   ========================== */
+
 .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
@@ -327,8 +250,10 @@ body {
     overflow: hidden;
     border-radius: 12px;
     cursor: pointer;
+    background: #fff;
 }
 
+/* Random sizes */
 .card.wide { grid-column: span 2; }
 .card.tall { grid-row: span 2; }
 .card.big  { grid-column: span 2; grid-row: span 2; }
@@ -341,30 +266,50 @@ body {
 }
 .card:hover .card-img { transform: scale(1.05); }
 
+/* Make overlay ALWAYS visible */
 .card-overlay {
     position: absolute;
     bottom: 0; left: 0; width: 100%;
-    padding: 20px;
-    background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+    padding: 18px 18px 16px 18px;
+    background: linear-gradient(to top, rgba(0,0,0,0.88), rgba(0,0,0,0.55) 55%, rgba(0,0,0,0.0) 100%);
     color: white;
-    opacity: 0;
-    transition: opacity 0.3s;
+    opacity: 1;                 /* always visible */
+    transition: none;
     box-sizing: border-box;
 }
-.card:hover .card-overlay { opacity: 1; }
-.card-title { font-weight: 700; font-size: 1.05rem; margin: 0; }
 
+/* Title always visible */
+.card-title {
+    font-weight: 800;
+    font-size: 1.05rem;
+    margin: 0 0 10px 0;
+    text-shadow: 0 2px 10px rgba(0,0,0,0.45);
+}
+
+/* Bullet points always visible + exactly 2 lines */
 .card-points {
-    list-style: none;
-    padding: 0;
-    margin: 10px 0 0 0;
+    list-style: disc;
+    padding-left: 18px;          /* bullets visible */
+    margin: 0;
     opacity: 0.95;
-    font-size: 0.9rem;
+    font-size: 0.92rem;
     line-height: 1.5;
 }
-.card-points li { margin-bottom: 4px; }
 
-/* --- Modal --- */
+/* Clamp to 2 lines, keep bullets */
+.card-points li {
+    margin: 0;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-line-clamp: 1;       /* each bullet becomes one line */
+}
+
+/* ==========================
+   Modal
+   ========================== */
+
 #product-modal {
     display: none;
     position: fixed;
@@ -571,23 +516,19 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
         grid-template-columns: 1fr;
         gap: 12px;
     }
-    .brand::before { left: -6px; top: -14px; width: 84px; height: 84px; }
-    .brand img { height: 70px; transform: translateY(-10px); }
+    .brand { padding-left: 0; }
+    .brand img { height: 58px; }
     .nav-pills { justify-content: flex-start; flex-wrap: wrap; }
-    .header-controls { display: none; margin: 0; }
+    .header-controls { display: none; margin: 0; transform: none; }
 }
 
 @media (max-width: 768px) {
     .grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
     .card.wide, .card.tall, .card.big { grid-column: auto; grid-row: auto; }
-    .hero { padding: 80px 5% 60px 5%; }
-    .tagline { font-size: 1.25rem; }
+    .hero { padding: 70px 5% 30px 5%; }
+    .tagline { font-size: 1.2rem; }
     .modal-content { grid-template-columns: 1fr; }
-    .card-overlay { opacity: 1; background: linear-gradient(to top, rgba(0,0,0,0.6), transparent); }
+    .card-overlay { opacity: 1; }
     .kv { grid-template-columns: 1fr; }
     .page { padding-top: 55px; }
-}
-
-@media (max-width: 520px) {
-    .brand img { height: 64px; transform: translateY(-8px); }
 }
