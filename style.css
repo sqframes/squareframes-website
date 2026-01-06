@@ -93,24 +93,19 @@ body {
     width: auto;
     display: block;
 
-    /* float over both sections */
-    margin-top: -34px;   /* pulls upward into topbar */
+    /* float across topbar + header */
+    margin-top: -34px;
     margin-bottom: -10px;
 
-    /* visual polish */
-    background: #ffffff;
-    border-radius: 16px;
-    padding: 6px;
-    box-shadow:
-        0 18px 30px rgba(0,0,0,0.18),
-        0 6px 12px rgba(0,0,0,0.08);
+    /* keep logo transparent */
+    background: transparent;
+    padding: 0;
+    border-radius: 0;
 
-    /* hard disable any animation/transform/filter */
-    animation: none !important;
-    transform: none !important;
-    filter: none !important;
+    /* subtle shadow only on the logo itself */
+    filter: drop-shadow(0 14px 22px rgba(0,0,0,0.18))
+            drop-shadow(0 6px 10px rgba(0,0,0,0.08));
 }
-
 .brand::before { display: none !important; }
 .brand-text { display: none; }
 
@@ -643,3 +638,4 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
         border-radius: 12px;
     }
 }
+
