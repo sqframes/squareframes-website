@@ -1,8 +1,5 @@
 export async function onRequestGet() {
-  return new Response(
-    JSON.stringify({ ok: true, message: "Contact API is online. Send POST JSON to /api/contact." }),
-    { headers: { "content-type": "application/json; charset=utf-8" } }
-  );
+  return json({ ok: true, message: "Contact API online. POST JSON to /api/contact to send." }, 200);
 }
 
 export async function onRequestPost(context) {
@@ -16,7 +13,7 @@ export async function onRequestPost(context) {
 
     const data = await request.json();
 
-    // Honeypot support (optional)
+    // Optional honeypot: if you add a hidden field "website" in your forms, bots fill it
     if (data.website && String(data.website).trim() !== "") {
       return json({ ok: true }, 200);
     }
@@ -35,8 +32,17 @@ export async function onRequestPost(context) {
       return json({ ok: false, error: "Invalid email" }, 400);
     }
 
-    // Use a REAL mailbox as sender (you requested admin@sqframes.com)
-    const fromAddress = "admin@sqframes.com";
+    const apiKey = env.RESEND_API_KEY;
+    if (!apiKey) {
+      return json({ ok: false, error: "Missing RESEND_API_KEY in Cloudflare Pages env vars" }, 500);
+    }
+
+    // Your requirements:
+    // - Sender: admin@sqframes.com (must be verified in Resend)
+    // - To: admin@sqframes.com
+    // - CC: customer email
+    // - Reply-To: customer email (so Reply goes to them)
+    const fromAddress = "Square Frames <admin@sqframes.com>";
     const toAddress = "admin@sqframes.com";
 
     const subject = product
@@ -65,45 +71,45 @@ ${message}`;
       <p style="white-space:pre-wrap;">${escapeHtml(message)}</p>
     `;
 
-    const mcPayload = {
-      personalizations: [
-        {
-          to: [{ email: toAddress }],
-          cc: [{ email }], // CC the user (as requested)
-        },
-      ],
-      from: { email: fromAddress, name: "Square Frames" },
-      reply_to: { email, name }, // Reply goes to customer
-      subject,
-      content: [
-        { type: "text/plain", value: textBody },
-        { type: "text/html", value: htmlBody },
-      ],
-    };
-
-    const apiKey = env.MAILCHANNELS_API_KEY;
-    if (!apiKey) {
-      return json({ ok: false, error: "Missing MAILCHANNELS_API_KEY in Cloudflare Pages env vars" }, 500);
-    }
-
-    const resp = await fetch("https://api.mailchannels.net/tx/v1/send", {
+    // Resend Send Email endpoint:
+    // Base: https://api.resend.com
+    // Auth: Authorization: Bearer re_...
+    // Docs: Resend API intro + examples :contentReference[oaicite:3]{index=3}
+    const resp = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
         "content-type": "application/json",
-        "x-api-key": apiKey,
+        "authorization": `Bearer ${apiKey}`,
       },
-      body: JSON.stringify(mcPayload),
+      body: JSON.stringify({
+        from: fromAddress,
+        to: [toAddress],
+        cc: [email],
+        reply_to: email,
+        subject,
+        text: textBody,
+        html: htmlBody,
+      }),
     });
 
     const respText = await resp.text().catch(() => "");
     if (!resp.ok) {
       return json(
-        { ok: false, error: "MailChannels rejected the send", status: resp.status, details: respText.slice(0, 2000) },
+        {
+          ok: false,
+          error: "Resend rejected the send",
+          status: resp.status,
+          details: respText.slice(0, 2000),
+        },
         502
       );
     }
 
-    return json({ ok: true }, 200);
+    // Resend returns JSON on success (id, etc.). Not required, but handy.
+    let parsed = null;
+    try { parsed = JSON.parse(respText); } catch (_) {}
+
+    return json({ ok: true, resend: parsed }, 200);
   } catch (e) {
     return json({ ok: false, error: "Server error", details: String(e) }, 500);
   }
