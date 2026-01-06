@@ -55,37 +55,62 @@
 
 <body>
 
-    <header>
-        <a href="/" class="logo" aria-label="Square Frames Home">
-            <img src="images/sqf_logo_transparent.png" alt="Square Frames">
-        </a>
-
-        <div class="header-controls">
-            <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search">
-            <select id="categorySelect" aria-label="Filter Category">
-                <option value="all">Filter by Category</option>
-            </select>
+    <!-- Modern Header -->
+    <header class="site-header">
+        <div class="topbar">
+            <div class="topbar-inner">
+                <div class="topbar-left">
+                    <span>Suva, Fiji • Servicing all of Fiji</span>
+                </div>
+                <div class="topbar-right">
+                    <a href="tel:+6797855919">+679 785 5919</a>
+                    <span class="dot">•</span>
+                    <a href="mailto:admin@sqframes.com">admin@sqframes.com</a>
+                </div>
+            </div>
         </div>
 
-        <nav>
-            <a href="/about.html">About</a>
-            <a href="/contact.html">Contact</a>
-        </nav>
+        <div class="header-inner">
+            <a href="/" class="brand" aria-label="Square Frames Home">
+                <img src="images/sqf_logo_transparent.png" alt="Square Frames">
+                <div class="brand-text">
+                    <span class="brand-name">Square Frames</span>
+                    <span class="brand-tag">Hardware • Timber • Tools • OHS</span>
+                </div>
+            </a>
+
+            <div class="header-controls modern-controls">
+                <div class="search-wrap">
+                    <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search">
+                </div>
+                <div class="select-wrap">
+                    <select id="categorySelect" aria-label="Filter Category">
+                        <option value="all">All Categories</option>
+                    </select>
+                </div>
+            </div>
+
+            <nav class="nav-pills" aria-label="Main navigation">
+                <a href="/about.html">About</a>
+                <a href="/contact.html">Contact</a>
+                <a class="btn-cta" href="/contact.html">Request Quote</a>
+            </nav>
+        </div>
     </header>
 
     <main>
         <section class="hero">
-            <h1 class="tagline">Hardware, Timber, Tools & OHS Supplies Across Fiji</h1>
+            <h1 class="tagline">Fast Supply. Safe Sites. Reliable Service Across Fiji.</h1>
             <p class="subline">
-                <strong>Square Frames</strong> (Suva) supplies hardware items, tools, timber products, cleaning supplies,
-                OHS safety equipment, and provides repair &amp; maintenance services across Fiji.
+                Hardware, timber, tools, OHS safety equipment, cleaning supplies, plus repair &amp; maintenance —
+                based in <strong>Suva</strong> and servicing <strong>all of Fiji</strong>.
             </p>
 
             <div class="badges" aria-label="Highlights">
-                <span class="badge">Suva, Fiji</span>
-                <span class="badge">Servicing All of Fiji</span>
-                <span class="badge">Hardware • Timber • Tools</span>
-                <span class="badge">OHS • Cleaning • Maintenance</span>
+                <span class="badge">Fast enquiries</span>
+                <span class="badge">Trade & business support</span>
+                <span class="badge">OHS-ready gear</span>
+                <span class="badge">Nationwide service</span>
             </div>
         </section>
 
@@ -129,7 +154,7 @@
     <!-- Inquiry Form Overlay -->
     <div id="inquiry-form-overlay">
         <div class="form-box">
-            <div class="close-btn" onclick="closeInquiryForm()" style="position:absolute; top:16px; right:16px; background:none;">&times;</div>
+            <div class="close-btn" onclick="closeInquiryForm()" style="position:absolute; top:16px; right:16px; background:none;" aria-label="Close">&times;</div>
             <h3 style="margin:0 0 18px 0; font-size:1.3rem;">Send an Enquiry</h3>
 
             <form onsubmit="handleFormSubmit(event)">
@@ -174,16 +199,13 @@
         const modal = document.getElementById('product-modal');
         const inquiryOverlay = document.getElementById('inquiry-form-overlay');
 
-        // Your Google Sheet -> OpenSheet endpoint
         const sheetID = '1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0';
         const sheetName = 'Sheet1';
 
-        // 1) Fetch Data
         fetch(`https://opensheet.elk.sh/${sheetID}/${sheetName}`)
             .then(res => res.json())
             .then(data => {
                 products = data.map(item => {
-                    // Normalize dimensions to be safe
                     let safeDims = "";
                     if (item.dimensions) safeDims = item.dimensions;
                     else if (item.Dimensions) safeDims = item.Dimensions;
@@ -205,7 +227,6 @@
                 initCategories();
                 renderProducts(products);
 
-                // Open product when using /slug
                 const slug = window.location.pathname.substring(1);
                 if (slug && slug.length > 1) openProduct(slug, false);
             })
@@ -214,7 +235,6 @@
                 document.getElementById('grid').innerHTML = '<p style="text-align:center;">System Error.</p>';
             });
 
-        // 2) SEO Schema: ItemList of Products
         function generateItemListSchema(items) {
             const schema = {
                 "@context": "https://schema.org",
@@ -241,7 +261,6 @@
             document.head.appendChild(script);
         }
 
-        // 3) Render Tiles with Points
         function renderProducts(data) {
             const grid = document.getElementById('grid');
             const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
@@ -250,7 +269,6 @@
                 const sizeClass = patterns[index % patterns.length];
                 const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
 
-                // Get first 2 lines for tile display
                 let pointsHtml = '';
                 if (p.description) {
                     const lines = p.description.split('\n').filter(l => l.trim().length > 0).slice(0, 2);
@@ -274,8 +292,6 @@
             if (!p) return;
 
             if (pushState) history.pushState({ slug }, '', '/' + slug);
-
-            // Update document title per product
             document.title = `${p.name || 'Product'} | Square Frames`;
 
             currentImages = p.images || [];
@@ -287,7 +303,6 @@
             document.getElementById('m-price').innerText = p.price || '';
             document.getElementById('form-product').value = p.name || '';
 
-            // Dimensions / details pills
             const dimBox = document.getElementById('m-dims-box');
             const dimList = document.getElementById('m-dims-list');
             dimList.innerHTML = '';
@@ -302,7 +317,6 @@
                 dimBox.style.display = "none";
             }
 
-            // Description list
             const listContainer = document.getElementById('m-desc-list');
             listContainer.innerHTML = '';
             if (p.description) {
@@ -350,13 +364,8 @@
             document.title = "Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji";
         }
 
-        function openInquiryForm() {
-            inquiryOverlay.style.display = 'flex';
-        }
-
-        function closeInquiryForm() {
-            inquiryOverlay.style.display = 'none';
-        }
+        function openInquiryForm() { inquiryOverlay.style.display = 'flex'; }
+        function closeInquiryForm() { inquiryOverlay.style.display = 'none'; }
 
         function handleFormSubmit(e) {
             e.preventDefault();
@@ -385,7 +394,7 @@ ${msg}`;
         function initCategories() {
             const cats = [...new Set(products.map(p => p.category).filter(c => c))];
             const sel = document.getElementById('categorySelect');
-            sel.innerHTML = '<option value="all">Filter by Category</option>';
+            sel.innerHTML = '<option value="all">All Categories</option>';
             cats.forEach(c => sel.innerHTML += `<option value="${c}">${c}</option>`);
         }
 
