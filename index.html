@@ -389,8 +389,9 @@
                     closeInquiryForm();
                     e.target.reset();
                 } else {
-                    alert("Sorry — message failed to send. Please email admin@sqframes.com");
-                    console.error(out);
+                    alert("Send failed: " + (out && (out.error || out.details) ? (out.error + (out.details ? "\n" + out.details : "")) : "Unknown error"));
+console.error(out);
+
                 }
             } catch (err) {
                 alert("Sorry — message failed to send. Please email admin@sqframes.com");
@@ -465,3 +466,4 @@
 
 </body>
 </html>
+
