@@ -389,13 +389,18 @@
                     closeInquiryForm();
                     e.target.reset();
                 } else {
-                    alert("Send failed: " + (out && (out.error || out.details) ? (out.error + (out.details ? "\n" + out.details : "")) : "Unknown error"));
-console.error(out);
-
+                    const details = out && (out.error || out.details)
+                      ? (out.error + (out.details ? "\n\n" + out.details : ""))
+                      : "No details returned.";
+                    alert("Send failed.\n\n" + details);
+                    console.error(out);
                 }
             } catch (err) {
-                alert("Send failed: " + (out && (out.error || out.details) ? (out.error + (out.details ? "\n" + out.details : "")) : "Unknown error"));
-console.error(out);
+                const details = out && (out.error || out.details)
+                  ? (out.error + (out.details ? "\n\n" + out.details : ""))
+                  : "No details returned.";
+                alert("Send failed.\n\n" + details);
+                console.error(out);
             }
         }
 
@@ -466,5 +471,6 @@ console.error(out);
 
 </body>
 </html>
+
 
 
