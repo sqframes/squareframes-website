@@ -70,7 +70,57 @@ body {
     align-items: center;
     gap: 16px;
 }
+/* ==========================
+   Smooth header compression on scroll
+   ========================== */
 
+/* animate header internals */
+.site-header,
+.topbar,
+.header-inner,
+.topbar-inner {
+  transition:
+    padding 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    background 260ms ease,
+    border-color 260ms ease;
+}
+
+/* compress when scrolled */
+.site-header.is-scrolled .topbar {
+  opacity: 0;                 /* fades out topbar */
+  height: 0;                  /* collapses height */
+  overflow: hidden;
+  border-bottom: 0;
+  transition:
+    opacity 180ms ease,
+    height 260ms cubic-bezier(0.16, 1, 0.3, 1),
+    border-color 260ms ease;
+}
+
+/* tighten header padding when scrolled */
+.site-header.is-scrolled .header-inner {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+/* optional: slightly reduce control height for compact look */
+.site-header.is-scrolled .search-wrap,
+.site-header.is-scrolled .select-wrap {
+  min-height: 40px;
+}
+
+.site-header.is-scrolled .nav-pills a {
+  padding-top: 9px;
+  padding-bottom: 9px;
+}
+
+/* keep layout stable when topbar collapses (prevents jump) */
+.topbar {
+  height: 42px;               /* normal topbar height */
+  transition:
+    opacity 180ms ease,
+    height 260ms cubic-bezier(0.16, 1, 0.3, 1);
+}
 /* ==========================
    Floating Logo (transparent) + shrink-on-scroll
    How it works:
@@ -664,3 +714,4 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
         filter: drop-shadow(0 8px 12px rgba(0,0,0,0.14));
     }
 }
+
