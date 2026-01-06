@@ -169,7 +169,7 @@ body {
 }
 
 /* ==========================
-   Hero
+   Hero (no background)
    ========================== */
 
 .hero {
@@ -226,7 +226,10 @@ body {
 }
 
 /* ==========================
-   Grid + Cards (Bullets visible)
+   Grid + Cards + Tile Polish
+   - category pill (requires data-cat in HTML)
+   - hover only brightens image
+   - title + 2 lines always visible with ▸ icons
    ========================== */
 
 .grid {
@@ -246,6 +249,8 @@ body {
     border-radius: 12px;
     cursor: pointer;
     background: #fff;
+    box-shadow: 0 10px 26px rgba(0,0,0,0.08);
+    transform: translateZ(0);
 }
 
 .card.wide { grid-column: span 2; }
@@ -256,9 +261,42 @@ body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.6s ease;
+    transition: transform 0.6s ease, filter 0.6s ease;
 }
-.card:hover .card-img { transform: scale(1.05); }
+
+.card:hover .card-img {
+    transform: scale(1.03);
+    filter: brightness(1.07) contrast(1.03);
+}
+
+/* Category pill (shows data-cat attr on .card) */
+.card::before {
+    content: attr(data-cat);
+    position: absolute;
+    top: 12px;
+    left: 12px;
+    z-index: 3;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 7px 10px;
+    border-radius: 999px;
+    background: rgba(255,255,255,0.88);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(0,0,0,0.08);
+    box-shadow: 0 8px 18px rgba(0,0,0,0.10);
+
+    font-size: 0.75rem;
+    font-weight: 900;
+    color: #0f172a;
+    letter-spacing: 0.2px;
+    line-height: 1;
+}
+
+/* Hide pill if empty */
+.card[data-cat=""]::before { display: none; }
 
 /* Overlay ALWAYS visible */
 .card-overlay {
@@ -271,31 +309,65 @@ body {
     box-sizing: border-box;
 }
 
+/* Bolder title */
 .card-title {
-    font-weight: 800;
-    font-size: 1.05rem;
+    font-weight: 900;
+    letter-spacing: -0.01em;
+    font-size: 1.1rem;
     margin: 0 0 10px 0;
     text-shadow: 0 2px 10px rgba(0,0,0,0.45);
 }
 
-/* Ensure bullets are clearly visible */
+/* Points: ▸ icon bullets + fade 2nd line */
 .card-points {
-    list-style: disc;
-    padding-left: 20px; /* makes bullet visible */
+    list-style: none;
+    padding: 0;
     margin: 0;
-    opacity: 0.95;
+    color: rgba(255,255,255,0.95);
     font-size: 0.92rem;
-    line-height: 1.5;
+    line-height: 1.45;
 }
 
-/* Exactly 2 bullets, each one line */
+/* each bullet = one clean line with truncation */
 .card-points li {
-    margin: 0 0 2px 0;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
+    display: grid;
+    grid-template-columns: 14px 1fr;
+    gap: 8px;
+    align-items: start;
+    margin: 0 0 4px 0;
+
+    white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    -webkit-line-clamp: 1;
+}
+
+.card-points li::before {
+    content: "▸";
+    color: rgba(255,255,255,0.95);
+    font-weight: 900;
+    line-height: 1.2;
+    transform: translateY(1px);
+}
+
+.card-points li:nth-child(2) {
+    opacity: 0.78;
+}
+
+/* Smart truncation by screen size (controls max text width) */
+@media (min-width: 1200px) {
+    .card-points { font-size: 0.93rem; }
+    .card-points li { max-width: 44ch; }
+}
+@media (max-width: 1199px) {
+    .card-points li { max-width: 34ch; }
+}
+@media (max-width: 900px) {
+    .card-points { font-size: 0.90rem; }
+    .card-points li { max-width: 28ch; }
+}
+@media (max-width: 520px) {
+    .card-points { font-size: 0.88rem; }
+    .card-points li { max-width: 22ch; }
 }
 
 /* ==========================
@@ -310,6 +382,7 @@ body {
     z-index: 200;
     overflow-y: auto;
 }
+
 .modal-content {
     max-width: 1100px;
     margin: 60px auto;
@@ -383,7 +456,10 @@ body {
 .dim-list { display: flex; flex-wrap: wrap; gap: 10px; }
 .dim-pill { background: #111; color: #fff; padding: 10px 14px; border-radius: 999px; font-weight: 700; font-size: 0.9rem; }
 
-/* --- Forms & Buttons --- */
+/* ==========================
+   Forms & Buttons
+   ========================== */
+
 #inquiry-form-overlay {
     display: none;
     position: fixed;
@@ -394,6 +470,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .form-box {
     background: white;
     padding: 40px;
@@ -403,8 +480,10 @@ body {
     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
     position: relative;
 }
+
 .form-group { margin-bottom: 15px; }
 .form-group label { display: block; margin-bottom: 6px; font-weight: 700; font-size: 0.85rem; color: #444; }
+
 .form-group input, .form-group textarea {
     width: 100%;
     padding: 12px;
@@ -431,6 +510,7 @@ body {
 /* ==========================
    Content Pages (About / Contact)
    ========================== */
+
 .page { padding: 70px 5% 40px 5%; }
 .page-inner { max-width: var(--maxw); margin: 0 auto; }
 .page h1 { font-size: clamp(2rem, 4vw, 3rem); letter-spacing: -0.02em; margin: 0 0 14px 0; }
@@ -486,7 +566,10 @@ body {
 
 .small-note { color: var(--gray); font-size: 0.92rem; }
 
-/* --- Footer --- */
+/* ==========================
+   Footer
+   ========================== */
+
 footer {
     border-top: 1px solid #eee;
     padding: 40px 5%;
@@ -501,6 +584,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 /* ==========================
    Responsive
    ========================== */
+
 @media (max-width: 900px) {
     .topbar-inner { padding: 10px 20px; justify-content: flex-start; }
     .header-inner {
