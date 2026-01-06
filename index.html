@@ -271,7 +271,7 @@
                 }
 
                 return `
-                <article class="card ${sizeClass}" onclick="openProduct('${p.slug}', true)">
+                <article class="card ${sizeClass}" data-cat="${p.category || ''}" onclick="openProduct('${p.slug}', true)">
                     <img src="${thumb}" class="card-img" loading="lazy" alt="${p.name || ''} - ${(p.category || '')}">
                     <div class="card-overlay">
                         <h3 class="card-title">${p.name || ''}</h3>
@@ -413,3 +413,4 @@ ${msg}`;
 
 </body>
 </html>
+
