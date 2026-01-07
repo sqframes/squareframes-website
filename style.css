@@ -167,7 +167,7 @@ body {
    ========================== */
 
 .hero {
-    padding: 44px 5% 32px 5%;
+    padding: 80px 5% 40px 5%;
     max-width: 900px;
     margin: 0 auto;
     text-align: center;
@@ -604,4 +604,5 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
         height: 60px;
     }
 }
+
 
