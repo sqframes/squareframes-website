@@ -53,6 +53,40 @@
   }
   </script>
 
+  <!-- FAQ schema (homepage preview FAQs) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What products does Square Frames supply?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Square Frames supplies hardware items, professional tools, timber products, OHS safety equipment, and cleaning supplies across Fiji."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Do you service areas outside Suva?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Square Frames is based in Suva and services customers throughout Fiji including Suva, Nausori, Lautoka, Nadi, and Labasa."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I request a quote?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "You can request a quote using the enquiry form on our website, or contact Square Frames by phone or email for faster service."
+        }
+      }
+    ]
+  }
+  </script>
+
   <style>
     /* Minimal toast (keeps your existing style.css unchanged) */
     #toast {
@@ -129,12 +163,30 @@
         <span class="badge">Nationwide Service</span>
       </div>
     </section>
-        
+
     <div id="grid" class="grid">
       <div style="grid-column: 1/-1; text-align:center; padding:80px 20px; color:#999; font-weight:600;">
         Loading products...
       </div>
     </div>
+
+    <!-- FAQ preview (keeps homepage clean, links to full FAQ page) -->
+    <section class="section" style="max-width:1100px; margin: 0 auto 70px auto;">
+      <h2>Frequently Asked Questions</h2>
+
+      <h3>What products does Square Frames supply?</h3>
+      <p>We supply hardware items, tools, timber products, OHS safety equipment, and cleaning supplies across Fiji.</p>
+
+      <h3>Do you service areas outside Suva?</h3>
+      <p>Yes — we are based in Suva and service customers throughout Fiji including Suva, Nausori, Lautoka, Nadi, and Labasa.</p>
+
+      <h3>How do I request a quote?</h3>
+      <p>You can request a quote using our website enquiry form, or contact us by phone or email for faster service.</p>
+
+      <p class="small-note" style="margin-top:14px;">
+        <a href="/faq.html" style="font-weight:900; text-decoration:none;">View all FAQs →</a>
+      </p>
+    </section>
   </main>
 
   <!-- Product Modal -->
@@ -202,7 +254,7 @@
   </div>
 
   <footer>
-    <strong>Square Frames</strong> · Servicing all of Fiji<br>
+    <strong>Square Frames</strong> · Servicing all of Fiji · <a href="/faq.html">FAQ</a><br>
     Phone: <a href="tel:+6797855919">+679 785 5919</a> · Email: <a href="mailto:admin@sqframes.com">admin@sqframes.com</a><br>
     &copy; 2026 Square Frames. All rights reserved.
   </footer>
@@ -553,7 +605,3 @@
 
 </body>
 </html>
-
-
-
-
