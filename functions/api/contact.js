@@ -1,5 +1,6 @@
+// functions/api/contact.js
 export async function onRequestGet() {
-  return json({ ok: true, message: "Contact API online. POST JSON to /api/contact to send." }, 200);
+  return json({ ok: true, message: "Contact API online. POST JSON to /api/contact." }, 200);
 }
 
 export async function onRequestPost(context) {
@@ -13,7 +14,7 @@ export async function onRequestPost(context) {
 
     const data = await request.json();
 
-    // Optional honeypot: if you add a hidden field "website" in your forms, bots fill it
+    // Optional honeypot (if you add hidden input named "website")
     if (data.website && String(data.website).trim() !== "") {
       return json({ ok: true }, 200);
     }
@@ -37,19 +38,15 @@ export async function onRequestPost(context) {
       return json({ ok: false, error: "Missing RESEND_API_KEY in Cloudflare Pages env vars" }, 500);
     }
 
-    // Your requirements:
-    // - Sender: admin@sqframes.com (must be verified in Resend)
-    // - To: admin@sqframes.com
-    // - CC: customer email
-    // - Reply-To: customer email (so Reply goes to them)
-    const fromAddress = "Square Frames <admin@sqframes.com>";
-    const toAddress = "admin@sqframes.com";
+    // Sender must be verified in Resend (domain/subdomain)
+    const from = "Square Frames <admin@sqframes.com>";
+    const to = ["admin@sqframes.com"];
 
     const subject = product
       ? `Enquiry: ${product} (${name})`
       : `Website enquiry (Square Frames) - ${name}`;
 
-    const textBody =
+    const text =
 `Name: ${name}
 Email: ${email}
 Location: ${location || "-"}
@@ -60,7 +57,7 @@ Page: ${page || "-"}
 Message:
 ${message}`;
 
-    const htmlBody = `
+    const html = `
       <h2>Square Frames Website Enquiry</h2>
       <p><strong>Name:</strong> ${escapeHtml(name)}<br/>
          <strong>Email:</strong> ${escapeHtml(email)}<br/>
@@ -71,10 +68,6 @@ ${message}`;
       <p style="white-space:pre-wrap;">${escapeHtml(message)}</p>
     `;
 
-    // Resend Send Email endpoint:
-    // Base: https://api.resend.com
-    // Auth: Authorization: Bearer re_...
-    // Docs: Resend API intro + examples :contentReference[oaicite:3]{index=3}
     const resp = await fetch("https://api.resend.com/emails", {
       method: "POST",
       headers: {
@@ -82,13 +75,13 @@ ${message}`;
         "authorization": `Bearer ${apiKey}`,
       },
       body: JSON.stringify({
-        from: fromAddress,
-        to: [toAddress],
-        cc: [email],
-        reply_to: email,
+        from,
+        to,
+        cc: [email],     // CC the user (as requested)
+        reply_to: email, // Reply goes to the user
         subject,
-        text: textBody,
-        html: htmlBody,
+        text,
+        html,
       }),
     });
 
@@ -105,7 +98,6 @@ ${message}`;
       );
     }
 
-    // Resend returns JSON on success (id, etc.). Not required, but handy.
     let parsed = null;
     try { parsed = JSON.parse(respText); } catch (_) {}
 
@@ -128,5 +120,6 @@ function escapeHtml(s) {
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
     .replaceAll('"', "&quot;")
+    .replaceAll("'", "&quot;")
     .replaceAll("'", "&#039;");
 }
