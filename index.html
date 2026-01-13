@@ -281,10 +281,21 @@
           if (item.dimensions) safeDims = item.dimensions;
           else if (item.Dimensions) safeDims = item.Dimensions;
 
+          // Images can come from different column names (images/Images/image/Image)
+          // and may be separated by commas or new lines.
+          const rawImages = item.images || item.Images || item.image || item.Image || "";
+          const images = String(rawImages)
+            .split(/[\n,]+/g)
+            .map(url => url.trim())
+            .filter(Boolean);
+
+          // Description can also vary by column name.
+          const description = item.description || item.Description || "";
+
           return {
             ...item,
-            images: item.images ? item.images.split(',').map(url => url.trim()) : [],
-            description: item.description || "",
+            images,
+            description,
             dimensions: safeDims
           };
         });
@@ -344,7 +355,7 @@
 
       grid.innerHTML = data.map((p, index) => {
         const sizeClass = patterns[index % patterns.length];
-        const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
+        const thumb = (p.images && p.images.length > 0) ? p.images[0] : '/images/tab_icon.png';
 
         let pointsHtml = '';
         if (p.description) {
