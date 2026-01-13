@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "structural-framing-timber-rough",
+    "name": "Structural Framing Timber (Rough)",
+    "category": "Timber",
+    "price": "Request Quote",
+    "description": "Quality structural framing timber for residential and commercial builds.\nAvailable lengths and profiles on request.\nReliable supply across Fiji.",
+    "dimensions": "2 x 2(50x50mm)\n3 x 2(75x50mm)\n4 x 2(100x50mm)\n6 x 2(150x50mm)\n8 x 2(200x50mm)\n10 x 2(250x50mm)\n12 x 2(300x50mm)",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767774686/structural_framing_timber_luey2o.png"
+    ],
+    "tags": [
+      "timber",
+      "framing",
+      "structural",
+      "construction"
+    ]
+  }
+]
