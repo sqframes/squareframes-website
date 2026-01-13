@@ -1,0 +1,19 @@
+{
+  "name": "Square Frames",
+  "short_name": "SQF",
+  "description": "Hardware, timber, tools, OHS safety equipment, cleaning supplies, and maintenance services across Fiji.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "icons": [
+    {
+      "src": "/images/tab_icon.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
