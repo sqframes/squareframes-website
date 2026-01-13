@@ -31,4 +31,10 @@
     <priority>0.7</priority>
   </url>
 
+  <url>
+    <loc>https://sqframes.com/products/dressed-timber-planned/</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
