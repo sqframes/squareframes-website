@@ -53,40 +53,6 @@
   }
   </script>
 
-  <!-- FAQ schema (homepage preview FAQs) -->
-  <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    "mainEntity": [
-      {
-        "@type": "Question",
-        "name": "What products does Square Frames supply?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Square Frames supplies hardware items, professional tools, timber products, OHS safety equipment, and cleaning supplies across Fiji."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "Do you service areas outside Suva?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "Yes. Square Frames is based in Suva and services customers throughout Fiji including Suva, Nausori, Lautoka, Nadi, and Labasa."
-        }
-      },
-      {
-        "@type": "Question",
-        "name": "How do I request a quote?",
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": "You can request a quote using the enquiry form on our website, or contact Square Frames by phone or email for faster service."
-        }
-      }
-    ]
-  }
-  </script>
-
   <style>
     /* Minimal toast (keeps your existing style.css unchanged) */
     #toast {
@@ -106,6 +72,9 @@
       display: none;
       white-space: pre-wrap;
     }
+
+    /* Make badge links look like existing badges */
+    a.badge { text-decoration: none; color: inherit; }
   </style>
 </head>
 
@@ -141,6 +110,7 @@
 
       <nav class="nav-pills" aria-label="Main navigation">
         <a href="/about.html">About</a>
+        <a href="/faq.html">FAQ</a>
         <a href="/contact.html#enquiry">Contact</a>
 
         <!-- ✅ Home Request Quote opens the SAME overlay enquiry form -->
@@ -164,29 +134,32 @@
       </div>
     </section>
 
+    <!-- ✅ SEO crawlable category links (powered by Google Sheets slugs via p.html) -->
+    <section class="section" style="max-width:1100px; margin: 0 auto 40px auto;">
+      <h2>Browse Popular Categories</h2>
+      <p class="small-note">Explore our catalogue categories. For pricing and availability, request a quote.</p>
+      <div class="badges" style="justify-content:flex-start;">
+        <a class="badge" href="/p.html?slug=structural-framing-timber-rough">Structural Framing Timber</a>
+        <a class="badge" href="/p.html?slug=dressed-timber-planned">Dressed Timber</a>
+        <a class="badge" href="/p.html?slug=plywood">Plywood</a>
+        <a class="badge" href="/p.html?slug=pvc-board">PVC Board</a>
+        <a class="badge" href="/p.html?slug=power-tools">Power Tools</a>
+        <a class="badge" href="/p.html?slug=hand-tools">Hand Tools</a>
+        <a class="badge" href="/p.html?slug=garden-tools">Garden Tools</a>
+        <a class="badge" href="/p.html?slug=safety-harness">Safety Harness</a>
+        <a class="badge" href="/p.html?slug=high-visibility-workwear">Hi-Vis Workwear</a>
+        <a class="badge" href="/p.html?slug=gloves-and-helmets">Gloves &amp; Helmets</a>
+        <a class="badge" href="/p.html?slug=traffic-cones">Traffic Cones</a>
+        <a class="badge" href="/p.html?slug=traffic-signage">Traffic Signage</a>
+        <a class="badge" href="/p.html?slug=screws">Screws</a>
+      </div>
+    </section>
+        
     <div id="grid" class="grid">
       <div style="grid-column: 1/-1; text-align:center; padding:80px 20px; color:#999; font-weight:600;">
         Loading products...
       </div>
     </div>
-
-    <!-- FAQ preview (keeps homepage clean, links to full FAQ page) -->
-    <section class="section" style="max-width:1100px; margin: 0 auto 70px auto;">
-      <h2>Frequently Asked Questions</h2>
-
-      <h3>What products does Square Frames supply?</h3>
-      <p>We supply hardware items, tools, timber products, OHS safety equipment, and cleaning supplies across Fiji.</p>
-
-      <h3>Do you service areas outside Suva?</h3>
-      <p>Yes — we are based in Suva and service customers throughout Fiji including Suva, Nausori, Lautoka, Nadi, and Labasa.</p>
-
-      <h3>How do I request a quote?</h3>
-      <p>You can request a quote using our website enquiry form, or contact us by phone or email for faster service.</p>
-
-      <p class="small-note" style="margin-top:14px;">
-        <a href="/faq.html" style="font-weight:900; text-decoration:none;">View all FAQs →</a>
-      </p>
-    </section>
   </main>
 
   <!-- Product Modal -->
@@ -207,7 +180,7 @@
         <h2 id="m-title"></h2>
 
         <div id="m-dims-box" class="dimension-box" style="display:none;">
-          <div class="dim-label">Dimensions</div>
+          <div class="dim-label">Details</div>
           <div id="m-dims-list" class="dim-list"></div>
         </div>
 
@@ -605,4 +578,3 @@
 
 </body>
 </html>
-
