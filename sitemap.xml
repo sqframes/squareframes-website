@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
+
+  <!-- Core pages -->
   <url>
     <loc>https://sqframes.com/</loc>
     <changefreq>weekly</changefreq>
@@ -19,5 +21,73 @@
     <loc>https://sqframes.com/faq.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
-</url>
+  </url>
+
+  <!-- Crawlable category/product landing pages (Option 2) -->
+  <url>
+    <loc>https://sqframes.com/p.html?slug=structural-framing-timber-rough</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=dressed-timber-planned</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=plywood</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=pvc-board</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=safety-harness</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=high-visibility-workwear</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=gloves-and-helmets</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=hand-tools</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=garden-tools</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=power-tools</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=traffic-cones</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=traffic-signage</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://sqframes.com/p.html?slug=screws</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+
 </urlset>
