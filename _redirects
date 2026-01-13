@@ -1,0 +1,6 @@
+# Force apex -> www
+http://sqframes.com/* https://www.sqframes.com/:splat 301!
+https://sqframes.com/* https://www.sqframes.com/:splat 301!
+
+# (Optional) If you ever use old dynamic links, keep this redirect:
+#/p.html  /index.html  302
