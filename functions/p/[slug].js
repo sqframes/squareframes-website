@@ -1,4 +1,4 @@
-export async function onRequestGet({ params, request }) {
+export async function onRequestGet({ params }) {
   const slug = (params?.slug || "").toString().trim();
 
   const site = "https://sqframes.com";
@@ -9,7 +9,10 @@ export async function onRequestGet({ params, request }) {
   const fallbackTitle = "Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji";
   const fallbackDesc =
     "Square Frames supplies hardware, tools, timber products, OHS safety equipment, cleaning supplies, and services across Fiji.";
-  const fallbackImg = `${site}/images/tab_icon.png`;
+
+  // ✅ IMPORTANT: use an image URL that returns Content-Type: image/png (Cloudinary is best)
+  // Replace this with your real Cloudinary icon URL:
+  const fallbackImg = "https://res.cloudinary.com/YOUR_CLOUD_NAME/image/upload/v1234567890/tab_icon.png";
 
   const canonical = slug ? `${site}/p/${encodeURIComponent(slug)}` : `${site}/`;
 
@@ -52,6 +55,7 @@ export async function onRequestGet({ params, request }) {
 
   const name = clean(item.name) || "Product";
   const category = clean(item.category);
+
   const img = absolutize(firstImage(item.images) || fallbackImg, site);
 
   const descLine = firstLine(item.description);
@@ -61,11 +65,9 @@ export async function onRequestGet({ params, request }) {
     155
   );
 
-  // Visible details
   const dims = splitLines(item.dimensions || item.Dimensions);
   const bullets = splitLines(item.description);
 
-  // Product schema
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
@@ -83,8 +85,7 @@ export async function onRequestGet({ params, request }) {
     }
   };
 
-  // Redirect real users to your interactive catalogue page (after OG tags are read)
-  // Most social crawlers ignore JS; humans will be redirected.
+  // ✅ Link for humans to open the interactive catalogue view (no auto redirect)
   const catalogueUrl = `${site}/${encodeURIComponent(slug)}`;
 
   const page = `<!doctype html>
@@ -95,6 +96,7 @@ export async function onRequestGet({ params, request }) {
 
   <title>${e(`${name} | Square Frames`)}</title>
   <link rel="canonical" href="${e(canonical)}"/>
+
   <meta name="description" content="${e(desc)}"/>
   <meta name="robots" content="index,follow"/>
 
@@ -114,14 +116,8 @@ export async function onRequestGet({ params, request }) {
 
   <link rel="stylesheet" href="/style.css"/>
   <script type="application/ld+json">${JSON.stringify(productSchema)}</script>
-
-  <!-- Human redirect to live catalogue -->
-  <meta http-equiv="refresh" content="1;url=${e(catalogueUrl)}" />
-  <script>
-    // redirect humans quickly; bots typically ignore JS
-    setTimeout(function(){ window.location.href = ${JSON.stringify(catalogueUrl)}; }, 150);
-  </script>
 </head>
+
 <body>
   <header class="header">
     <a class="brand" href="/" aria-label="Square Frames Home">
@@ -167,11 +163,6 @@ export async function onRequestGet({ params, request }) {
           <a class="cta wide" href="/contact.html#enquiry">Request Quote</a>
           <a class="btn wide" href="${e(catalogueUrl)}">View in catalogue</a>
         </div>
-
-        <!-- ✅ Removed:
-             - Call +679 button
-             - "Include quantities..." note
-        -->
       </div>
     </section>
 
@@ -243,7 +234,6 @@ function splitLines(v) {
 }
 
 function firstImage(images) {
-  // supports comma OR newline separated
   return String(images || "")
     .split(/[\n,]+/g)
     .map((x) => x.trim())
