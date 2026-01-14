@@ -1,40 +1,38 @@
+<!-- index.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
   <title>Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji</title>
-  <meta name="description" content="Square Frames supplies hardware, tools, timber products, OHS safety equipment, cleaning supplies, and repair & maintenance services across Fiji." />
-  <meta name="robots" content="index, follow" />
-  <meta name="theme-color" content="#ffffff" />
+  <meta name="description" content="Square Frames supplies hardware, tools, timber products, OHS safety equipment, cleaning supplies, and repair & maintenance services across Fiji.">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#ffffff">
 
-  <link rel="canonical" href="https://sqframes.com/" />
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Modern font -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="canonical" href="https://sqframes.com/">
+  <link rel="stylesheet" href="style.css">
 
   <!-- App / Tab Icon -->
-  <link rel="icon" href="/images/tab_icon.png" type="image/png" />
-  <link rel="apple-touch-icon" href="/images/tab_icon.png" />
-  <link rel="manifest" href="/manifest.webmanifest" />
+  <link rel="icon" href="/images/tab_icon.png" type="image/png">
+  <link rel="apple-touch-icon" href="/images/tab_icon.png">
+  <link rel="manifest" href="/manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 
   <!-- Open Graph -->
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://sqframes.com/" />
-  <meta property="og:title" content="Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji" />
-  <meta property="og:description" content="Hardware, tools, timber, OHS safety equipment, cleaning supplies, and maintenance services across Fiji." />
-  <meta property="og:image" content="https://sqframes.com/images/tab_icon.png" />
-  <meta property="og:site_name" content="Square Frames" />
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sqframes.com/">
+  <meta property="og:title" content="Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji">
+  <meta property="og:description" content="Hardware, tools, timber, OHS safety equipment, cleaning supplies, and maintenance services across Fiji.">
+  <meta property="og:image" content="https://sqframes.com/images/tab_icon.png">
+  <meta property="og:site_name" content="Square Frames">
 
   <!-- Twitter -->
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Square Frames | Hardware & Supplies in Fiji" />
-  <meta name="twitter:description" content="Servicing all of Fiji." />
-  <meta name="twitter:image" content="https://sqframes.com/images/tab_icon.png" />
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Square Frames | Hardware & Supplies in Fiji">
+  <meta name="twitter:description" content="Servicing all of Fiji.">
+  <meta name="twitter:image" content="https://sqframes.com/images/tab_icon.png">
 
   <!-- LocalBusiness schema -->
   <script type="application/ld+json">
@@ -58,29 +56,31 @@
 
 <body>
 
+  <!-- Modern Header -->
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="brand" aria-label="Square Frames Home">
-        <img src="/images/sqf_logo_transparent.png" alt="Square Frames">
+        <img src="images/sqf_logo_transparent.png" alt="Square Frames">
       </a>
 
-      <!-- Search + category IN HEADER -->
-      <div class="header-controls" role="search">
+      <div class="header-controls modern-controls">
         <div class="search-wrap">
-          <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search products">
+          <input type="text" id="searchInput" placeholder="Search products..." aria-label="Search">
         </div>
         <div class="select-wrap">
-          <select id="categorySelect" aria-label="Filter category">
-            <option value="all">All categories</option>
+          <select id="categorySelect" aria-label="Filter Category">
+            <option value="all">All Categories</option>
           </select>
         </div>
       </div>
 
       <nav class="nav-pills" aria-label="Main navigation">
-        <a href="/" aria-current="page">Home</a>
+        <a href="/">Home</a>
         <a href="/about.html">About</a>
         <a href="/faq.html">FAQ</a>
-        <a href="/contact.html">Contact</a>
+        <a href="/contact.html#enquiry">Contact</a>
+
+        <!-- Request Quote opens same overlay -->
         <a class="btn-cta" href="#" onclick="openInquiryForm(); return false;">Request Quote</a>
       </nav>
     </div>
@@ -88,42 +88,42 @@
 
   <main>
     <section class="hero">
-      <h1>Hardware, Timber, Tools &amp; OHS Supplies across Fiji</h1>
+      <h1 class="tagline">Hardware, Timber, Tools &amp; OHS Supplies across Fiji</h1>
       <p class="subline">
         Based in Suva and servicing all of Fiji. Browse products and request a quote for pricing and availability.
       </p>
 
-      <!-- Category chips -->
-      <div id="catChips" class="chips" aria-label="Quick categories"></div>
-    </section>
-
-    <section class="wrap">
-      <div id="grid" class="grid">
-        <div class="loading">
-          Loading products...
-        </div>
+      <div class="badges" aria-label="Highlights">
+        <span class="badge">Fast Response</span>
+        <span class="badge">Trade &amp; Business Support</span>
+        <span class="badge">Customer Centric</span>
+        <span class="badge">Nationwide Service</span>
       </div>
     </section>
+
+    <div id="grid" class="grid">
+      <div style="grid-column: 1/-1; text-align:center; padding:80px 20px; color:#999; font-weight:600;">
+        Loading products...
+      </div>
+    </div>
   </main>
 
   <!-- Product Modal -->
-  <div id="product-modal" role="dialog" aria-modal="true" aria-label="Product details">
-    <div class="modal-content">
-      <button class="close-btn" onclick="closeModal()" aria-label="Close">&times;</button>
+  <div id="product-modal" role="dialog" aria-modal="true" aria-hidden="true">
+    <div class="modal-content" role="document">
+      <!-- ✅ Close button now a real button + wired via JS -->
+      <button type="button" class="close-btn" id="modalClose" aria-label="Close">&times;</button>
 
       <div class="modal-left">
         <div class="carousel-container">
-          <button id="prevBtn" class="nav-arrow prev" onclick="changeImage(-1)" aria-label="Previous image">&#10094;</button>
-          <img src="" id="m-img" class="modal-img" alt="">
-          <button id="nextBtn" class="nav-arrow next" onclick="changeImage(1)" aria-label="Next image">&#10095;</button>
+          <button id="prevBtn" class="nav-arrow prev" type="button" aria-label="Previous Image">&#10094;</button>
+          <img src="" id="m-img" class="modal-img" alt="Product Detail">
+          <button id="nextBtn" class="nav-arrow next" type="button" aria-label="Next Image">&#10095;</button>
         </div>
       </div>
 
       <div class="modal-info">
-        <div class="meta-row">
-          <span id="m-cat" class="meta-cat"></span>
-        </div>
-
+        <span id="m-cat"></span>
         <h2 id="m-title"></h2>
 
         <div id="m-dims-box" class="dimension-box" style="display:none;">
@@ -131,11 +131,10 @@
           <div id="m-dims-list" class="dim-list"></div>
         </div>
 
-        <div id="m-price" class="price"></div>
+        <div id="m-price"></div>
 
-        <ul id="m-desc-list" class="desc"></ul>
-
-        <button onclick="openInquiryForm()" class="cta-btn">Request Quote</button>
+        <ul id="m-desc-list"></ul>
+        <button onclick="openInquiryForm()" class="cta-btn">Request Quote &amp; Info</button>
       </div>
     </div>
   </div>
@@ -143,42 +142,39 @@
   <!-- Inquiry Form Overlay -->
   <div id="inquiry-form-overlay" aria-hidden="true">
     <div class="form-box">
-      <button class="close-btn" onclick="closeInquiryForm()" aria-label="Close">&times;</button>
-
-      <h3>Request a Quote</h3>
+      <button type="button" class="close-btn" onclick="closeInquiryForm()" style="position:absolute; top:16px; right:16px; background:none;" aria-label="Close">&times;</button>
+      <h3 style="margin:0 0 18px 0; font-size:1.3rem;">Send an Enquiry</h3>
 
       <form id="inquiryForm">
         <input type="hidden" id="form-product">
 
         <div class="form-group">
-          <label for="form-name">Name</label>
+          <label>Name</label>
           <input type="text" id="form-name" required placeholder="Your name">
         </div>
 
         <div class="form-group">
-          <label for="form-email">Email</label>
+          <label>Email</label>
           <input type="email" id="form-email" required placeholder="you@company.com">
         </div>
 
         <div class="form-group">
-          <label for="form-location">Location (optional)</label>
-          <input type="text" id="form-location" placeholder="Suva, Fiji">
+          <label>Location (Optional)</label>
+          <input type="text" id="form-location" placeholder="Fiji">
         </div>
 
         <div class="form-group">
-          <label for="form-msg">Message</label>
+          <label>Message</label>
           <textarea id="form-msg" placeholder="Tell us what you need..." rows="4"></textarea>
         </div>
 
-        <button type="submit" class="cta-btn">Send</button>
+        <button type="submit" class="cta-btn">Email Square Frames</button>
       </form>
-
-      <!-- ✅ removed the “Call +679…” text completely -->
     </div>
   </div>
 
-  <footer class="site-footer">
-    <strong>Square Frames</strong> · Suva, Fiji · Servicing all of Fiji<br>
+  <footer>
+    <strong>Square Frames</strong> · Servicing all of Fiji<br>
     Phone: <a href="tel:+6797855919">+679 785 5919</a> · Email: <a href="mailto:admin@sqframes.com">admin@sqframes.com</a><br>
     &copy; 2026 Square Frames. All rights reserved.
   </footer>
@@ -186,32 +182,25 @@
   <div id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // -------------------------
-    // CONFIG
-    // -------------------------
-    const sheetID = '1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0';
-    const sheetName = 'Sheet1';
-    const dataURL = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
-
-    // -------------------------
-    // STATE
-    // -------------------------
+    // =========================
+    // State
+    // =========================
     let products = [];
     let currentImages = [];
     let currentImgIndex = 0;
 
-    let activeCategory = "all";
-    let activeSearch = "";
-
-    const grid = document.getElementById('grid');
     const modal = document.getElementById('product-modal');
     const inquiryOverlay = document.getElementById('inquiry-form-overlay');
 
-    // -------------------------
-    // UI helpers
-    // -------------------------
+    const sheetID = '1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0';
+    const sheetName = 'Sheet1';
+
+    // =========================
+    // Helpers
+    // =========================
     function toast(msg, ms = 2600) {
       const el = document.getElementById('toast');
+      if (!el) return;
       el.textContent = msg;
       el.style.display = 'block';
       clearTimeout(el._t);
@@ -219,7 +208,7 @@
     }
 
     function escapeHtml(s) {
-      return String(s ?? "")
+      return String(s)
         .replaceAll("&", "&amp;")
         .replaceAll("<", "&lt;")
         .replaceAll(">", "&gt;")
@@ -227,89 +216,45 @@
         .replaceAll("'", "&#039;");
     }
 
-    // normalize keys case-insensitively (fixes No items found from Sheets mismatch)
-    function pick(row, keys) {
-      if (!row) return "";
-      const map = {};
-      Object.keys(row).forEach(k => map[String(k).toLowerCase().trim()] = row[k]);
-      for (const key of keys) {
-        const v = map[String(key).toLowerCase().trim()];
-        if (v !== undefined && v !== null && String(v).trim() !== "") return v;
-      }
-      return "";
-    }
+    // =========================
+    // Load products
+    // =========================
+    fetch(`https://opensheet.elk.sh/${sheetID}/${sheetName}`)
+      .then(res => res.json())
+      .then(data => {
+        products = data.map(item => {
+          let safeDims = "";
+          if (item.dimensions) safeDims = item.dimensions;
+          else if (item.Dimensions) safeDims = item.Dimensions;
 
-    function parseImages(v) {
-      const raw = String(v ?? "").trim();
-      if (!raw) return [];
-      return raw
-        .split(/[\n,]+/g)
-        .map(x => x.trim())
-        .filter(Boolean);
-    }
+          return {
+            ...item,
+            images: item.images ? String(item.images).split(/[\n,]+/g).map(url => url.trim()).filter(Boolean) : [],
+            description: item.description || "",
+            dimensions: safeDims
+          };
+        });
 
-    function parseLines(v) {
-      const raw = String(v ?? "").trim();
-      if (!raw) return [];
-      return raw.split("\n").map(x => x.trim()).filter(Boolean);
-    }
-
-    // -------------------------
-    // LOAD products
-    // -------------------------
-    (async function loadProducts() {
-      try {
-        const res = await fetch(dataURL, { headers: { accept: "application/json" }, cache: "no-store" });
-        if (!res.ok) throw new Error("Sheet fetch failed: " + res.status);
-
-        const rows = await res.json();
-
-        products = (rows || []).map(r => {
-          const slug = String(pick(r, ["slug", "Slug"])).trim();
-          const name = String(pick(r, ["name", "Name", "product", "Product"])).trim();
-          const category = String(pick(r, ["category", "Category"])).trim();
-          const description = String(pick(r, ["description", "Description"])).trim();
-          const dimensions = String(pick(r, ["dimensions", "Dimensions", "details", "Details"])).trim();
-          const price = String(pick(r, ["price", "Price"])).trim();
-          const images = parseImages(pick(r, ["images", "Images", "image", "Image"]));
-
-          return { slug, name, category, description, dimensions, price, images };
-        }).filter(p => p.slug && p.name); // require both
-
-        // If your sheet is temporarily empty or mismatched, don't show "No items found" blindly
         if (products.length === 0) {
-          grid.innerHTML = `
-            <div class="empty">
-              <div class="empty-title">No items found</div>
-              <div class="empty-sub">Check your Google Sheet columns (slug, name) and try again.</div>
-            </div>
-          `;
+          document.getElementById('grid').innerHTML = '<p style="text-align:center;">No items found.</p>';
           return;
         }
 
-        initFilters(products);
-        render();
         generateItemListSchema(products);
+        initCategories();
+        renderProducts(products);
 
-        // open product if /<slug> or /p/<slug> is used on homepage
-        const path = window.location.pathname.replace(/^\/+/, "");
-        if (path && path !== "index.html" && !path.startsWith("about") && !path.startsWith("contact") && !path.startsWith("faq") && !path.startsWith("p/")) {
-          openProduct(path, false);
-        }
-      } catch (err) {
+        const slug = window.location.pathname.substring(1);
+        if (slug && slug.length > 1) openProduct(slug, false);
+      })
+      .catch(err => {
         console.error(err);
-        grid.innerHTML = `
-          <div class="empty">
-            <div class="empty-title">Couldn’t load products</div>
-            <div class="empty-sub">Please try again. If this continues, your sheet feed may be blocked or unavailable.</div>
-          </div>
-        `;
-      }
-    })();
+        document.getElementById('grid').innerHTML = '<p style="text-align:center;">System Error.</p>';
+      });
 
-    // -------------------------
-    // Schema (ItemList)
-    // -------------------------
+    // =========================
+    // SEO schema (ItemList)
+    // =========================
     function generateItemListSchema(items) {
       const schema = {
         "@context": "https://schema.org",
@@ -321,11 +266,11 @@
             "@type": "Product",
             "name": p.name,
             "image": (p.images && p.images[0]) ? p.images[0] : "",
-            "description": (p.description || "").replace(/\n/g, " ").slice(0, 500),
-            "offers": p.price ? {
+            "description": (p.description || "").replace(/\n/g, " "),
+            "offers": {
               "@type": "Offer",
-              "price": String(p.price).replace(/[^0-9.]/g, '')
-            } : undefined
+              "price": p.price ? String(p.price).replace(/[^0-9.]/g, '') : "0"
+            }
           }
         }))
       };
@@ -336,112 +281,52 @@
       document.head.appendChild(script);
     }
 
-    // -------------------------
-    // Filters / chips
-    // -------------------------
-    function initFilters(items) {
-      const cats = [...new Set(items.map(p => p.category).filter(Boolean))].sort((a,b) => a.localeCompare(b));
-
-      // select
-      const sel = document.getElementById('categorySelect');
-      sel.innerHTML = '<option value="all">All categories</option>' + cats.map(c => `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`).join("");
-
-      // chips
-      const chips = document.getElementById('catChips');
-      chips.innerHTML = [
-        `<button class="chip is-active" data-cat="all" type="button">All</button>`,
-        ...cats.map(c => `<button class="chip" data-cat="${escapeHtml(c)}" type="button">${escapeHtml(c)}</button>`)
-      ].join("");
-
-      chips.addEventListener("click", (e) => {
-        const btn = e.target.closest(".chip");
-        if (!btn) return;
-        activeCategory = btn.getAttribute("data-cat") || "all";
-        sel.value = activeCategory;
-        [...chips.querySelectorAll(".chip")].forEach(b => b.classList.toggle("is-active", b === btn));
-        render();
-      });
-
-      sel.addEventListener("change", (e) => {
-        activeCategory = e.target.value;
-        [...chips.querySelectorAll(".chip")].forEach(b => b.classList.toggle("is-active", (b.getAttribute("data-cat") === activeCategory)));
-        render();
-      });
-
-      document.getElementById('searchInput').addEventListener('input', (e) => {
-        activeSearch = e.target.value.toLowerCase().trim();
-        render();
-      });
-    }
-
-    function applyFilters(items) {
-      let out = items;
-
-      if (activeCategory && activeCategory !== "all") {
-        out = out.filter(p => p.category === activeCategory);
-      }
-
-      if (activeSearch) {
-        out = out.filter(p => (p.name || "").toLowerCase().includes(activeSearch));
-      }
-
-      return out;
-    }
-
-    // -------------------------
+    // =========================
     // Render grid
-    // -------------------------
-    function render() {
-      const data = applyFilters(products);
-
-      if (data.length === 0) {
-        grid.innerHTML = `
-          <div class="empty">
-            <div class="empty-title">No items found.</div>
-            <div class="empty-sub">Try a different search or category.</div>
-          </div>
-        `;
-        return;
-      }
-
+    // =========================
+    function renderProducts(data) {
+      const grid = document.getElementById('grid');
       const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
 
       grid.innerHTML = data.map((p, index) => {
         const sizeClass = patterns[index % patterns.length];
-        const thumb = (p.images && p.images.length) ? p.images[0] : '/images/tab_icon.png';
+        const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
 
-        const bullets = parseLines(p.description).slice(0, 2);
-        const pointsHtml = bullets.map(line => `<li>${escapeHtml(line)}</li>`).join("");
+        let pointsHtml = '';
+        if (p.description) {
+          const lines = p.description.split('\n').filter(l => l.trim().length > 0).slice(0, 2);
+          pointsHtml = lines.map(line => `<li>${escapeHtml(line)}</li>`).join('');
+        }
 
         return `
-          <article class="card ${sizeClass}" data-slug="${escapeHtml(p.slug)}" data-cat="${escapeHtml(p.category || '')}">
-            <img src="${escapeHtml(thumb)}" class="card-img" loading="lazy" alt="${escapeHtml(p.name)}">
+          <article class="card ${sizeClass}" data-cat="${escapeHtml(p.category || '')}" data-slug="${escapeHtml(p.slug || '')}">
+            <img src="${escapeHtml(thumb)}" class="card-img" loading="lazy" alt="${escapeHtml(p.name || '')} - ${escapeHtml(p.category || '')}">
             <div class="card-overlay">
-              <h3 class="card-title">${escapeHtml(p.name)}</h3>
-              ${pointsHtml ? `<ul class="card-points">${pointsHtml}</ul>` : ``}
+              <h3 class="card-title">${escapeHtml(p.name || '')}</h3>
+              <ul class="card-points">${pointsHtml}</ul>
             </div>
           </article>
         `;
-      }).join("");
+      }).join('');
     }
 
-    // Click-to-open (delegation)
-    grid.addEventListener('click', (e) => {
+    // Click-to-open (event delegation)
+    document.getElementById('grid').addEventListener('click', (e) => {
       const card = e.target.closest('.card');
       if (!card) return;
       const slug = card.getAttribute('data-slug');
       if (slug) openProduct(slug, true);
     });
 
-    // -------------------------
-    // Modal
-    // -------------------------
+    // =========================
+    // Modal logic
+    // =========================
     function openProduct(slug, pushState) {
       const p = products.find(i => i.slug === slug);
       if (!p) return;
 
       if (pushState) history.pushState({ slug }, '', '/' + slug);
-      document.title = `${p.name} | Square Frames`;
+      document.title = `${p.name || 'Product'} | Square Frames`;
 
       currentImages = p.images || [];
       currentImgIndex = 0;
@@ -452,87 +337,116 @@
       document.getElementById('m-price').innerText = p.price || '';
       document.getElementById('form-product').value = p.name || '';
 
-      // dimensions
       const dimBox = document.getElementById('m-dims-box');
       const dimList = document.getElementById('m-dims-list');
       dimList.innerHTML = '';
 
-      if (p.dimensions && p.dimensions.trim() !== "") {
+      if (p.dimensions && String(p.dimensions).trim() !== "") {
         dimBox.style.display = "block";
-        parseLines(p.dimensions).forEach(d => {
-          dimList.innerHTML += `<span class="dim-pill">${escapeHtml(d)}</span>`;
+        String(p.dimensions).split('\n').forEach(d => {
+          if (d.trim()) dimList.innerHTML += `<span class="dim-pill">${escapeHtml(d.trim())}</span>`;
         });
       } else {
         dimBox.style.display = "none";
       }
 
-      // description list
-      const list = document.getElementById('m-desc-list');
-      list.innerHTML = '';
-      parseLines(p.description).forEach(line => {
-        list.innerHTML += `<li>${escapeHtml(line)}</li>`;
-      });
+      const listContainer = document.getElementById('m-desc-list');
+      listContainer.innerHTML = '';
+      if (p.description) {
+        String(p.description).split('\n').forEach(line => {
+          if (line && line.trim().length > 0) listContainer.innerHTML += `<li>${escapeHtml(line)}</li>`;
+        });
+      }
 
       modal.style.display = 'block';
+      modal.setAttribute('aria-hidden', 'false');
       document.body.style.overflow = 'hidden';
     }
 
     function updateImageDisplay() {
-      const img = document.getElementById('m-img');
-      const prev = document.getElementById('prevBtn');
-      const next = document.getElementById('nextBtn');
+      const imgElement = document.getElementById('m-img');
+      const prevBtn = document.getElementById('prevBtn');
+      const nextBtn = document.getElementById('nextBtn');
 
       if (currentImages.length > 0) {
-        img.src = currentImages[currentImgIndex];
-        img.alt = document.getElementById('m-title').innerText || "Product image";
-        img.style.display = 'block';
+        imgElement.src = currentImages[currentImgIndex];
+        imgElement.style.display = 'block';
       } else {
-        img.style.display = 'none';
+        imgElement.style.display = 'none';
       }
 
-      const showArrows = currentImages.length > 1;
-      prev.style.display = showArrows ? 'flex' : 'none';
-      next.style.display = showArrows ? 'flex' : 'none';
+      if (currentImages.length <= 1) {
+        prevBtn.style.display = 'none';
+        nextBtn.style.display = 'none';
+      } else {
+        prevBtn.style.display = 'flex';
+        nextBtn.style.display = 'flex';
+      }
     }
 
-    function changeImage(dir) {
-      currentImgIndex += dir;
+    function changeImage(direction) {
+      currentImgIndex += direction;
       if (currentImgIndex >= currentImages.length) currentImgIndex = 0;
-      if (currentImgIndex < 0) currentImgIndex = currentImages.length - 1;
+      else if (currentImgIndex < 0) currentImgIndex = currentImages.length - 1;
       updateImageDisplay();
     }
 
     function closeModal() {
       modal.style.display = 'none';
+      modal.setAttribute('aria-hidden', 'true');
       document.body.style.overflow = 'auto';
       history.pushState(null, '', '/');
       document.title = "Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji";
     }
 
-    window.changeImage = changeImage;
-    window.closeModal = closeModal;
+    // ✅ Make sure X works always
+    document.getElementById('modalClose').addEventListener('click', closeModal);
 
+    // ✅ Arrows wired (no inline needed)
+    document.getElementById('prevBtn').addEventListener('click', () => changeImage(-1));
+    document.getElementById('nextBtn').addEventListener('click', () => changeImage(1));
+
+    // ✅ Close on backdrop click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) closeModal();
+    });
+
+    // ✅ Close on ESC
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
+    });
+
+    // Keep for back/forward
     window.onpopstate = () => {
       const slug = window.location.pathname.substring(1);
-      if (slug && slug.length > 1) openProduct(slug, false);
-      else closeModal();
+      slug && slug.length > 1 ? openProduct(slug, false) : closeModal();
     };
 
-    // -------------------------
-    // Inquiry overlay
-    // -------------------------
+    // =========================
+    // Enquiry overlay
+    // =========================
     function openInquiryForm() {
       inquiryOverlay.style.display = 'flex';
-      inquiryOverlay.setAttribute("aria-hidden", "false");
+      inquiryOverlay.setAttribute('aria-hidden', 'false');
     }
     function closeInquiryForm() {
       inquiryOverlay.style.display = 'none';
-      inquiryOverlay.setAttribute("aria-hidden", "true");
+      inquiryOverlay.setAttribute('aria-hidden', 'true');
     }
     window.openInquiryForm = openInquiryForm;
     window.closeInquiryForm = closeInquiryForm;
 
-    // Submit to your Resend-backed endpoint
+    // Close enquiry on backdrop click + ESC
+    inquiryOverlay.addEventListener('click', (e) => {
+      if (e.target === inquiryOverlay) closeInquiryForm();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && inquiryOverlay.style.display === 'flex') closeInquiryForm();
+    });
+
+    // =========================
+    // Enquiry form: sends to /api/contact
+    // =========================
     document.getElementById('inquiryForm').addEventListener('submit', async (e) => {
       e.preventDefault();
 
@@ -556,19 +470,83 @@
         const out = await res.json().catch(() => ({}));
 
         if (res.ok && out.ok) {
-          toast("Thanks! Your message has been sent.");
+          toast("Sent! We’ll get back to you shortly.");
           closeInquiryForm();
           e.target.reset();
         } else {
-          toast("Send failed. Please try again.", 4500);
+          const details = out && (out.error || out.details)
+            ? (out.error + (out.details ? "\n\n" + out.details : ""))
+            : "Unknown error";
+          toast("Send failed.\n\n" + details, 6000);
           console.error(out);
         }
       } catch (err) {
-        toast("Send failed. Please email admin@sqframes.com", 6000);
+        toast("Send failed.\n\nPlease email admin@sqframes.com", 6000);
         console.error(err);
       }
     });
 
+    // =========================
+    // Filters
+    // =========================
+    function initCategories() {
+      const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
+      const sel = document.getElementById('categorySelect');
+      sel.innerHTML = '<option value="all">All Categories</option>';
+      cats.forEach(c => sel.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`);
+    }
+
+    document.getElementById('searchInput').addEventListener('input', (e) => {
+      const term = e.target.value.toLowerCase();
+      const filtered = products.filter(p => (p.name && p.name.toLowerCase().includes(term)));
+      renderProducts(filtered);
+    });
+
+    document.getElementById('categorySelect').addEventListener('change', (e) => {
+      const cat = e.target.value;
+      const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
+      renderProducts(filtered);
+    });
+
+    // =========================
+    // Header shrink/snap behavior
+    // =========================
+    (function () {
+      const header = document.querySelector('.site-header');
+      if (!header) return;
+
+      let lastY = window.scrollY;
+      let ticking = false;
+      let snapTimer = null;
+
+      function update() {
+        const y = window.scrollY;
+        if (y > 18) header.classList.add('is-scrolled');
+        else header.classList.remove('is-scrolled');
+
+        const goingUp = y < lastY;
+        const wasScrolled = lastY > 18;
+
+        if (goingUp && wasScrolled) {
+          header.classList.add('snap-back');
+          clearTimeout(snapTimer);
+          snapTimer = setTimeout(() => header.classList.remove('snap-back'), 560);
+        }
+
+        lastY = y;
+        ticking = false;
+      }
+
+      function onScroll() {
+        if (!ticking) {
+          window.requestAnimationFrame(update);
+          ticking = true;
+        }
+      }
+
+      window.addEventListener('scroll', onScroll, { passive: true });
+    })();
   </script>
+
 </body>
 </html>
