@@ -1,41 +1,32 @@
-export async function onRequestGet({ request }) {
-  const site = "https://sqframes.com";
+export const onRequestGet: PagesFunction = async () => {
+  const base = "https://sqframes.com";
+  const SHEET_ID = "1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0";
+  const SHEET_NAME = "Sheet1";
 
-  // Same sheet as your site
-  const sheetID = "1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0";
-  const sheetName = "Sheet1";
-  const dataURL = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
-
-  // Static pages you always want in the sitemap
-  const staticUrls = [
-    { loc: `${site}/`, changefreq: "weekly", priority: "1.0" },
-    { loc: `${site}/about.html`, changefreq: "monthly", priority: "0.7" },
-    { loc: `${site}/contact.html`, changefreq: "monthly", priority: "0.7" },
-    { loc: `${site}/faq.html`, changefreq: "monthly", priority: "0.6" }
-  ];
-
-  let productUrls = [];
+  let slugs: string[] = [];
 
   try {
-    const res = await fetch(dataURL, { headers: { accept: "application/json" } });
-    if (!res.ok) throw new Error(`Upstream fetch failed: ${res.status}`);
-    const data = await res.json();
-
-    // Collect unique slugs
-    const slugs = [...new Set((data || [])
-      .map(x => String(x.slug || "").trim())
-      .filter(Boolean)
-    )];
-
-    productUrls = slugs.map(slug => ({
-      loc: `${site}/p/${encodeURIComponent(slug)}`,
-      changefreq: "weekly",
-      priority: "0.7"
-    }));
-  } catch (e) {
-    // If sheet fetch fails, still return static sitemap (better than breaking)
-    productUrls = [];
+    const res = await fetch(`https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`, {
+      headers: { accept: "application/json" }
+    });
+    const rows: any[] = await res.json();
+    slugs = [...new Set(rows.map(r => String(r.slug || "").trim()).filter(Boolean))];
+  } catch {
+    slugs = [];
   }
+
+  const staticUrls = [
+    { loc: `${base}/`, changefreq: "weekly", priority: "1.0" },
+    { loc: `${base}/about.html`, changefreq: "monthly", priority: "0.7" },
+    { loc: `${base}/contact.html`, changefreq: "monthly", priority: "0.7" },
+    { loc: `${base}/faq.html`, changefreq: "monthly", priority: "0.6" }
+  ];
+
+  const productUrls = slugs.map(s => ({
+    loc: `${base}/p/${encodeURIComponent(s)}`,
+    changefreq: "weekly",
+    priority: "0.7"
+  }));
 
   const all = [...staticUrls, ...productUrls];
 
@@ -50,15 +41,14 @@ ${all.map(u => `  <url>
 
   return new Response(xml, {
     headers: {
-      "content-type": "application/xml; charset=UTF-8",
-      // cache a little (Cloudflare edge), but not too long
+      "content-type": "application/xml; charset=utf-8",
       "cache-control": "public, max-age=300"
     }
   });
-}
+};
 
-function escapeXml(s) {
-  return String(s || "")
+function escapeXml(s: string) {
+  return String(s)
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
