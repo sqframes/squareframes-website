@@ -1,17 +1,24 @@
-export const onRequestGet: PagesFunction = async () => {
+export async function onRequestGet() {
   const base = "https://sqframes.com";
+
   const SHEET_ID = "1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0";
   const SHEET_NAME = "Sheet1";
 
-  let slugs: string[] = [];
+  let slugs = [];
 
   try {
     const res = await fetch(`https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`, {
       headers: { accept: "application/json" }
     });
-    const rows: any[] = await res.json();
-    slugs = [...new Set(rows.map(r => String(r.slug || "").trim()).filter(Boolean))];
-  } catch {
+    if (!res.ok) throw new Error(`Upstream fetch failed: ${res.status}`);
+    const rows = await res.json();
+
+    slugs = [...new Set(
+      (rows || [])
+        .map(r => String(r.slug || "").trim())
+        .filter(Boolean)
+    )];
+  } catch (e) {
     slugs = [];
   }
 
@@ -30,7 +37,8 @@ export const onRequestGet: PagesFunction = async () => {
 
   const all = [...staticUrls, ...productUrls];
 
-  const xml = `<?xml version="1.0" encoding="UTF-8"?>
+  const xml =
+`<?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="https://www.sitemaps.org/schemas/sitemap/0.9">
 ${all.map(u => `  <url>
     <loc>${escapeXml(u.loc)}</loc>
@@ -45,10 +53,10 @@ ${all.map(u => `  <url>
       "cache-control": "public, max-age=300"
     }
   });
-};
+}
 
-function escapeXml(s: string) {
-  return String(s)
+function escapeXml(s) {
+  return String(s || "")
     .replaceAll("&", "&amp;")
     .replaceAll("<", "&lt;")
     .replaceAll(">", "&gt;")
