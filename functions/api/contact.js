@@ -23,7 +23,7 @@ export async function onRequestPost({ request, env }) {
     }
 
     // IMPORTANT: from must be @sqframes.com (your verified domain)
-    const from = "Square Frames <noreply@sqframes.com>";
+    const from = "Square Frames <admin@sqframes.com>";
     const to = ["admin@sqframes.com"];
 
     const subject = product
