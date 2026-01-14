@@ -1,3 +1,4 @@
+<!-- /about.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,6 +10,7 @@
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="https://sqframes.com/about.html" />
 
+  <!-- Open Graph -->
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Square Frames" />
   <meta property="og:url" content="https://sqframes.com/about.html" />
@@ -16,6 +18,7 @@
   <meta property="og:description" content="Hardware, timber, tools, OHS/PPE and supplies across Fiji. Fast quotes and reliable service." />
   <meta property="og:image" content="https://sqframes.com/images/tab_icon.png" />
 
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="About | Square Frames Fiji" />
   <meta name="twitter:description" content="Hardware, timber, tools, OHS/PPE and supplies across Fiji." />
@@ -23,6 +26,7 @@
 
   <link rel="stylesheet" href="/style.css" />
 
+  <!-- LocalBusiness schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -36,110 +40,435 @@
     "description":"Square Frames supplies hardware, timber, tools, OHS/PPE and maintenance supplies across Fiji."
   }
   </script>
+
+  <style>
+    /* Page-only polish that matches your modern home look without changing style.css */
+    .page-wrap{
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 70px 5% 80px 5%;
+    }
+
+    .hero-about{
+      text-align: center;
+      padding: 18px 0 28px 0;
+    }
+    .hero-about h1{
+      margin: 0 0 10px 0;
+      font-size: clamp(2rem, 4.2vw, 3.2rem);
+      letter-spacing: -0.02em;
+      color: #0f172a;
+      font-weight: 900;
+    }
+    .hero-about p{
+      margin: 0 auto;
+      max-width: 860px;
+      color: #334155;
+      font-size: 1.05rem;
+      line-height: 1.75;
+    }
+
+    .pillrow{
+      display:flex;
+      flex-wrap:wrap;
+      gap: 10px;
+      justify-content:center;
+      margin-top: 18px;
+    }
+    .pillrow .tag{
+      display:inline-flex;
+      align-items:center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: #fff;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.06);
+      font-weight: 900;
+      font-size: 0.86rem;
+      color: #0f172a;
+      line-height: 1;
+    }
+
+    .section{
+      margin-top: 24px;
+      padding: 22px;
+      border: 1px solid rgba(0,0,0,0.08);
+      background: #fff;
+      border-radius: 14px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.06);
+    }
+
+    .grid-3{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .cardx{
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 14px;
+      padding: 16px;
+      background: #f8fafc;
+    }
+    .cardx h3{
+      margin: 0 0 8px 0;
+      font-size: 1.02rem;
+      font-weight: 900;
+      color: #0f172a;
+    }
+    .cardx p{
+      margin: 0;
+      color:#334155;
+      line-height:1.6;
+      font-size: 0.98rem;
+    }
+
+    .split{
+      display:grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 16px;
+      align-items:start;
+      margin-top: 10px;
+    }
+
+    .contactbox{
+      border: 1px solid rgba(0,0,0,0.08);
+      border-radius: 14px;
+      padding: 16px;
+      background: #f8fafc;
+    }
+    .contactbox .k{
+      color:#334155;
+      font-weight: 900;
+      font-size: 0.82rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin: 0 0 8px 0;
+    }
+    .contactbox a{
+      font-weight: 900;
+      text-decoration: none;
+      color:#0f172a;
+    }
+    .contactbox a:hover{
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    .form-grid{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .field label{
+      display:block;
+      font-weight: 900;
+      font-size: 0.86rem;
+      color:#0f172a;
+      margin-bottom: 6px;
+    }
+    .field input, .field textarea{
+      width: 100%;
+      border: 1px solid rgba(0,0,0,0.12);
+      border-radius: 12px;
+      padding: 12px;
+      font: inherit;
+      box-sizing:border-box;
+      background:#fff;
+      outline:none;
+    }
+    .field input:focus, .field textarea:focus{
+      box-shadow: 0 0 0 3px rgba(52,176,224,0.18);
+      border-color: rgba(52,176,224,0.35);
+    }
+    .field textarea{
+      min-height: 120px;
+      resize: vertical;
+      grid-column: 1 / -1;
+    }
+
+    .actions{
+      display:flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding: 12px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(0,0,0,0.10);
+      background:#fff;
+      font-weight: 900;
+      color:#0f172a;
+      text-decoration:none;
+      cursor:pointer;
+      line-height:1;
+    }
+    .btn:hover{
+      background: rgba(0,0,0,0.03);
+    }
+    .cta{
+      background: linear-gradient(135deg, #34B0E0 0%, #216BBF 100%);
+      color: #fff !important;
+      border: none;
+      box-shadow: 0 10px 22px rgba(0,0,0,0.10);
+    }
+    .cta:hover{
+      filter: brightness(0.95);
+    }
+
+    #toast{
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%);
+      padding: 12px 14px;
+      border-radius: 12px;
+      background: rgba(17,17,17,0.92);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.95rem;
+      z-index: 9999;
+      max-width: min(560px, calc(100% - 24px));
+      box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+      display: none;
+      white-space: pre-wrap;
+    }
+
+    @media (max-width: 900px){
+      .grid-3{ grid-template-columns: 1fr; }
+      .split{ grid-template-columns: 1fr; }
+      .form-grid{ grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 
 <body>
+  <!-- Header: uses your home styles (site-header/header-inner/nav-pills/brand/btn-cta) -->
   <header class="site-header">
-    <div class="topbar">
-      <div class="topbar-inner">
-        <div class="topbar-right">
-          <a href="tel:+6797855919">+679 7855919</a>
-          <span class="dot">•</span>
-          <a href="mailto:admin@sqframes.com">admin@sqframes.com</a>
-        </div>
-      </div>
-    </div>
-
     <div class="header-inner">
       <a href="/" class="brand" aria-label="Square Frames Home">
         <img src="/images/sqf_logo_transparent.png" alt="Square Frames">
       </a>
 
+      <!-- keep middle empty so nav stays aligned similar to home -->
       <div></div>
 
       <nav class="nav-pills" aria-label="Main navigation">
         <a href="/">Home</a>
         <a href="/about.html" aria-current="page">About</a>
         <a href="/faq.html">FAQ</a>
-        <a href="/contact.html">Contact</a>
+        <a href="/contact.html#enquiry">Contact</a>
         <a class="btn-cta" href="/contact.html#enquiry">Request Quote</a>
       </nav>
     </div>
   </header>
 
-  <main class="page">
-    <section class="page-hero center">
+  <main class="page-wrap">
+    <section class="hero-about">
       <h1>About Square Frames</h1>
-      <p class="lead">
-        Square Frames supplies <strong>hardware, timber, tools, OHS/PPE safety equipment</strong>, traffic safety products
-        and maintenance essentials across Fiji.
+      <p>
+        We supply <strong>hardware, timber, tools, OHS/PPE safety equipment</strong>, traffic safety products,
+        and maintenance essentials for projects and businesses across Fiji.
         Based in Suva — servicing <strong>Suva, Nasinu, Nausori, Lami, Lautoka, Nadi, Labasa</strong> and <strong>all of Fiji</strong>.
       </p>
 
-      <div class="chips">
-        <span class="chip">Fast Response</span>
-        <span class="chip">Trade &amp; Business Support</span>
-        <span class="chip">Reliable Supply</span>
-        <span class="chip">Nationwide Service</span>
-      </div>
-
-      <div class="hero-actions">
-        <a class="btn primary" href="/contact.html#enquiry">Send an Enquiry</a>
-        <a class="btn ghost" href="tel:+6797855919">Call +679 785 5919</a>
+      <div class="pillrow" aria-label="Highlights">
+        <span class="tag">Fast Response</span>
+        <span class="tag">Trade &amp; Business Support</span>
+        <span class="tag">Reliable Supply</span>
+        <span class="tag">Nationwide Service</span>
       </div>
     </section>
 
-    <section class="card">
-      <h2>What we supply</h2>
-      <p class="muted">
-        From everyday site essentials to bulk supply, we help customers get the right products quickly with clear communication and dependable service.
+    <section class="section" aria-label="Services">
+      <h2 style="margin:0 0 6px 0; font-size:1.25rem; font-weight:900; color:#0f172a;">What we do</h2>
+      <p style="margin:0; color:#334155; line-height:1.75;">
+        From everyday site needs to bulk supply, we help customers find the right products quickly — with clear communication and dependable service.
       </p>
 
-      <div class="grid3">
-        <div class="mini-card">
+      <div class="grid-3" style="margin-top:14px;">
+        <div class="cardx">
           <h3>Hardware &amp; General Supplies</h3>
-          <p>Fixings, consumables and commonly used building essentials.</p>
+          <p>Screws, fixings, consumables, building essentials and commonly used site items.</p>
         </div>
-        <div class="mini-card">
+        <div class="cardx">
           <h3>Timber &amp; Board Products</h3>
-          <p>Structural &amp; dressed timber, plywood, PVC boards and more.</p>
+          <p>Structural &amp; dressed timber, plywood, PVC boards and related building materials.</p>
         </div>
-        <div class="mini-card">
+        <div class="cardx">
           <h3>Tools &amp; Equipment</h3>
-          <p>Hand tools, power tools and garden tools for jobs of any size.</p>
+          <p>Hand tools, power tools and garden tools — for trade, business and home projects.</p>
         </div>
-        <div class="mini-card">
+
+        <div class="cardx">
           <h3>OHS / PPE Safety</h3>
-          <p>Harnesses, hi-vis workwear, gloves, helmets and safety needs.</p>
+          <p>Safety harnesses, hi-vis workwear, gloves, helmets and workplace safety needs.</p>
         </div>
-        <div class="mini-card">
+        <div class="cardx">
           <h3>Traffic Safety</h3>
-          <p>Traffic cones and signage solutions for sites and events.</p>
+          <p>Traffic cones and signage solutions for sites, events and roadwork requirements.</p>
         </div>
-        <div class="mini-card">
-          <h3>Support for Businesses</h3>
-          <p>Responsive service and consistent supply for trade customers.</p>
+        <div class="cardx">
+          <h3>Repairs &amp; Maintenance Support</h3>
+          <p>Support for maintenance requirements and ongoing supply needs for businesses.</p>
         </div>
       </div>
     </section>
 
-    <section class="card">
-      <h2>Service coverage</h2>
-      <p class="muted">
+    <section class="section" aria-label="Service areas">
+      <h2 style="margin:0 0 10px 0; font-size:1.25rem; font-weight:900; color:#0f172a;">Service areas</h2>
+      <p style="margin:0; color:#334155; line-height:1.75;">
         We service <strong>Suva, Nasinu, Nausori, Lami, Lautoka, Nadi, Labasa</strong> and <strong>all of Fiji</strong>.
-        Delivery/logistics depend on item type and location — send your location and list and we’ll advise the best option.
+        Delivery/logistics depend on item type and location — send your location and item list and we’ll advise the best option.
       </p>
-      <div class="pill-row">
-        <span class="pill">Suva</span><span class="pill">Nasinu</span><span class="pill">Nausori</span><span class="pill">Lami</span>
-        <span class="pill">Lautoka</span><span class="pill">Nadi</span><span class="pill">Labasa</span><span class="pill">All of Fiji</span>
+    </section>
+
+    <section class="section" id="enquiry" aria-label="Enquiry form">
+      <h2 style="margin:0 0 6px 0; font-size:1.25rem; font-weight:900; color:#0f172a;">Send an enquiry</h2>
+      <p style="margin:0; color:#334155; line-height:1.75;">
+        Tell us what you need and we’ll respond as soon as possible.
+      </p>
+
+      <div class="split">
+        <div>
+          <form id="aboutEnquiryForm" style="margin-top:10px;">
+            <input type="hidden" id="form-product" value="About Page Enquiry" />
+            <input type="hidden" id="honeypot-website" value="" />
+
+            <div class="form-grid">
+              <div class="field">
+                <label for="form-name">Name</label>
+                <input id="form-name" type="text" autocomplete="name" required placeholder="Your name" />
+              </div>
+
+              <div class="field">
+                <label for="form-email">Email</label>
+                <input id="form-email" type="email" autocomplete="email" required placeholder="you@company.com" />
+              </div>
+
+              <div class="field" style="grid-column:1/-1;">
+                <label for="form-location">Location (optional)</label>
+                <input id="form-location" type="text" placeholder="Suva / Nausori / Nadi..." />
+              </div>
+
+              <div class="field">
+                <label for="form-qty">Quantities (optional)</label>
+                <input id="form-qty" type="text" placeholder="e.g., 20 pcs, 10 lengths, 5 boxes" />
+              </div>
+
+              <div class="field">
+                <label for="form-phone">Phone (optional)</label>
+                <input id="form-phone" type="tel" placeholder="+679 ..." />
+              </div>
+
+              <div class="field">
+                <label for="form-msg">Message</label>
+                <textarea id="form-msg" required placeholder="Tell us what you need..."></textarea>
+              </div>
+            </div>
+
+            <div class="actions">
+              <button class="btn cta" type="submit">Send Enquiry</button>
+              <a class="btn" href="mailto:admin@sqframes.com">Email: admin@sqframes.com</a>
+              <a class="btn" href="tel:+6797855919">Call: +679 785 5919</a>
+            </div>
+
+            <p style="margin:10px 0 0 0; color:#64748b; font-weight:700; font-size:0.95rem;">
+              Tip: Include quantities (if known) and your location for faster service.
+            </p>
+          </form>
+        </div>
+
+        <aside class="contactbox" aria-label="Direct contact">
+          <p class="k">Contact</p>
+          <p style="margin:0 0 10px 0; color:#334155; line-height:1.7;">
+            Prefer to reach us directly? Use the phone or email below.
+          </p>
+
+          <p style="margin:0 0 10px 0;">
+            <strong style="color:#0f172a;">Phone:</strong><br />
+            <a href="tel:+6797855919">+679 785 5919</a>
+          </p>
+
+          <p style="margin:0 0 10px 0;">
+            <strong style="color:#0f172a;">Email:</strong><br />
+            <a href="mailto:admin@sqframes.com">admin@sqframes.com</a>
+          </p>
+
+          <p style="margin:0; color:#334155; line-height:1.7;">
+            <strong style="color:#0f172a;">Service areas:</strong><br />
+            Suva, Nasinu, Nausori, Lami, Lautoka, Nadi, Labasa &amp; all of Fiji.
+          </p>
+        </aside>
       </div>
     </section>
   </main>
 
   <footer>
-    <strong>Square Frames</strong> · Servicing all of Fiji<br>
-    Phone: <a href="tel:+6797855919">+679 785 5919</a> · Email: <a href="mailto:admin@sqframes.com">admin@sqframes.com</a><br>
+    <strong>Square Frames</strong> · Servicing all of Fiji<br />
+    Phone: <a href="tel:+6797855919">+679 785 5919</a> · Email: <a href="mailto:admin@sqframes.com">admin@sqframes.com</a><br />
     &copy; 2026 Square Frames. All rights reserved.
   </footer>
+
+  <div id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    function toast(msg, ms = 3500) {
+      const el = document.getElementById('toast');
+      if (!el) return;
+      el.textContent = msg;
+      el.style.display = 'block';
+      clearTimeout(el._t);
+      el._t = setTimeout(() => { el.style.display = 'none'; }, ms);
+    }
+
+    // Enquiry submit -> /api/contact (Resend)
+    document.getElementById('aboutEnquiryForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const payload = {
+        product: document.getElementById('form-product').value,
+        name: document.getElementById('form-name').value,
+        email: document.getElementById('form-email').value,
+        location: document.getElementById('form-location').value,
+        message:
+          (document.getElementById('form-msg').value || "") +
+          (document.getElementById('form-qty').value ? "\n\nQuantities: " + document.getElementById('form-qty').value : "") +
+          (document.getElementById('form-phone').value ? "\nPhone: " + document.getElementById('form-phone').value : ""),
+        page: window.location.href,
+        website: document.getElementById('honeypot-website').value // honeypot
+      };
+
+      try {
+        const res = await fetch('/api/contact', {
+          method: 'POST',
+          headers: { 'content-type': 'application/json' },
+          body: JSON.stringify(payload)
+        });
+
+        const out = await res.json().catch(() => ({}));
+
+        if (res.ok && out.ok) {
+          toast("Sent! We’ll get back to you shortly.");
+          e.target.reset();
+        } else {
+          const details = out && (out.error || out.details)
+            ? (out.error + (out.details ? "\n\n" + JSON.stringify(out.details) : ""))
+            : "Unknown error";
+          toast("Send failed.\n\n" + details, 6000);
+          console.error(out);
+        }
+      } catch (err) {
+        toast("Send failed.\n\nPlease email admin@sqframes.com", 6000);
+        console.error(err);
+      }
+    });
+  </script>
 </body>
 </html>
