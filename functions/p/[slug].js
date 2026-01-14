@@ -7,74 +7,98 @@ export async function onRequestGet({ params, request }) {
   const dataURL = `https://opensheet.elk.sh/${sheetID}/${sheetName}`;
 
   const fallbackTitle = "Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji";
-  const fallbackDesc = "Square Frames supplies hardware, tools, timber products, OHS safety equipment, cleaning supplies, and services across Fiji.";
+  const fallbackDesc =
+    "Square Frames supplies hardware, tools, timber products, OHS safety equipment, cleaning supplies, and services across Fiji.";
   const fallbackImg = `${site}/images/tab_icon.png`;
 
-  const canonical = `${site}/p/${encodeURIComponent(slug)}`;
+  const canonical = slug ? `${site}/p/${encodeURIComponent(slug)}` : `${site}/`;
 
-  if (!slug) return html(renderBasic({ title: fallbackTitle, desc: fallbackDesc, img: fallbackImg, canonical: site + "/" }));
+  if (!slug) {
+    return html(
+      renderBasic({
+        title: fallbackTitle,
+        desc: fallbackDesc,
+        img: fallbackImg,
+        canonical: `${site}/`
+      })
+    );
+  }
 
   let item = null;
   try {
-    const res = await fetch(dataURL, { headers: { "accept": "application/json" } });
+    const res = await fetch(dataURL, { headers: { accept: "application/json" } });
     if (!res.ok) throw new Error(String(res.status));
     const data = await res.json();
-    item = (data || []).find(x => String(x.slug || "").trim() === slug) || null;
+
+    const want = normSlug(slug);
+    item =
+      (data || []).find((x) => normSlug(x?.slug) === want) ||
+      (data || []).find((x) => String(x?.slug || "").trim() === slug) ||
+      null;
   } catch {
     return html(renderBasic({ title: fallbackTitle, desc: fallbackDesc, img: fallbackImg, canonical }));
   }
 
   if (!item) {
-    return html(renderBasic({
-      title: `Not found | Square Frames`,
-      desc: "This item may have been renamed or removed. Browse the Square Frames catalogue.",
-      img: fallbackImg,
-      canonical
-    }));
+    return html(
+      renderBasic({
+        title: `Not found | Square Frames`,
+        desc: "This item may have been renamed or removed. Browse the Square Frames catalogue.",
+        img: fallbackImg,
+        canonical
+      })
+    );
   }
 
   const name = clean(item.name) || "Product";
   const category = clean(item.category);
   const img = absolutize(firstImage(item.images) || fallbackImg, site);
+
   const descLine = firstLine(item.description);
   const desc = truncate(
-    descLine || `${name}${category ? " – " + category : ""}. Request a quote from Square Frames (Suva), servicing all of Fiji.`,
+    descLine ||
+      `${name}${category ? " – " + category : ""}. Request a quote from Square Frames (Suva), servicing all of Fiji.`,
     155
   );
 
-  // Dimensions and bullets for visible page
+  // Visible details
   const dims = splitLines(item.dimensions || item.Dimensions);
   const bullets = splitLines(item.description);
 
-  // Product Schema (Google)
+  // Product schema
   const productSchema = {
     "@context": "https://schema.org",
     "@type": "Product",
-    "name": name,
-    "image": [img],
-    "description": clean(item.description) || desc,
-    "brand": { "@type": "Brand", "name": "Square Frames" },
-    ...(category ? { "category": category } : {}),
-    "offers": {
+    name,
+    image: [img],
+    description: clean(item.description) || desc,
+    brand: { "@type": "Brand", name: "Square Frames" },
+    ...(category ? { category } : {}),
+    offers: {
       "@type": "Offer",
-      "availability": "https://schema.org/InStock",
-      "priceCurrency": "FJD",
-      "price": clean(item.price).replace(/[^0-9.]/g, "") || "0",
-      "url": canonical
+      availability: "https://schema.org/InStock",
+      priceCurrency: "FJD",
+      price: clean(item.price).replace(/[^0-9.]/g, "") || "0",
+      url: canonical
     }
   };
+
+  // Redirect real users to your interactive catalogue page (after OG tags are read)
+  // Most social crawlers ignore JS; humans will be redirected.
+  const catalogueUrl = `${site}/${encodeURIComponent(slug)}`;
 
   const page = `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
+
   <title>${e(`${name} | Square Frames`)}</title>
   <link rel="canonical" href="${e(canonical)}"/>
   <meta name="description" content="${e(desc)}"/>
   <meta name="robots" content="index,follow"/>
 
-  <!-- OG (Social previews) -->
+  <!-- Open Graph (Social previews) -->
   <meta property="og:type" content="website"/>
   <meta property="og:site_name" content="Square Frames"/>
   <meta property="og:url" content="${e(canonical)}"/>
@@ -89,8 +113,14 @@ export async function onRequestGet({ params, request }) {
   <meta name="twitter:image" content="${e(img)}"/>
 
   <link rel="stylesheet" href="/style.css"/>
-
   <script type="application/ld+json">${JSON.stringify(productSchema)}</script>
+
+  <!-- Human redirect to live catalogue -->
+  <meta http-equiv="refresh" content="1;url=${e(catalogueUrl)}" />
+  <script>
+    // redirect humans quickly; bots typically ignore JS
+    setTimeout(function(){ window.location.href = ${JSON.stringify(catalogueUrl)}; }, 150);
+  </script>
 </head>
 <body>
   <header class="header">
@@ -98,6 +128,7 @@ export async function onRequestGet({ params, request }) {
       <img src="/images/sqf_logo_transparent.png" alt="Square Frames">
     </a>
     <nav class="nav">
+      <a href="/">Home</a>
       <a href="/about.html">About</a>
       <a href="/faq.html">FAQ</a>
       <a href="/contact.html#enquiry">Contact</a>
@@ -111,6 +142,7 @@ export async function onRequestGet({ params, request }) {
     <section class="pHero">
       <h1>${e(name)}</h1>
       <p class="pMeta">${e(desc)}</p>
+      <p class="pMeta"><a href="${e(catalogueUrl)}">Open this product →</a></p>
     </section>
 
     <section class="pGrid">
@@ -133,10 +165,13 @@ export async function onRequestGet({ params, request }) {
 
         <div class="actions">
           <a class="cta wide" href="/contact.html#enquiry">Request Quote</a>
-          <a class="btn wide" href="tel:+6797855919">Call +679 785 5919</a>
+          <a class="btn wide" href="${e(catalogueUrl)}">View in catalogue</a>
         </div>
 
-        <p class="note">Include quantities (if known) and your location in Fiji for faster service.</p>
+        <!-- ✅ Removed:
+             - Call +679 button
+             - "Include quantities..." note
+        -->
       </div>
     </section>
 
@@ -183,15 +218,38 @@ function renderBasic({ title, desc, img, canonical }) {
 </body></html>`;
 }
 
-function clean(s) { return String(s || "").replace(/\s+/g, " ").trim(); }
-function truncate(s, n) { s = clean(s); return s.length > n ? s.slice(0, n - 1).trim() + "…" : s; }
-function firstLine(desc) { return splitLines(desc)[0] || ""; }
+function normSlug(v) {
+  return String(v || "").trim().toLowerCase();
+}
+
+function clean(s) {
+  return String(s || "").replace(/\s+/g, " ").trim();
+}
+
+function truncate(s, n) {
+  s = clean(s);
+  return s.length > n ? s.slice(0, n - 1).trim() + "…" : s;
+}
+
+function firstLine(desc) {
+  return splitLines(desc)[0] || "";
+}
+
 function splitLines(v) {
-  return String(v || "").split("\n").map(x => x.trim()).filter(Boolean);
+  return String(v || "")
+    .split("\n")
+    .map((x) => x.trim())
+    .filter(Boolean);
 }
+
 function firstImage(images) {
-  return String(images || "").split(",").map(x => x.trim()).filter(Boolean)[0] || "";
+  // supports comma OR newline separated
+  return String(images || "")
+    .split(/[\n,]+/g)
+    .map((x) => x.trim())
+    .filter(Boolean)[0] || "";
 }
+
 function absolutize(u, site) {
   u = String(u || "").trim();
   if (!u) return "";
@@ -199,8 +257,12 @@ function absolutize(u, site) {
   if (u.startsWith("/")) return site + u;
   return site + "/" + u;
 }
+
 function e(s) {
   return String(s || "")
-    .replaceAll("&", "&amp;").replaceAll("<", "&lt;").replaceAll(">", "&gt;")
-    .replaceAll('"', "&quot;").replaceAll("'", "&#039;");
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#039;");
 }
