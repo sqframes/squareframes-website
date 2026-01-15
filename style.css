@@ -665,3 +665,51 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   .grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
   .card.wide, .card.tall, .card.big { grid-column: auto; grid-row: auto; }
 }
+/* ==========================
+   FAQ
+   ========================== */
+
+.faq-wrap {
+  max-width: var(--maxw);
+  margin: 40px auto 80px auto;
+  padding: 0 5%;
+}
+
+.faq-item {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px 22px;
+  margin-bottom: 16px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.faq-item summary {
+  cursor: pointer;
+  font-weight: 900;              /* ✅ questions stay bold */
+  font-size: 1.05rem;
+  list-style: none;
+}
+
+.faq-item summary::-webkit-details-marker {
+  display: none;
+}
+
+.faq-item summary::after {
+  content: "+";
+  float: right;
+  font-weight: 900;
+}
+
+.faq-item[open] summary::after {
+  content: "–";
+}
+
+/* ✅ THIS IS THE FIX */
+.faq-answer {
+  margin-top: 12px;
+  font-weight: 400;              /* ← unbold answers */
+  color: #374151;
+  line-height: 1.7;
+}
+
