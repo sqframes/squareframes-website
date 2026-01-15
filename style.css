@@ -712,4 +712,80 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   color: #374151;
   line-height: 1.7;
 }
+/* ==========================
+   FAQ Accordion Polish
+   ========================== */
+
+.faq-list {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  display: grid;
+  gap: 14px;
+}
+
+.faq-list details {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 0;
+  overflow: hidden;
+}
+
+.faq-list details summary {
+  list-style: none;
+  cursor: pointer;
+  padding: 18px 22px;
+  font-weight: 900;
+  font-size: 1.02rem;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.faq-list details summary::-webkit-details-marker {
+  display: none;
+}
+
+/* Chevron */
+.faq-list details summary::after {
+  content: "▾";
+  font-size: 1.2rem;
+  font-weight: 900;
+  color: #216BBF;
+  transition: transform 0.25s ease;
+}
+
+.faq-list details[open] summary::after {
+  transform: rotate(-180deg);
+}
+
+/* Answer body */
+.faq-list details .faq-answer {
+  padding: 0 22px 20px 22px;
+  color: #333;
+  font-size: 0.98rem;
+  line-height: 1.7;
+  font-weight: 400; /* ✅ unbolded answers */
+}
+
+/* Subtle hover */
+.faq-list details summary:hover {
+  background: var(--muted);
+}
+
+/* Mobile tuning */
+@media (max-width: 640px) {
+  .faq-list details summary {
+    font-size: 0.96rem;
+    padding: 16px 18px;
+  }
+
+  .faq-list details .faq-answer {
+    padding: 0 18px 18px 18px;
+    font-size: 0.95rem;
+  }
+}
+
 
