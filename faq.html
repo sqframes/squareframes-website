@@ -1,4 +1,3 @@
-<!-- faq.html -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,7 +18,7 @@
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://sqframes.com/faq.html" />
   <meta property="og:title" content="FAQ | Square Frames Fiji" />
-  <meta property="og:description" content="Timber sizes, product standards, OHS/PPE, tools and supply across Fiji. Request a quote for pricing and availability." />
+  <meta property="og:description" content="Timber sizes, product standards, OHS/PPE, delivery across Fiji, and quote requests." />
   <meta property="og:image" content="https://sqframes.com/images/og-cover.png" />
   <meta property="og:site_name" content="Square Frames" />
 
@@ -56,7 +55,7 @@
         "name": "How do I request a quote?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Use the Request Quote button (top right) or send an enquiry with item details, quantities (if known), and your location. We’ll reply with availability and pricing."
+          "text": "Use the Request Quote button or send an enquiry with item details, quantities (if known), and your location. We’ll reply with availability and pricing."
         }
       },
       {
@@ -96,7 +95,7 @@
         "name": "Can you supply compliance documentation or certifications?",
         "acceptedAnswer": {
           "@type": "Answer",
-          "text": "Where available, we can provide product details or documentation from the supplier/manufacturer. Tell us the exact documentation you need (e.g., treatment, grade, or compliance requirements)."
+          "text": "Where available, we can provide product details or documentation from the supplier/manufacturer. Tell us the exact documentation you need (for example: treatment level, grade, or compliance requirements)."
         }
       },
       {
@@ -145,7 +144,9 @@
         <a href="/">Home</a>
         <a href="/about.html">About</a>
         <a href="/faq.html" aria-current="page">FAQ</a>
-        <a class="btn-cta" href="#" onclick="openInquiryForm(); return false;">Request Quote</a>
+
+        <!-- ✅ Shared overlay opener (no navigation) -->
+        <a class="btn-cta" href="#" data-open-inquiry>Request Quote</a>
       </nav>
     </div>
   </header>
@@ -156,7 +157,7 @@
       <h1 class="tagline">Frequently Asked Questions</h1>
       <p class="subline">
         Timber sizes, product standards, OHS/PPE, tools and supply across Fiji.
-        Need pricing or availability? Use <a href="#" class="faq-inline-cta" onclick="openInquiryForm(); return false;">Request Quote</a>.
+        Need pricing or availability? Use <a href="#" class="faq-inline-cta" data-open-inquiry>Request Quote</a>.
       </p>
 
       <div class="badges" aria-label="FAQ topics">
@@ -171,30 +172,16 @@
     <section class="faq-wrap" aria-label="FAQ">
       <div class="faq-grid">
 
-        <aside class="faq-aside">
-          <div class="faq-card">
-            <div class="faq-card-title">Fast quotes</div>
-            <div class="faq-card-text">
-              Share your item list, quantities (if known), and location in Fiji for the quickest turnaround.
-            </div>
-            <button class="cta-btn" type="button" onclick="openInquiryForm()">Request Quote</button>
-            <div class="faq-mini-contacts">
-              <a href="tel:+6797855919">+679 785 5919</a>
-              <span>·</span>
-              <a href="mailto:admin@sqframes.com">admin@sqframes.com</a>
-            </div>
-          </div>
-        </aside>
+        <!-- ✅ Removed “Fast quotes” aside completely -->
 
-        <div class="faq-main">
-
+        <div class="faq-main" style="grid-column: 1 / -1;">
           <h2 class="faq-section-title">General</h2>
 
           <div class="faq-accordion">
             <details open>
               <summary>Do you service areas outside Suva?</summary>
               <div class="faq-answer">
-                Yes. We service <strong>Suva</strong>, <strong>Nasinu</strong>, <strong>Nausori</strong>, <strong>Lami</strong>, <strong>Lautoka</strong>, <strong>Nadi</strong>, <strong>Labasa</strong> and all of Fiji.
+                Yes. We service Suva, Nasinu, Nausori, Lami, Lautoka, Nadi, Labasa and all of Fiji.
               </div>
             </details>
 
@@ -208,7 +195,7 @@
             <details>
               <summary>How do I request a quote?</summary>
               <div class="faq-answer">
-                Use the <strong>Request Quote</strong> button (top right) or send an enquiry with item details, quantities (if known), and your location. We’ll reply with availability and pricing.
+                Use the Request Quote button or send an enquiry with item details, quantities (if known), and your location. We’ll reply with availability and pricing.
               </div>
             </details>
 
@@ -296,47 +283,13 @@
           <div class="faq-bottom-cta">
             <div class="faq-bottom-title">Need pricing or availability?</div>
             <div class="faq-bottom-sub">Send a quick enquiry and we’ll respond with the best option.</div>
-            <button class="cta-btn" type="button" onclick="openInquiryForm()">Request Quote</button>
+            <button class="cta-btn" type="button" data-open-inquiry>Request Quote</button>
           </div>
 
         </div>
       </div>
     </section>
   </main>
-
-  <!-- Inquiry Form Overlay (same as home) -->
-  <div id="inquiry-form-overlay" aria-hidden="true">
-    <div class="form-box" role="dialog" aria-modal="true" aria-label="Request a Quote">
-      <button type="button" class="close-btn" onclick="closeInquiryForm()" style="position:absolute; top:16px; right:16px; background:none;" aria-label="Close">&times;</button>
-      <h3 style="margin:0 0 18px 0; font-size:1.3rem;">Send an Enquiry</h3>
-
-      <form id="inquiryForm">
-        <input type="hidden" id="form-product" value="FAQ enquiry" />
-
-        <div class="form-group">
-          <label>Name</label>
-          <input type="text" id="form-name" required placeholder="Your name" />
-        </div>
-
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" id="form-email" required placeholder="you@company.com" />
-        </div>
-
-        <div class="form-group">
-          <label>Location (Optional)</label>
-          <input type="text" id="form-location" placeholder="Fiji" />
-        </div>
-
-        <div class="form-group">
-          <label>Message</label>
-          <textarea id="form-msg" placeholder="Tell us what you need..." rows="4"></textarea>
-        </div>
-
-        <button type="submit" class="cta-btn">Email Square Frames</button>
-      </form>
-    </div>
-  </div>
 
   <footer>
     <strong>Square Frames</strong> · Servicing all of Fiji<br />
@@ -346,84 +299,12 @@
 
   <div id="toast" role="status" aria-live="polite"></div>
 
+  <!-- ✅ Shared overlay + submit handler + toast + consistent behavior -->
+  <script src="/site.js"></script>
+
   <script>
-    // Overlay controls (must keep user on current page)
-    const inquiryOverlay = document.getElementById('inquiry-form-overlay');
-
-    function openInquiryForm() {
-      inquiryOverlay.style.display = 'flex';
-      inquiryOverlay.setAttribute('aria-hidden', 'false');
-      // focus first input for better UX
-      const first = document.getElementById('form-name');
-      if (first) setTimeout(() => first.focus(), 50);
-    }
-    function closeInquiryForm() {
-      inquiryOverlay.style.display = 'none';
-      inquiryOverlay.setAttribute('aria-hidden', 'true');
-    }
-    window.openInquiryForm = openInquiryForm;
-    window.closeInquiryForm = closeInquiryForm;
-
-    // close overlay on backdrop click + ESC
-    inquiryOverlay.addEventListener('click', (e) => {
-      if (e.target === inquiryOverlay) closeInquiryForm();
-    });
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && inquiryOverlay.style.display === 'flex') closeInquiryForm();
-    });
-
-    // toast
-    function toast(msg, ms = 2600) {
-      const el = document.getElementById('toast');
-      if (!el) return;
-      el.textContent = msg;
-      el.style.display = 'block';
-      clearTimeout(el._t);
-      el._t = setTimeout(() => { el.style.display = 'none'; }, ms);
-    }
-
-    // submit enquiry -> /api/contact
-    document.getElementById('inquiryForm').addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const payload = {
-        product: document.getElementById('form-product').value,
-        name: document.getElementById('form-name').value,
-        email: document.getElementById('form-email').value,
-        location: document.getElementById('form-location').value,
-        message: document.getElementById('form-msg').value,
-        page: window.location.href,
-        website: "" // honeypot
-      };
-
-      try {
-        const res = await fetch('/api/contact', {
-          method: 'POST',
-          headers: { 'content-type': 'application/json' },
-          body: JSON.stringify(payload)
-        });
-
-        const out = await res.json().catch(() => ({}));
-
-        if (res.ok && out.ok) {
-          toast("Sent! We’ll get back to you shortly.");
-          closeInquiryForm();
-          e.target.reset();
-        } else {
-          const details = out && (out.error || out.details)
-            ? (out.error + (out.details ? "\n\n" + JSON.stringify(out.details) : ""))
-            : "Unknown error";
-          toast("Send failed.\n\n" + details, 6000);
-          console.error(out);
-        }
-      } catch (err) {
-        toast("Send failed.\n\nPlease email admin@sqframes.com", 6000);
-        console.error(err);
-      }
-    });
-
-    // accordion UX polish: close others when opening one (optional, feels premium)
-    // DOES NOT change layout/structure; only behavior refinement.
+    // ✅ Accordion behavior polish: only one open per section group
+    // (No layout/structure change, just premium interaction)
     document.querySelectorAll('.faq-accordion').forEach((group) => {
       group.addEventListener('toggle', (e) => {
         const opened = e.target;
