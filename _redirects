@@ -1,6 +1,4 @@
-# Always serve the SPA for product share links
-/p/*    /index.html   200
-
-# Also serve SPA for direct /slug links (optional but helps)
-# If you ONLY want /p/slug, you can remove this line.
-/*      /index.html   200
+/p/*        /index.html   200
+/about.html /about.html   200
+/faq.html   /faq.html     200
+/*          /index.html   200
