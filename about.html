@@ -46,7 +46,7 @@
 
 <body>
 
-  <!-- Header (same as home/faq) -->
+  <!-- Header (matches home/faq) -->
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="brand" aria-label="Square Frames Home">
@@ -54,7 +54,7 @@
       </a>
 
       <div class="header-controls modern-controls">
-        <!-- keep spacing consistent (disabled controls) -->
+        <!-- keep spacing consistent with home (disabled controls) -->
         <div class="search-wrap" aria-hidden="true" style="opacity:.35">
           <input type="text" placeholder="Search products..." disabled />
         </div>
@@ -70,9 +70,8 @@
         <a href="/about.html" aria-current="page">About</a>
         <a href="/faq.html">FAQ</a>
 
-        <!-- ✅ Shared overlay opener (no navigation, keeps current page) -->
+        <!-- ✅ Works everywhere via site.js -->
         <a class="btn-cta" href="#" data-open-inquiry>Request Quote</a>
-
       </nav>
     </div>
   </header>
@@ -165,7 +164,7 @@
             <form id="aboutInquiryForm" class="inline-form">
               <input type="hidden" id="about-product" value="Website enquiry (About page)" />
 
-              <!-- ✅ Honeypot (matches api/contact.js) -->
+              <!-- Honeypot -->
               <input type="text" id="about-website" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true" />
 
               <div class="form-group">
@@ -189,8 +188,9 @@
               </div>
 
               <button type="submit" class="cta-btn">Send Enquiry</button>
+
               <div class="form-help muted">
-                You can also use the Request Quote button in the header (overlay form).
+                You can also use the <strong>Request Quote</strong> button in the header (overlay form).
               </div>
             </form>
           </div>
@@ -199,6 +199,47 @@
       </div>
     </section>
   </main>
+
+  <!-- ✅ Overlay exists on this page (site.js can open it) -->
+  <div id="inquiry-form-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="form-box">
+      <button type="button" class="close-btn" onclick="closeInquiry()"
+        style="position:absolute; top:16px; right:16px; background:none;"
+        aria-label="Close">&times;</button>
+
+      <h3 style="margin:0 0 18px 0; font-size:1.3rem;">Send an Enquiry</h3>
+
+      <form id="inquiryForm">
+        <input type="hidden" id="form-product">
+
+        <!-- Honeypot -->
+        <input type="text" id="form-website" value="" style="display:none"
+          tabindex="-1" autocomplete="off" aria-hidden="true">
+
+        <div class="form-group">
+          <label for="form-name">Name</label>
+          <input type="text" id="form-name" required placeholder="Your name">
+        </div>
+
+        <div class="form-group">
+          <label for="form-email">Email</label>
+          <input type="email" id="form-email" required placeholder="you@company.com">
+        </div>
+
+        <div class="form-group">
+          <label for="form-location">Location (Optional)</label>
+          <input type="text" id="form-location" placeholder="Fiji">
+        </div>
+
+        <div class="form-group">
+          <label for="form-msg">Message</label>
+          <textarea id="form-msg" placeholder="Tell us what you need..." rows="4"></textarea>
+        </div>
+
+        <button type="submit" class="cta-btn">Email Square Frames</button>
+      </form>
+    </div>
+  </div>
 
   <footer>
     <strong>Square Frames</strong> · Servicing all of Fiji<br />
@@ -258,7 +299,7 @@
     });
   </script>
 
-  <!-- ✅ Shared overlay + Request Quote handling (same as index) -->
+  <!-- ✅ Handles overlay open/close + submission + Request Quote triggers -->
   <script src="/site.js"></script>
 
 </body>
