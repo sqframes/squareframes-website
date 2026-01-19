@@ -1,7 +1,6 @@
 /* style.css */
 
-/* ✅ Linear-style typography (Inter Variable + font features) */
-/* Uses Google Fonts variable Inter (opsz + wght). No layout/JS changes. */
+/* ✅ Inter Variable (lighter, premium weights) */
 @import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
 
 :root {
@@ -19,17 +18,18 @@
 
   --header-maxw: 1360px;
 
-  /* ✅ Typography tokens (keep SQF “heavier” than Linear for a hardware brand) */
-  --font-sans: "Inter", "Inter Variable", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
-  --fw-body: 520;
-  --fw-medium: 590;
-  --fw-bold: 700;
-  --fw-heavy: 820;
-  --fw-hero: 900;
+  /* ✅ Typography tokens (LIGHTER — fixes “too heavy” look) */
+  --font-sans: "Inter", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+
+  /* Core scale */
+  --fw-body: 400;      /* paragraphs, answers */
+  --fw-medium: 500;    /* secondary UI / list text */
+  --fw-semibold: 600;  /* nav / badges / buttons */
+  --fw-bold: 650;      /* titles */
+  --fw-hero: 700;      /* H1 only (no 900) */
 }
 
 html {
-  /* Linear-like rendering + features */
   -webkit-text-size-adjust: 100%;
   text-rendering: optimizeLegibility;
   font-feature-settings: "cv01", "ss03";
@@ -45,7 +45,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* ✅ More “Linear-like” default rhythm (no layout change) */
   line-height: 1.5;
   font-weight: var(--fw-body);
 }
@@ -126,7 +125,7 @@ button, input, optgroup, select, textarea {
   font-size: 0.95rem;
   outline: none;
   width: 100%;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-medium);      /* ✅ lighter */
   letter-spacing: -0.01em;
 }
 
@@ -144,7 +143,7 @@ button, input, optgroup, select, textarea {
 .nav-pills a {
   text-decoration: none;
   color: #111;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   font-size: 0.95rem;
   padding: 10px 12px;
   border-radius: 999px;
@@ -168,7 +167,7 @@ button, input, optgroup, select, textarea {
   box-shadow: 0 10px 22px rgba(0,0,0,0.10);
   min-height: 42px;
   padding: 10px 16px !important;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
 }
 
 .btn-cta:hover {
@@ -178,7 +177,7 @@ button, input, optgroup, select, textarea {
 }
 
 /* ==========================
-   Hero (✅ centered)
+   Hero (centered)
    ========================== */
 
 .hero {
@@ -190,7 +189,7 @@ button, input, optgroup, select, textarea {
 
 .tagline {
   font-size: clamp(2rem, 4.2vw, 3.25rem);
-  font-weight: var(--fw-hero);
+  font-weight: var(--fw-hero);        /* ✅ 700 (not 900) */
   line-height: 1.08;
   letter-spacing: -0.03em;
   color: #0f172a;
@@ -203,7 +202,7 @@ button, input, optgroup, select, textarea {
   color: #334155;
   line-height: 1.75;
   font-size: 1.05rem;
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-body);        /* ✅ 400 */
   letter-spacing: -0.01em;
 }
 
@@ -223,7 +222,7 @@ button, input, optgroup, select, textarea {
   border: 1px solid rgba(0,0,0,0.08);
   background: #fff;
   box-shadow: 0 10px 20px rgba(0,0,0,0.06);
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   font-size: 0.88rem;
   letter-spacing: -0.01em;
 }
@@ -238,13 +237,11 @@ button, input, optgroup, select, textarea {
   padding: 0 5% 100px 5%;
   max-width: 1600px;
   margin: 0 auto;
-
   grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
   grid-auto-rows: 260px;
   grid-auto-flow: dense;
 }
 
-/* ✅ Force 4 columns on desktop */
 @media (min-width: 1200px) {
   .grid {
     grid-template-columns: repeat(4, minmax(0, 1fr));
@@ -291,7 +288,7 @@ button, input, optgroup, select, textarea {
   border: 1px solid rgba(0,0,0,0.08);
   box-shadow: 0 8px 18px rgba(0,0,0,0.10);
   font-size: 0.75rem;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   color: #0f172a;
   line-height: 1;
   letter-spacing: -0.01em;
@@ -309,7 +306,7 @@ button, input, optgroup, select, textarea {
 }
 
 .card-title {
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-bold);        /* ✅ 650 */
   letter-spacing: -0.02em;
   font-size: 1.1rem;
   margin: 0 0 10px 0;
@@ -323,7 +320,7 @@ button, input, optgroup, select, textarea {
   color: rgba(255,255,255,0.95);
   font-size: 0.92rem;
   line-height: 1.45;
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-body);        /* ✅ 400 */
 }
 
 .card-points li {
@@ -332,7 +329,6 @@ button, input, optgroup, select, textarea {
   gap: 8px;
   align-items: start;
   margin: 0 0 4px 0;
-
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -341,7 +337,7 @@ button, input, optgroup, select, textarea {
 .card-points li::before {
   content: "▸";
   color: rgba(255,255,255,0.95);
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   line-height: 1.2;
   transform: translateY(1px);
 }
@@ -438,11 +434,11 @@ button, input, optgroup, select, textarea {
   margin: 0 0 10px 0;
   line-height: 1.1;
   letter-spacing: -0.03em;
-  font-weight: var(--fw-hero);
+  font-weight: var(--fw-hero);        /* ✅ 700 */
 }
 #m-cat {
   color: #34B0E0;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   text-transform: uppercase;
   font-size: 0.82rem;
   letter-spacing: 0.08em;
@@ -452,13 +448,13 @@ button, input, optgroup, select, textarea {
   margin-bottom: 26px;
   line-height: 1.6;
   color: #555;
-  font-weight: var(--fw-body);
+  font-weight: var(--fw-body);        /* ✅ 400 */
 }
 #m-desc-list li { margin-bottom: 8px; }
 
 .dimension-box { margin: 18px 0 10px 0; }
 .dim-label {
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   font-size: 0.8rem;
   letter-spacing: 0.08em;
   text-transform: uppercase;
@@ -470,13 +466,14 @@ button, input, optgroup, select, textarea {
   color: #fff;
   padding: 10px 14px;
   border-radius: 999px;
-  font-weight: var(--fw-bold);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   font-size: 0.9rem;
 }
 
 /* ==========================
    Forms & Buttons
    ========================== */
+
 #inquiry-form-overlay[aria-hidden="true"] { display: none !important; }
 #inquiry-form-overlay { display: none; }
 
@@ -505,7 +502,7 @@ button, input, optgroup, select, textarea {
 .form-group label {
   display: block;
   margin-bottom: 6px;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   font-size: 0.85rem;
   color: #444;
   letter-spacing: -0.01em;
@@ -518,7 +515,7 @@ button, input, optgroup, select, textarea {
   border-radius: 10px;
   font-family: inherit;
   box-sizing: border-box;
-  font-weight: var(--fw-body);
+  font-weight: var(--fw-body);        /* ✅ 400 */
 }
 .form-group textarea { height: 110px; resize: none; }
 
@@ -529,7 +526,7 @@ button, input, optgroup, select, textarea {
   padding: 14px;
   border-radius: 10px;
   border: none;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   cursor: pointer;
   margin-top: 10px;
   letter-spacing: -0.01em;
@@ -546,7 +543,7 @@ button, input, optgroup, select, textarea {
   border-radius: 10px;
   background: rgba(17,17,17,0.92);
   color: #fff;
-  font-weight: var(--fw-heavy);
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   font-size: 0.95rem;
   z-index: 9999;
   max-width: min(560px, calc(100% - 24px));
@@ -565,7 +562,7 @@ footer {
   margin-top: 70px;
   font-weight: var(--fw-body);
 }
-footer a { color: inherit; font-weight: var(--fw-heavy); text-decoration: none; }
+footer a { color: inherit; font-weight: var(--fw-semibold); text-decoration: none; }
 footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 /* ==========================
@@ -598,14 +595,14 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 @media (max-width: 520px) {
   .brand img { height: 60px; }
 }
+
 /* ==========================
    FAQ polish + alignment
-   (add to bottom of style.css)
    ========================== */
 
 .faq-hero .subline a.faq-inline-cta{
   color: inherit;
-  font-weight: 900;
+  font-weight: var(--fw-semibold);
   text-decoration: none;
   border-bottom: 2px solid rgba(0,0,0,0.18);
 }
@@ -626,7 +623,6 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   align-items: start;
 }
 
-/* left card */
 .faq-card{
   border: 1px solid rgba(0,0,0,0.08);
   background: #fff;
@@ -637,7 +633,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   top: 96px;
 }
 .faq-card-title{
-  font-weight: 1000;
+  font-weight: var(--fw-bold);        /* ✅ 650 */
   font-size: 1.05rem;
   margin-bottom: 6px;
   color: #0f172a;
@@ -645,13 +641,13 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .faq-card-text{
   color: #475569;
   line-height: 1.7;
-  font-weight: 650;
+  font-weight: var(--fw-body);        /* ✅ 400 */
   margin-bottom: 14px;
 }
 .faq-mini-contacts{
   margin-top: 12px;
   color: #64748b;
-  font-weight: 800;
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   display: flex;
   gap: 8px;
   align-items: center;
@@ -667,17 +663,15 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   text-underline-offset: 4px;
 }
 
-/* section headings */
 .faq-section-title{
   margin: 18px 0 10px 0;
   font-size: 1.05rem;
   letter-spacing: .12em;
   text-transform: uppercase;
   color: #475569;
-  font-weight: 1000;
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
 }
 
-/* accordion */
 .faq-accordion{
   display: grid;
   gap: 10px;
@@ -700,7 +694,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   grid-template-columns: 1fr auto;
   gap: 14px;
   align-items: center;
-  font-weight: 1000;
+  font-weight: var(--fw-bold);        /* ✅ 650 */
   color: #0f172a;
   user-select: none;
 }
@@ -735,11 +729,10 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   padding: 0 16px 16px 16px;
   color: #475569;
   line-height: 1.8;
-  font-weight: 650;
+  font-weight: var(--fw-body);        /* ✅ 400 */
   border-top: 1px solid rgba(0,0,0,0.06);
 }
 
-/* bottom CTA */
 .faq-bottom-cta{
   margin-top: 22px;
   border: 1px solid rgba(0,0,0,0.08);
@@ -751,17 +744,16 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 }
 .faq-bottom-title{
   font-size: 1.15rem;
-  font-weight: 1000;
+  font-weight: var(--fw-bold);        /* ✅ 650 */
   color: #0f172a;
 }
 .faq-bottom-sub{
   margin-top: 6px;
   color: #475569;
-  font-weight: 700;
+  font-weight: var(--fw-body);        /* ✅ 400 */
   line-height: 1.7;
 }
 
-/* responsive */
 @media (max-width: 980px){
   .faq-grid{
     grid-template-columns: 1fr;
@@ -771,9 +763,9 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     top: auto;
   }
 }
+
 /* ==========================
    About page alignment + tiles
-   (add to bottom of style.css)
    ========================== */
 
 .page-wrap{
@@ -811,16 +803,15 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   margin: 0 0 8px 0;
   font-size: 1.2rem;
   letter-spacing: -0.01em;
+  font-weight: var(--fw-bold);
 }
 
 .tile p{
   margin: 0;
   color: #475569;
-  font-weight: 650;
+  font-weight: var(--fw-body);
   line-height: 1.8;
 }
-
-.tile + .tile p{ margin-top: 0; }
 
 .tile-strong{
   box-shadow: 0 18px 40px rgba(0,0,0,0.08);
@@ -828,7 +819,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 .muted{
   color: #64748b;
-  font-weight: 650;
+  font-weight: var(--fw-body);
   line-height: 1.7;
 }
 
@@ -836,7 +827,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   margin: 10px 0 0 0;
   padding-left: 18px;
   color: #475569;
-  font-weight: 650;
+  font-weight: var(--fw-body);
   line-height: 1.85;
 }
 
@@ -854,14 +845,14 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   border: 1px solid rgba(0,0,0,0.08);
   background: #fff;
   box-shadow: 0 10px 20px rgba(0,0,0,0.04);
-  font-weight: 900;
+  font-weight: var(--fw-semibold);    /* ✅ 600 */
   font-size: 0.88rem;
   color: #0f172a;
 }
 
 .text-link{
   color: inherit;
-  font-weight: 900;
+  font-weight: var(--fw-semibold);
   text-decoration: none;
   border-bottom: 2px solid rgba(0,0,0,0.18);
 }
@@ -873,7 +864,7 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   display: grid;
   gap: 8px;
   margin: 12px 0 14px 0;
-  font-weight: 900;
+  font-weight: var(--fw-semibold);
 }
 .contact-mini a{
   text-decoration: none;
@@ -898,6 +889,3 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     top: auto;
   }
 }
-
-
-
