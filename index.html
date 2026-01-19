@@ -425,8 +425,20 @@
 
     // Keep for back/forward
     window.onpopstate = () => {
-      const slug = window.location.pathname.substring(1);
-      slug && slug.length > 1 ? openProduct(slug, false) : closeModal();
+      function getSlugFromPath() {
+        const path = window.location.pathname.replace(/\/+$/, ""); // trim trailing slash
+        if (!path || path === "/") return "";
+
+        // support /p/<slug>
+        if (path.startsWith("/p/")) return path.slice(3);
+
+        // support /<slug>
+        return path.slice(1);
+        }
+
+const slug = getSlugFromPath();
+if (slug && slug.length > 1) openProduct(slug, false);
+
     };
 
     // =========================
@@ -496,6 +508,7 @@
 
 </body>
 </html>
+
 
 
 
