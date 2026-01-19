@@ -477,6 +477,8 @@ button, input, optgroup, select, textarea {
 /* ==========================
    Forms & Buttons
    ========================== */
+#inquiry-form-overlay[aria-hidden="true"] { display: none !important; }
+#inquiry-form-overlay { display: none; }
 
 #inquiry-form-overlay {
   display: none;
@@ -896,5 +898,6 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     top: auto;
   }
 }
+
 
 
