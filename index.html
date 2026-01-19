@@ -249,8 +249,10 @@
         initCategories();
         renderProducts(products);
 
-        const slug = window.location.pathname.substring(1);
+        let slug = window.location.pathname.replace(/^\/+/, ""); // remove leading /
+        if (slug.startsWith("p/")) slug = slug.slice(2);         // remove "p/"
         if (slug && slug.length > 1) openProduct(slug, false);
+
       })
       .catch(err => {
         console.error(err);
@@ -494,4 +496,5 @@
 
 </body>
 </html>
+
 
