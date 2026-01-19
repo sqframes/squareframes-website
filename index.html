@@ -332,7 +332,7 @@
       const p = products.find(i => i.slug === slug);
       if (!p) return;
 
-      if (pushState) history.pushState({ slug }, '', '/' + slug);
+      if (pushState) history.pushState({ slug }, '', '/p/' + slug);
       document.title = `${p.name || 'Product'} | Square Frames`;
 
       currentImages = p.images || [];
@@ -508,6 +508,7 @@ if (slug && slug.length > 1) openProduct(slug, false);
 
 </body>
 </html>
+
 
 
 
