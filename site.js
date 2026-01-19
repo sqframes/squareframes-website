@@ -1,85 +1,118 @@
-/* site.js - shared overlay + enquiry submit (Resend backend) */
+/* site.js — shared inquiry overlay + submit handler + accessibility polish
+   Works on: index.html, about.html, faq.html (any page that has #inquiry-form-overlay + #inquiryForm)
+*/
 
 (function () {
-  const overlayId = "inquiry-form-overlay";
-  const overlay = document.getElementById(overlayId);
-  const toastEl = document.getElementById("toast");
-  const pageRoot = document.querySelector("main") || document.body;
+  const overlay = document.getElementById("inquiry-form-overlay");
+  const form = document.getElementById("inquiryForm");
 
-  function toast(msg, ms = 2600) {
+  // If a page doesn't have the overlay, do nothing safely.
+  if (!overlay || !form) return;
+
+  const productInput = document.getElementById("form-product");
+  const websiteInput = document.getElementById("form-website"); // honeypot
+  const nameInput = document.getElementById("form-name");
+  const emailInput = document.getElementById("form-email");
+  const locationInput = document.getElementById("form-location");
+  const msgInput = document.getElementById("form-msg");
+
+  const toastEl = document.getElementById("toast");
+  const pageMain = document.querySelector("main") || document.body;
+
+  let lastFocusEl = null;
+
+  function toast(msg, ms = 3000) {
     if (!toastEl) return;
     toastEl.textContent = msg;
     toastEl.style.display = "block";
     clearTimeout(toastEl._t);
-    toastEl._t = setTimeout(() => (toastEl.style.display = "none"), ms);
+    toastEl._t = setTimeout(() => {
+      toastEl.style.display = "none";
+    }, ms);
   }
 
   function setInert(on) {
-    // avoids aria-hidden warnings + keeps focus accessible
-    try {
-      if (on) pageRoot.setAttribute("inert", "");
-      else pageRoot.removeAttribute("inert");
-    } catch {}
+    // Prevents "Blocked aria-hidden..." warnings by using inert
+    // (supported in modern Chromium; harmless elsewhere)
+    if (on) {
+      pageMain.setAttribute("inert", "");
+      pageMain.setAttribute("aria-hidden", "true");
+    } else {
+      pageMain.removeAttribute("inert");
+      pageMain.removeAttribute("aria-hidden");
+    }
   }
 
   function openInquiry(productName) {
-    if (!overlay) return;
-    // Set product if provided
-    const prod = overlay.querySelector("#form-product");
-    if (prod && typeof productName === "string") prod.value = productName;
+    lastFocusEl = document.activeElement;
+
+    // Set product
+    if (productInput) productInput.value = String(productName || "").trim();
 
     overlay.style.display = "flex";
-    document.body.classList.add("modal-open");
+    overlay.setAttribute("aria-hidden", "false");
+    document.body.style.overflow = "hidden";
     setInert(true);
 
     // focus first field
-    const first = overlay.querySelector("#form-name") || overlay.querySelector("input,textarea,button");
-    if (first) setTimeout(() => first.focus(), 10);
+    setTimeout(() => {
+      if (nameInput) nameInput.focus();
+    }, 0);
   }
 
   function closeInquiry() {
-    if (!overlay) return;
     overlay.style.display = "none";
-    document.body.classList.remove("modal-open");
+    overlay.setAttribute("aria-hidden", "true");
+    document.body.style.overflow = "auto";
     setInert(false);
+
+    // restore focus
+    if (lastFocusEl && typeof lastFocusEl.focus === "function") {
+      setTimeout(() => lastFocusEl.focus(), 0);
+    }
   }
 
-  // Expose for index.html product modal button
+  // Expose for inline calls (your product modal uses openInquiry(...))
   window.openInquiry = openInquiry;
   window.closeInquiry = closeInquiry;
 
-  // Header button(s): <a data-open-inquiry ...>
+  // Open buttons: any element with [data-open-inquiry]
   document.addEventListener("click", (e) => {
     const btn = e.target.closest("[data-open-inquiry]");
     if (!btn) return;
     e.preventDefault();
-    openInquiry(btn.getAttribute("data-product") || "");
+    openInquiry(productInput ? productInput.value : "");
   });
 
   // Close on backdrop click
-  if (overlay) {
-    overlay.addEventListener("click", (e) => {
-      if (e.target === overlay) closeInquiry();
-    });
-  }
-
-  // Close on ESC
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && overlay && overlay.style.display === "flex") closeInquiry();
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) closeInquiry();
   });
 
-  // Shared submit handler for BOTH overlay and inline forms
-  async function handleSubmit(form, opts = {}) {
-    const get = (sel) => form.querySelector(sel);
+  // Close on ESC
+  window.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && overlay.style.display === "flex") closeInquiry();
+  });
+
+  // Submit handler
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
     const payload = {
-      product: (get("#form-product") || get("[name='product']") || {}).value || "",
-      name: (get("#form-name") || get("[name='name']") || {}).value || "",
-      email: (get("#form-email") || get("[name='email']") || {}).value || "",
-      location: (get("#form-location") || get("[name='location']") || {}).value || "",
-      message: (get("#form-msg") || get("[name='message']") || {}).value || "",
+      product: productInput ? productInput.value : "",
+      name: nameInput ? nameInput.value : "",
+      email: emailInput ? emailInput.value : "",
+      location: locationInput ? locationInput.value : "",
+      message: msgInput ? msgInput.value : "",
       page: window.location.href,
-      website: (get("#form-website") || get("[name='website']") || {}).value || "" // honeypot
+      website: websiteInput ? websiteInput.value : "" // honeypot
     };
+
+    // Basic validation
+    if (!payload.name.trim() || !payload.email.trim() || !payload.message.trim()) {
+      toast("Please fill Name, Email and Message.", 3500);
+      return;
+    }
 
     try {
       const res = await fetch("/api/contact", {
@@ -90,39 +123,24 @@
 
       const out = await res.json().catch(() => ({}));
 
-      if (res.ok && out.ok) {
-        toast("Sent! We’ll get back to you shortly.");
+      if (res.ok && out && out.ok) {
+        toast("Sent! We’ll get back to you shortly.", 3200);
         form.reset();
-        if (opts.closeOverlay) closeInquiry();
-        return;
+        if (productInput && payload.product) productInput.value = payload.product; // keep product filled
+        closeInquiry(); // ✅ closes overlay and user stays on same page
+      } else {
+        const msg =
+          (out && out.error) ? out.error :
+          "Send failed. Please email admin@sqframes.com";
+        toast(msg, 6000);
+        console.error(out);
       }
-
-      const details = out && (out.error || out.details)
-        ? (out.error + (out.details ? "\n\n" + JSON.stringify(out.details).slice(0, 500) : ""))
-        : "Unknown error";
-
-      toast("Send failed.\n\n" + details, 6500);
-      console.error(out);
     } catch (err) {
-      toast("Send failed.\n\nPlease email admin@sqframes.com", 6500);
       console.error(err);
+      toast("Send failed. Please email admin@sqframes.com", 6000);
     }
-  }
-
-  // Wire overlay form
-  const overlayForm = document.getElementById("inquiryForm");
-  if (overlayForm) {
-    overlayForm.addEventListener("submit", (e) => {
-      e.preventDefault();
-      handleSubmit(overlayForm, { closeOverlay: true });
-    });
-  }
-
-  // Wire any inline enquiry form: class="js-enquiry-form"
-  document.querySelectorAll("form.js-enquiry-form").forEach((f) => {
-    f.addEventListener("submit", (e) => {
-      e.preventDefault();
-      handleSubmit(f, { closeOverlay: false });
-    });
   });
+
+  // Default hidden
+  overlay.setAttribute("aria-hidden", "true");
 })();
