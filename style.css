@@ -536,9 +536,9 @@ img { max-width: 100%; display: block; }
 /* Product page carousel sizing (scoped so HOME modal stays unchanged) */
 .product-grid .carousel-container {
   border-radius: 16px;
-  background: #fff;
-  border: 1px solid rgba(0,0,0,0.08);
-  box-shadow: 0 14px 32px rgba(0,0,0,0.06);
+  background: transparent;                 /* ✅ changed */
+  border: none;                            /* ✅ changed */
+  box-shadow: none;                        /* ✅ changed */
   overflow: hidden;
 
   /* ✅ HARD cap: prevents giant image */
@@ -547,7 +547,7 @@ img { max-width: 100%; display: block; }
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 14px;
+  padding: 0;                              /* ✅ changed */
 }
 
 /* Product page image (no crop) */
@@ -1051,4 +1051,22 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   height: 100% !important;
   object-fit: cover !important;
   display: block;
+}
+
+
+/* =========================================================
+   PRODUCT PAGE: SINGLE FRAME ONLY (OVERRIDES)
+   - Outer .tile.product-card is the only frame
+   - Remove inner carousel "card" styling
+   ========================================================= */
+
+.tile.product-card .product-media .carousel-container{
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.tile.product-card .product-media .prod-carousel-img{
+  border-radius: 12px;
 }
