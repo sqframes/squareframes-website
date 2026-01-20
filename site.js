@@ -1,82 +1,69 @@
-// site.js (DROP-IN)
-// Works across index/about/faq.
-// Opens overlay on any element with [data-open-inquiry]
-// Provides global openInquiry() for product modal buttons
-// Uses inert safely (whole page except overlay)
-
+// site.js (CLEAN DROP-IN)
 (function () {
   const overlay = document.getElementById("inquiry-form-overlay");
   const form = document.getElementById("inquiryForm");
   if (!overlay) return;
 
-  let lastActiveEl = null;
+  const pageRoot = document.querySelector("main") || document.body;
 
-  function setPageInert(on) {
-    // Make everything except overlay inert
-    const kids = Array.from(document.body.children);
-    for (const el of kids) {
-      if (el === overlay) continue;
-
-      if (on) {
-        el.setAttribute("inert", "");
-        el.setAttribute("aria-hidden", "true");
-      } else {
-        el.removeAttribute("inert");
-        el.removeAttribute("aria-hidden");
-      }
+  function setInert(on) {
+    if (on) {
+      pageRoot.setAttribute("inert", "");
+      pageRoot.setAttribute("aria-hidden", "true");
+    } else {
+      pageRoot.removeAttribute("inert");
+      pageRoot.removeAttribute("aria-hidden");
     }
   }
 
-  function openOverlay(productName = "") {
-    lastActiveEl = document.activeElement;
+  function toast(msg, ms = 2600) {
+    const el = document.getElementById("toast");
+    if (!el) return;
+    el.textContent = msg;
+    el.style.display = "block";
+    clearTimeout(el._t);
+    el._t = setTimeout(() => (el.style.display = "none"), ms);
+  }
 
+  function openOverlay(productName = "") {
     overlay.style.display = "flex";
     overlay.setAttribute("aria-hidden", "false");
-    setPageInert(true);
+    setInert(true);
 
     const prod = document.getElementById("form-product");
     if (prod && productName) prod.value = productName;
 
     const first = document.getElementById("form-name");
-    if (first) setTimeout(() => first.focus(), 30);
+    if (first) setTimeout(() => first.focus(), 50);
   }
 
   function closeOverlay() {
     overlay.style.display = "none";
     overlay.setAttribute("aria-hidden", "true");
-    setPageInert(false);
-
-    // Restore focus where user was
-    if (lastActiveEl && typeof lastActiveEl.focus === "function") {
-      setTimeout(() => lastActiveEl.focus(), 30);
-    }
+    setInert(false);
   }
 
-  // expose globals
   window.openInquiry = openOverlay;
-  window.openInquiryForm = openOverlay;
   window.closeInquiry = closeOverlay;
+  window.openInquiryForm = openOverlay;
   window.closeInquiryForm = closeOverlay;
 
-  // click-to-open
   document.addEventListener("click", (e) => {
     const trigger = e.target.closest("[data-open-inquiry]");
     if (!trigger) return;
     e.preventDefault();
-    openOverlay("");
+    const product = trigger.getAttribute("data-product") || "";
+    openOverlay(product);
   });
 
-  // close on backdrop
   overlay.addEventListener("click", (e) => {
     if (e.target === overlay) closeOverlay();
   });
 
-  // close on ESC
   window.addEventListener("keydown", (e) => {
     if (e.key === "Escape" && overlay.style.display === "flex") closeOverlay();
   });
 
-  // Submit handler
   if (form) {
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
@@ -89,15 +76,6 @@
         message: document.getElementById("form-msg")?.value || "",
         page: window.location.href,
         website: document.getElementById("form-website")?.value || ""
-      };
-
-      const toastEl = document.getElementById("toast");
-      const toast = (msg, ms = 2600) => {
-        if (!toastEl) return;
-        toastEl.textContent = msg;
-        toastEl.style.display = "block";
-        clearTimeout(toastEl._t);
-        toastEl._t = setTimeout(() => (toastEl.style.display = "none"), ms);
       };
 
       try {
