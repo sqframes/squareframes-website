@@ -443,4 +443,12 @@ footer {
   border: 1px solid var(--border);
   border-radius: 12px;
 }
+.product-category {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--gray);
+  margin-bottom: 6px;
+}
+
 
