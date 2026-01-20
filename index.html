@@ -250,8 +250,15 @@
         renderProducts(products);
 
         let slug = window.location.pathname.replace(/^\/+/, ""); // remove leading /
-        if (slug.startsWith("p/")) slug = slug.slice(2);         // remove "p/"
+        slug = slug.replace(/\/+$/, ""); // remove trailing slash
+
+        if (slug.startsWith("p/")) {
+        slug = slug.slice(2); // remove "p/"
+        history.replaceState({ slug }, "", "/" + slug); // ✅ force canonical URL
+        }
+
         if (slug && slug.length > 1) openProduct(slug, false);
+
 
       })
       .catch(err => {
@@ -332,7 +339,7 @@
       const p = products.find(i => i.slug === slug);
       if (!p) return;
 
-      if (pushState) history.pushState({ slug }, '', '/p/' + slug);
+      if (pushState) history.pushState({ slug }, '', '/' + slug);
       document.title = `${p.name || 'Product'} | Square Frames`;
 
       currentImages = p.images || [];
@@ -425,21 +432,31 @@
 
     // Keep for back/forward
     window.onpopstate = () => {
-      function getSlugFromPath() {
-        const path = window.location.pathname.replace(/\/+$/, ""); // trim trailing slash
-        if (!path || path === "/") return "";
+  function getSlugFromPath() {
+    let path = window.location.pathname.replace(/\/+$/, ""); // trim trailing slash
+    if (!path || path === "/") return "";
 
-        // support /p/<slug>
-        if (path.startsWith("/p/")) return path.slice(3);
+    // support /p/<slug>
+    if (path.startsWith("/p/")) return path.slice(3);
 
-        // support /<slug>
-        return path.slice(1);
-        }
+    // support /<slug>
+    return path.slice(1);
+  }
 
-const slug = getSlugFromPath();
-if (slug && slug.length > 1) openProduct(slug, false);
+  let slug = getSlugFromPath();
 
-    };
+  // ✅ force canonical if /p/
+  if (window.location.pathname.startsWith("/p/") && slug) {
+    history.replaceState({ slug }, "", "/" + slug);
+  }
+
+  if (slug && slug.length > 1) {
+    openProduct(slug, false);
+  } else {
+    closeModal(); // ✅ important
+  }
+};
+
 
     // =========================
     // Filters
@@ -508,6 +525,7 @@ if (slug && slug.length > 1) openProduct(slug, false);
 
 </body>
 </html>
+
 
 
 
