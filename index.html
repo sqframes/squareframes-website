@@ -157,7 +157,7 @@
           : `<ul class="card-points"></ul>`;
 
         return `
-          <a class="card ${sizeClass}" href="/${escapeHtml(p.slug)}" data-cat="${escapeHtml(p.category || '')}">
+          <a class="card ${sizeClass}" href="/${escapeHtml(p.slug)}/" data-cat="${escapeHtml(p.category || '')}">
             <img src="${escapeHtml(thumb)}" class="card-img" loading="lazy" alt="${escapeHtml(p.name || '')} - ${escapeHtml(p.category || '')}">
             <div class="card-overlay">
               <h3 class="card-title">${escapeHtml(p.name || '')}</h3>
