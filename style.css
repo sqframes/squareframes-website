@@ -429,3 +429,18 @@ footer {
   display: none;
   z-index: 600;
 }
+/* PRODUCT PAGE – remove double framing */
+.product-grid .tile {
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  padding: 0;
+}
+
+.product-grid .carousel-container,
+.product-grid .modal-img {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: 12px;
+}
+
