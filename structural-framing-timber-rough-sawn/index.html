@@ -42,59 +42,52 @@
   </div>
 </header>
 
-<main class="page-wrap">
-  <div class="product-grid">
-
-    <!-- IMAGE -->
-    <div class="tile">
-      <div class="carousel-container"
-        data-carousel
-        data-images='[
-          "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png",
-          "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767774686/structural_framing_timber_luey2o.png"
-        ]'>
-        <button class="nav-arrow prev" data-carousel-prev>&#10094;</button>
-        <img class="prod-carousel-img"
-          src="https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png"
-          alt="Structural Framing Timber Rough Sawn">
-        <button class="nav-arrow next" data-carousel-next>&#10095;</button>
-      </div>
-    </div>
-
-    <!-- DETAILS -->
-    <div class="tile tile-strong">
-      <div class="product-category">Timber Products</div>
-      <h1 class="product-title">Structural Framing Timber (Rough Sawn)</h1>
-
-      <div class="product-meta">
-        <div class="product-price">Contact for price</div>
-      </div>
-
-      <div class="dimension-box">
-        <div class="dim-label">Dimensions</div>
-        <div class="dim-list">
-          <span class="dim-pill">2 x 2 (50x50mm)</span>
-          <span class="dim-pill">3 x 2 (75x50mm)</span>
-          <span class="dim-pill">4 x 2 (100x50mm)</span>
-          <span class="dim-pill">6 x 2 (150x50mm)</span>
-          <span class="dim-pill">8 x 2 (200x50mm)</span>
-          <span class="dim-pill">10 x 2 (250x50mm)</span>
-          <span class="dim-pill">12 x 2 (300x50mm)</span>
+<main>
+  <section class="product-wrap">
+    <div class="tile product-card">
+      
+      <div class="product-grid">
+        
+        <!-- LEFT: image -->
+        <div class="product-media">
+          <div class="carousel-container" data-carousel
+               data-images='[
+                 "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png",
+                 "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767774686/structural_framing_timber_luey2o.png"
+               ]'>
+            <button class="nav-arrow prev" data-carousel-prev>‹</button>
+            <img class="prod-carousel-img" alt="Structural Framing Timber">
+            <button class="nav-arrow next" data-carousel-next>›</button>
+          </div>
         </div>
+
+        <!-- RIGHT: details -->
+        <div class="product-info">
+          <div class="product-category">Timber Products</div>
+          <h1 class="product-title">Structural Framing Timber (Rough Sawn)</h1>
+          <div class="product-price">Contact for price</div>
+
+          <div class="dimension-box">
+            <div class="dim-label">Dimensions</div>
+            <div class="dim-list">
+              <span class="dim-pill">2 × 2 (50×50mm)</span>
+              <span class="dim-pill">3 × 2 (75×50mm)</span>
+              <span class="dim-pill">4 × 2 (100×50mm)</span>
+              <span class="dim-pill">6 × 2 (150×50mm)</span>
+              <span class="dim-pill">8 × 2 (200×50mm)</span>
+              <span class="dim-pill">10 × 2 (250×50mm)</span>
+              <span class="dim-pill">12 × 2 (300×50mm)</span>
+            </div>
+          </div>
+
+          <button class="cta-btn" data-open-inquiry data-product="Structural Framing Timber (Rough Sawn)">
+            Request Quote
+          </button>
+        </div>
+
       </div>
-
-      <ul class="about-list">
-        <li>Standard construction timber for wall frames, rafters and joists</li>
-        <li>H3 treated for protection against termites and rot (above-ground use)</li>
-        <li>Wholesale & Retail supply</li>
-      </ul>
-
-      <button class="cta-btn" onclick="openInquiry('Structural Framing Timber (Rough Sawn)')">
-        Request Quote
-      </button>
     </div>
-
-  </div>
+  </section>
 </main>
 
 <!-- Inquiry overlay -->
