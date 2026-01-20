@@ -1,0 +1,20 @@
+[
+  {
+    "slug": "plywood",
+    "name": "Plywood",
+    "category": "Boards",
+    "short": "Interior and Exterior",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png"
+    ]
+  },
+  {
+    "slug": "structural-framing-timber-rough",
+    "name": "Structural Framing Timber (Rough)",
+    "category": "Timber",
+    "short": "Standard construction timber for framing",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png"
+    ]
+  }
+]
