@@ -1046,13 +1046,16 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   }
 }
 
-/* Optional helper (if used anywhere) */
+/* Home tiles: prevent huge/distorted images */
 .prod-img{
   width: 100%;
-  height: auto;
+  height: 100%;
   display: block;
+  object-fit: cover;       /* keep tiles clean */
   border-radius: 12px;
   border: 1px solid rgba(0,0,0,0.06);
   background: #fff;
 }
+
+
 
