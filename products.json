@@ -1,20 +1,199 @@
 [
   {
+    "slug": "structural-framing-timber-rough-sawn",
+    "name": "Structural Framing Timber (Rough Sawn)",
+    "category": "Timber Products",
+    "price": "",
+    "short": "Standard construction timber for wall frames, rafters, and joists.",
+    "description": "Standard construction timber for wall frames, rafters, and joists\nH3 Treated (protection against termites and rot for above-ground use)\nWholesale & Retail",
+    "dimensions": "2 x 2 (50x50mm)\n3 x 2 (75x50mm)\n4 x 2 (100x50mm)\n6 x 2 (150x50mm)\n8 x 2 (200x50mm)\n10 x 2 (250x50mm)\n12 x 2 (300x50mm)",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767774686/structural_framing_timber_luey2o.png"
+    ],
+    "tags": ["Timber", "Framing", "H3 Treated", "Rough Sawn"]
+  },
+  {
+    "slug": "dressed-timber-planed",
+    "name": "Dressed Timber (Planed)",
+    "category": "Timber Products",
+    "price": "",
+    "short": "Smoothed \"Dressed All Round\" (DAR) timber for visible areas, painting, or internal joinery.",
+    "description": "Smoothed \"Dressed All Round\" (DAR) timber for visible areas, painting, or internal joinery.\nWholesale & Retail",
+    "dimensions": "4 x 1 (100x25mm)\n6 x 1 (150x25mm)\n8 x 1 (200x25mm)\n4 x 2 (100x50mm)\n3 x 2 (75x50mm)\n2 x 1 (50x25mm)\n3 x 1 (75x25mm)",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1766049845/Dressed_Timber_u2yjvj.png"
+    ],
+    "tags": ["Timber", "DAR", "Planed", "Joinery"]
+  },
+  {
     "slug": "plywood",
     "name": "Plywood",
     "category": "Boards",
-    "short": "Interior and Exterior",
+    "price": "",
+    "short": "Interior and Exterior plywood with moisture-resistant bonding for construction and outdoor applications.",
+    "description": "Interior and Exterior\nMoisture-resistant bonding\nStrong, durable, and reliable\nIdeal for construction, formwork, flooring, roofing, and outdoor applications\nWholesale & Retail",
+    "dimensions": "2400 X 1200 X 4mm\n2400 X 1200 X 6mm\n2400 X 1200 X 9mm\n2400 X 1200 X 12mm\n2400 x 1200 x 16mm\n2400 X 1200 X 19mm\n2100 X 900 X 35mm",
     "images": [
-      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png"
-    ]
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767780711/exterior-plywood_tu4xty.png"
+    ],
+    "tags": ["Boards", "Plywood", "Construction", "Formwork"]
   },
   {
-    "slug": "structural-framing-timber-rough",
-    "name": "Structural Framing Timber (Rough)",
-    "category": "Timber",
-    "short": "Standard construction timber for framing",
+    "slug": "zinc-plated-particle-board-screws",
+    "name": "Zinc-Plated Particle Board Screws",
+    "category": "Screws",
+    "price": "",
+    "short": "Blue/Clear zinc plated particle board screws with countersunk head for cabinetry and general carpentry.",
+    "description": "Suitable for Cabinet making, Furniture assembly, Fixing PVC, particle board or MDF & General carpentry\nBlue/Clear zinc plated for corrosion resistance\nCountersunk",
+    "dimensions": "6G\n8G",
     "images": [
-      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png"
-    ]
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1768383271/zinc-plated-particle-board-screws_rfxe9l.png"
+    ],
+    "tags": ["Screws", "Zinc Plated", "Countersunk", "Cabinetry"]
+  },
+  {
+    "slug": "safety-harness",
+    "name": "Safety Harness",
+    "category": "OH&S",
+    "price": "Contact for Price",
+    "short": "AS/NZS1891 series compliant safety harness with water/UV resistant materials and standard connectors.",
+    "description": "AS/NZS1891 series compliant\nHigh quality webbing material\nWater/UV resistant material\nAS/NZS standard connectors",
+    "dimensions": "",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765355274/Harness_bare_skqx5s.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765356008/Harness_demo_ruowon.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765341729/pexels-ricky-rijan-2853632_iimbqs.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765341709/pexels-hanna-alves-1907982668-28812508_gsmfpd.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765356575/muraya-githiga-HeGdyTwHZy8-unsplash_wakqto.jpg"
+    ],
+    "tags": ["OH&S", "PPE", "Harness", "AS/NZS1891"]
+  },
+  {
+    "slug": "high-visibility-workwear",
+    "name": "High Visibility Workwear",
+    "category": "OH&S",
+    "price": "Contact for Price",
+    "short": "Fluorescent high-visibility workwear with retroreflective tape and AS/NZS compliance options.",
+    "description": "Fluorescent Material\nRetroreflective tape\nCompliant to AS/NZS standards\nDurable Materials\nDifferent types and options\nBranding available",
+    "dimensions": "",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765357752/High_Visibility_Workwear_j5x9qs.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765357772/tanya-paquet-wjHdeYmI-XU-unsplash_hxhlcp.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765357778/john-kakuk-hfj5CG9dvuU-unsplash_ocicb3.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765357750/hi-vis-jacket-template-front-and-back-view-hi-vis-work-jacket-mockup-free-vector_zcmejg.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765357751/portwest-s428-hi-vis-softshell-jacket-orange_hbbgks.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765357750/expert-advice-hi-visibility-clothing-wear-and-care-wear-it-properly_xcbmpp.jpg"
+    ],
+    "tags": ["OH&S", "Hi-Vis", "PPE", "AS/NZS"]
+  },
+  {
+    "slug": "gloves-and-helmets",
+    "name": "Gloves and Helmets",
+    "category": "OH&S",
+    "price": "Contact for Price",
+    "short": "Safety gloves and helmets with options for chemical/cut/temperature resistance and standards compliance.",
+    "description": "Chemical/Cut/Temperature Resistant\nHV/LV Gloves\nAnti-Vibration and Anti-Impact\nAS/NZS/ASTM/IEC/EN standard compliant",
+    "dimensions": "",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765361141/Safety_gear_orange_hard_hat_and_work_gloves_zsbi2f.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765362204/HV_Glove_rswrqv.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765361150/pexels-cristian-rojas-8853507_zqb5px.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765361143/pexels-yury-kim-181374-585419_zrxcwl.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765361136/pexels-cristian-rojas-8853523_f7cxjx.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765361136/pexels-tranmautritam-448828_gxbzal.jpg"
+    ],
+    "tags": ["OH&S", "PPE", "Gloves", "Helmets"]
+  },
+  {
+    "slug": "matter-white-pvc-board",
+    "name": "Matter White PVC Board",
+    "category": "Boards",
+    "price": "$125.00",
+    "short": "16mm PVC board: water/moisture resistant, termite proof, self-extinguishing, suitable for cabinetry and partitions.",
+    "description": "Water & Moisture Resistant\nHigh Strength & Rigidity\nTermite & Pest Proof\nSelf-extinguishing (does not support combustion)\nSuitable for cabinetry and furniture panels as well as wall cladding and partitions\nWholesale & Retail",
+    "dimensions": "16mm",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1767781428/16mm_PVC_Board_yhchkf.png"
+    ],
+    "tags": ["Boards", "PVC Board", "16mm", "Cabinetry"]
+  },
+  {
+    "slug": "hand-tools",
+    "name": "Hand Tools",
+    "category": "Tools",
+    "price": "Contact for Price",
+    "short": "Wide variety of hand tools with ASME/ISO certification options and durable steel materials.",
+    "description": "Wide variety of hand tools\nASME/ISO Certified\nChrome(Cr-V/CR-MO), High Carbon Steel, S2 Steel\nChrome/Black Oxide finish",
+    "dimensions": "",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765363405/tool-379596_1280_pdia3z.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765363415/tekton-kk9iK0cw5CQ-unsplash_yjjdrq.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765363431/tekton-EcE9dFfXwwE-unsplash_s2zw5s.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765363414/julie-molliver-Z3vFp7szCAY-unsplash_hlqnwd.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765363403/pliers-1031953_1280_ven4wf.jpg"
+    ],
+    "tags": ["Tools", "Hand Tools", "ASME", "ISO"]
+  },
+  {
+    "slug": "garden-tools",
+    "name": "Garden Tools",
+    "category": "Tools",
+    "price": "Contact for Price",
+    "short": "Wide variety of gardening tools with forged/heat-treated heads and weather-resistant handles.",
+    "description": "Wide variety of gardening tools\nForged, heat-treated steel tool head\nSteel\\Ash wood\\Weather-resistant Fiberglass handle",
+    "dimensions": "",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765364696/wheelbarrow_t7gs8a.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765364684/garden_tools_ix98a1.jpg"
+    ],
+    "tags": ["Tools", "Garden", "Forged Steel"]
+  },
+  {
+    "slug": "power-tools",
+    "name": "Power Tools",
+    "category": "Tools",
+    "price": "Contact for Price",
+    "short": "Well known electrical tool brands: kits, skins, batteries & chargers, with certified materials.",
+    "description": "Wide variety of well known Electrical tool brands\nKits, Skins, Batteries & Chargers\nIEC/ASTM Standard ceritified\nInsulated, flame-retardant and impact-resistant material",
+    "dimensions": "",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765365270/electrical_tools_zodifv.png"
+    ],
+    "tags": ["Tools", "Power Tools", "IEC", "ASTM"]
+  },
+  {
+    "slug": "traffic-cones",
+    "name": "Traffic Cones",
+    "category": "OH&S",
+    "price": "Contact for Price",
+    "short": "Branded traffic cones with 3M retro-reflective stickers and AS/NZS compliant options.",
+    "description": "Branded cones with 3M retro-reflective sticker\n3M replacement stickers\nDifferent types and Sizes\nRetractable cone bars\nAS/NZS Standard Compliant",
+    "dimensions": "",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751570/stop-sign-6874064_1280_rbxxm5.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751571/traffic-cone-6874057_1280_jhfphn.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751570/traffic-cone-4646466_1280_own5lg.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751570/sign-132020_1280_ssyps5.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751570/900_cone_lt4eri.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751569/Gemini_Generated_Image_ax5aq2ax5aq2ax5a_ng5xyk.png",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751569/Reflective_Strip_cth7xm.jpg"
+    ],
+    "tags": ["OH&S", "Traffic", "Cones", "3M"]
+  },
+  {
+    "slug": "traffic-signage",
+    "name": "Traffic Signage",
+    "category": "OH&S",
+    "price": "Contact for Price",
+    "short": "Traffic signage and temporary traffic management signs, including regulatory, hazard, and directional options.",
+    "description": "Advance Warning Signs\nRegulatory & Speed Control Signs\nLane Status and Directional Signs\nHazard and Road Condition Signs\nMulti-Message Signs (MMS)\nPedestrian and Cyclist Signs\nMini Kwik-Lok(MKL) base and stand\nTemporary Speed Hump\nAS/CoPTTM Standard Compliant\nBranding available",
+    "dimensions": "",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751570/road_work_04_d7tcga.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751569/2412913_h7egwf.jpg",
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751568/154_qrt2cx.jpg"
+    ],
+    "tags": ["OH&S", "Traffic", "Signage", "CoPTTM"]
   }
 ]
