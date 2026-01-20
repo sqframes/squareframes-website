@@ -140,6 +140,8 @@ button, input, optgroup, select, textarea {
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  position: relative;
+  z-index: 210;
 }
 
 .nav-pills a {
@@ -403,6 +405,19 @@ button, input, optgroup, select, textarea {
   overflow: hidden;
   background: #f4f4f4;
   border: 1px solid rgba(0,0,0,0.06);
+}
+
+/* Product page image deck */
+.product-carousel {
+  box-shadow: 0 16px 34px rgba(0,0,0,0.08);
+}
+
+.product-carousel .modal-img {
+  transition: opacity 180ms ease;
+}
+
+.product-carousel .modal-img.is-fading {
+  opacity: 0.35;
 }
 
 .modal-img {
@@ -910,4 +925,3 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   border: 1px solid rgba(0,0,0,0.06);
   background: #fff;
 }
-
