@@ -329,6 +329,7 @@ img { max-width: 100%; display: block; }
   font-weight: var(--fw-body);
 }
 
+/* Keep card bullets layout stable (no distortion) */
 .card-points li {
   display: grid;
   grid-template-columns: 14px 1fr;
@@ -336,17 +337,26 @@ img { max-width: 100%; display: block; }
   align-items: start;
   margin: 0 0 4px 0;
 
-  /* ✅ FIX: allow up to 2 lines instead of forced single-line ellipsis */
+  /* restore original behavior */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* ✅ Only make the 2nd bullet show 2 lines (partial description) */
+.card-points li:nth-child(2) {
   white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
   overflow: hidden;
 }
 
-.card-points li > * {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2; /* 2 lines on home tile */
-  overflow: hidden;
+/* Ensure the caret stays aligned */
+.card-points li:nth-child(2)::before {
+  transform: translateY(2px);
 }
+
 
 /* If your points are plain text (not wrapped), clamp the li itself */
 .card-points li {
@@ -1045,3 +1055,4 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   border: 1px solid rgba(0,0,0,0.06);
   background: #fff;
 }
+
