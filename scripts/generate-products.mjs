@@ -64,6 +64,12 @@ function secondImage(p){
   return (p.images && p.images.length > 1) ? p.images[1] : firstImage(p);
 }
 
+function imagesJsonForAttr(p){
+  const imgs = (p.images && p.images.length) ? p.images : [firstImage(p)];
+  // JSON string for embedding inside single quotes in HTML attribute
+  return JSON.stringify(imgs.map(String));
+}
+
 function inject(template, p){
   const slug = String(p.slug).trim();
   const name = String(p.name).trim();
@@ -79,6 +85,7 @@ function inject(template, p){
 
   out = out.replaceAll('IMAGE_1', escHtml(img1));
   out = out.replaceAll('IMAGE_2', escHtml(img2));
+  out = out.replaceAll('IMAGES_JSON', escHtml(imagesJsonForAttr(p)));
 
   // Better meta description
   out = out.replace(
