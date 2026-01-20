@@ -1056,6 +1056,11 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   border: 1px solid rgba(0,0,0,0.06);
   background: #fff;
 }
+.card,
+.grid .card{
+  height: 100%;
+}
+
 
 
 
