@@ -1060,6 +1060,49 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 .grid .card{
   height: 100%;
 }
+/* =========================================
+   HOME GRID FIX (force tiles to behave)
+   This prevents "giant images" + distortion
+========================================= */
+
+/* ensure grid children behave like cards */
+.grid > * {
+  min-height: 0;
+}
+
+/* force the card to fill the grid cell */
+.grid .card,
+.grid a.card,
+.grid .card-link {
+  height: 100%;
+  display: block;
+}
+
+/* force ANY image inside a grid card to fill and crop nicely */
+.grid .card img,
+.grid a.card img,
+.grid .card-link img,
+.grid > a img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  display: block;
+}
+
+/* keep your overlay pinned to bottom and visible */
+.grid .card-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+/* optional: prevent overlay contents from pushing layout */
+.grid .card {
+  position: relative;
+  overflow: hidden;
+}
+
 
 
 
