@@ -1,10 +1,6 @@
-# Keep one URL type: /slug
-# Old shared links: /p/slug -> /slug
-/p/*        /:splat     301
+# Enforce clean URLs (NO LOOP)
+/about        /about/     301
+/about.html   /about/     301
 
-# Clean URLs (no .html) — avoid /about <-> /about.html loops
-/about      /about/     301
-/about.html /about/     301
-
-/faq        /faq/       301
-/faq.html   /faq/       301
+/faq          /faq/       301
+/faq.html     /faq/       301
