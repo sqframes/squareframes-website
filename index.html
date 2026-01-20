@@ -1,4 +1,4 @@
-<!-- index.html (FULL UPDATED DROP-IN) -->
+<!-- index.html (CLEAN DROP-IN - STATIC PRODUCT PAGES) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,28 +13,17 @@
   <link rel="canonical" href="https://sqframes.com/">
   <link rel="stylesheet" href="/style.css">
 
-  <!-- App / Tab Icon -->
   <link rel="icon" href="/images/tab_icon.png" type="image/png">
   <link rel="apple-touch-icon" href="/images/tab_icon.png">
-  <link rel="manifest" href="/manifest.webmanifest">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="default">
-
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://sqframes.com/">
   <meta property="og:title" content="Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji">
   <meta property="og:description" content="Hardware, tools, timber, OHS safety equipment, cleaning supplies, and maintenance services across Fiji.">
   <meta property="og:image" content="https://sqframes.com/images/og-cover.png">
   <meta property="og:site_name" content="Square Frames">
-
-  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Square Frames | Hardware & Supplies in Fiji">
-  <meta name="twitter:description" content="Servicing all of Fiji.">
   <meta name="twitter:image" content="https://sqframes.com/images/og-cover.png">
 
-  <!-- LocalBusiness schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -43,11 +32,7 @@
     "url":"https://sqframes.com",
     "telephone":"+6797855919",
     "email":"admin@sqframes.com",
-    "address":{
-      "@type":"PostalAddress",
-      "addressLocality":"Suva",
-      "addressCountry":"FJ"
-    },
+    "address":{"@type":"PostalAddress","addressLocality":"Suva","addressCountry":"FJ"},
     "areaServed":"Fiji",
     "description":"Square Frames supplies hardware, tools, timber products, OHS safety equipment, cleaning supplies, and provides repair and maintenance services across Fiji."
   }
@@ -56,7 +41,6 @@
 
 <body>
 
-  <!-- Modern Header -->
   <header class="site-header">
     <div class="header-inner">
       <a href="/" class="brand" aria-label="Square Frames Home">
@@ -77,11 +61,8 @@
       <nav class="nav-pills" aria-label="Main navigation">
         <a href="/about.html">About</a>
         <a href="/faq.html">FAQ</a>
-
-        <!-- ✅ Opens overlay enquiry form (no navigation) -->
         <a class="btn-cta" href="#" data-open-inquiry>Request Quote</a>
       </nav>
-
     </div>
   </header>
 
@@ -107,51 +88,15 @@
     </div>
   </main>
 
-  <!-- Product Modal -->
-  <div id="product-modal" role="dialog" aria-modal="true" aria-hidden="true">
-    <div class="modal-content" role="document">
-      <!-- ✅ Close button -->
-      <button type="button" class="close-btn" id="modalClose" aria-label="Close">&times;</button>
-
-      <div class="modal-left">
-        <div class="carousel-container">
-          <button id="prevBtn" class="nav-arrow prev" type="button" aria-label="Previous Image">&#10094;</button>
-          <img src="" id="m-img" class="modal-img" alt="Product Detail">
-          <button id="nextBtn" class="nav-arrow next" type="button" aria-label="Next Image">&#10095;</button>
-        </div>
-      </div>
-
-      <div class="modal-info">
-        <span id="m-cat"></span>
-        <h2 id="m-title"></h2>
-
-        <div id="m-dims-box" class="dimension-box" style="display:none;">
-          <div class="dim-label">Details</div>
-          <div id="m-dims-list" class="dim-list"></div>
-        </div>
-
-        <div id="m-price"></div>
-
-        <ul id="m-desc-list"></ul>
-
-        <!-- ✅ Uses shared overlay opener (sets product automatically) -->
-        <button type="button" class="cta-btn" onclick="openInquiry(document.getElementById('m-title').innerText || '')">
-          Request Quote &amp; Info
-        </button>
-      </div>
-    </div>
-  </div>
-
   <!-- Inquiry Form Overlay (shared across pages) -->
-  <div id="inquiry-form-overlay" role="dialog" aria-modal="true">
+  <div id="inquiry-form-overlay" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="form-box">
       <button type="button" class="close-btn" onclick="closeInquiry()" style="position:absolute; top:16px; right:16px; background:none;" aria-label="Close">&times;</button>
       <h3 style="margin:0 0 18px 0; font-size:1.3rem;">Send an Enquiry</h3>
 
       <form id="inquiryForm">
-        <input type="hidden" id="form-product">
+        <input type="hidden" id="form-product" value="Website enquiry">
 
-        <!-- ✅ Honeypot -->
         <input type="text" id="form-website" value="" style="display:none" tabindex="-1" autocomplete="off" aria-hidden="true">
 
         <div class="form-group">
@@ -188,29 +133,7 @@
   <div id="toast" role="status" aria-live="polite"></div>
 
   <script>
-    // =========================
-    // State
-    // =========================
     let products = [];
-    let currentImages = [];
-    let currentImgIndex = 0;
-
-    const modal = document.getElementById('product-modal');
-
-    const sheetID = '1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0';
-    const sheetName = 'Sheet1';
-
-    // =========================
-    // Helpers
-    // =========================
-    function toast(msg, ms = 2600) {
-      const el = document.getElementById('toast');
-      if (!el) return;
-      el.textContent = msg;
-      el.style.display = 'block';
-      clearTimeout(el._t);
-      el._t = setTimeout(() => { el.style.display = 'none'; }, ms);
-    }
 
     function escapeHtml(s) {
       return String(s)
@@ -221,246 +144,30 @@
         .replaceAll("'", "&#039;");
     }
 
-    // =========================
-    // Load products
-    // =========================
-    fetch(`https://opensheet.elk.sh/${sheetID}/${sheetName}`)
-      .then(res => res.json())
-      .then(data => {
-        products = data.map(item => {
-          let safeDims = "";
-          if (item.dimensions) safeDims = item.dimensions;
-          else if (item.Dimensions) safeDims = item.Dimensions;
-
-          return {
-            ...item,
-            images: item.images ? String(item.images).split(/[\n,]+/g).map(url => url.trim()).filter(Boolean) : [],
-            description: item.description || "",
-            dimensions: safeDims
-          };
-        });
-
-        if (products.length === 0) {
-          document.getElementById('grid').innerHTML = '<p style="text-align:center;">No items found.</p>';
-          return;
-        }
-
-        generateItemListSchema(products);
-        initCategories();
-        renderProducts(products);
-
-        let slug = window.location.pathname.replace(/^\/+/, ""); // remove leading /
-        slug = slug.replace(/\/+$/, ""); // remove trailing slash
-
-        if (slug.startsWith("p/")) {
-        slug = slug.slice(2); // remove "p/"
-        history.replaceState({ slug }, "", "/" + slug); // ✅ force canonical URL
-        }
-
-        if (slug && slug.length > 1) openProduct(slug, false);
-
-
-      })
-      .catch(err => {
-        console.error(err);
-        document.getElementById('grid').innerHTML = '<p style="text-align:center;">System Error.</p>';
-      });
-
-    // =========================
-    // SEO schema (ItemList)
-    // =========================
-    function generateItemListSchema(items) {
-      const schema = {
-        "@context": "https://schema.org",
-        "@type": "ItemList",
-        "itemListElement": items.map((p, index) => ({
-          "@type": "ListItem",
-          "position": index + 1,
-          "item": {
-            "@type": "Product",
-            "name": p.name,
-            "image": (p.images && p.images[0]) ? p.images[0] : "",
-            "description": (p.description || "").replace(/\n/g, " "),
-            "offers": {
-              "@type": "Offer",
-              "price": p.price ? String(p.price).replace(/[^0-9.]/g, '') : "0"
-            }
-          }
-        }))
-      };
-
-      const script = document.createElement('script');
-      script.type = 'application/ld+json';
-      script.text = JSON.stringify(schema);
-      document.head.appendChild(script);
-    }
-
-    // =========================
-    // Render grid
-    // =========================
-    function renderProducts(data) {
+    function renderProducts(list) {
       const grid = document.getElementById('grid');
       const patterns = ['', '', 'wide', '', 'tall', '', '', 'big', '', 'wide'];
 
-      grid.innerHTML = data.map((p, index) => {
+      grid.innerHTML = list.map((p, index) => {
         const sizeClass = patterns[index % patterns.length];
         const thumb = (p.images && p.images.length > 0) ? p.images[0] : '';
 
-        let pointsHtml = '';
-        if (p.description) {
-          const lines = p.description.split('\n').filter(l => l.trim().length > 0).slice(0, 2);
-          pointsHtml = lines.map(line => `<li>${escapeHtml(line)}</li>`).join('');
-        }
+        const pointsHtml = p.short
+          ? `<ul class="card-points"><li>${escapeHtml(p.short)}</li></ul>`
+          : `<ul class="card-points"></ul>`;
 
         return `
-          <article class="card ${sizeClass}" data-cat="${escapeHtml(p.category || '')}" data-slug="${escapeHtml(p.slug || '')}">
+          <a class="card ${sizeClass}" href="/${escapeHtml(p.slug)}" data-cat="${escapeHtml(p.category || '')}">
             <img src="${escapeHtml(thumb)}" class="card-img" loading="lazy" alt="${escapeHtml(p.name || '')} - ${escapeHtml(p.category || '')}">
             <div class="card-overlay">
               <h3 class="card-title">${escapeHtml(p.name || '')}</h3>
-              <ul class="card-points">${pointsHtml}</ul>
+              ${pointsHtml}
             </div>
-          </article>
+          </a>
         `;
       }).join('');
     }
 
-    // Click-to-open (event delegation)
-    document.getElementById('grid').addEventListener('click', (e) => {
-      const card = e.target.closest('.card');
-      if (!card) return;
-      const slug = card.getAttribute('data-slug');
-      if (slug) openProduct(slug, true);
-    });
-
-    // =========================
-    // Modal logic
-    // =========================
-    function openProduct(slug, pushState) {
-      const p = products.find(i => i.slug === slug);
-      if (!p) return;
-
-      if (pushState) history.pushState({ slug }, '', '/' + slug);
-      document.title = `${p.name || 'Product'} | Square Frames`;
-
-      currentImages = p.images || [];
-      currentImgIndex = 0;
-      updateImageDisplay();
-
-      document.getElementById('m-cat').innerText = p.category || '';
-      document.getElementById('m-title').innerText = p.name || '';
-      document.getElementById('m-price').innerText = p.price || '';
-      document.getElementById('form-product').value = p.name || '';
-
-      const dimBox = document.getElementById('m-dims-box');
-      const dimList = document.getElementById('m-dims-list');
-      dimList.innerHTML = '';
-
-      if (p.dimensions && String(p.dimensions).trim() !== "") {
-        dimBox.style.display = "block";
-        String(p.dimensions).split('\n').forEach(d => {
-          if (d.trim()) dimList.innerHTML += `<span class="dim-pill">${escapeHtml(d.trim())}</span>`;
-        });
-      } else {
-        dimBox.style.display = "none";
-      }
-
-      const listContainer = document.getElementById('m-desc-list');
-      listContainer.innerHTML = '';
-      if (p.description) {
-        String(p.description).split('\n').forEach(line => {
-          if (line && line.trim().length > 0) listContainer.innerHTML += `<li>${escapeHtml(line)}</li>`;
-        });
-      }
-
-      modal.style.display = 'block';
-      modal.setAttribute('aria-hidden', 'false');
-      document.body.style.overflow = 'hidden';
-    }
-
-    function updateImageDisplay() {
-      const imgElement = document.getElementById('m-img');
-      const prevBtn = document.getElementById('prevBtn');
-      const nextBtn = document.getElementById('nextBtn');
-
-      if (currentImages.length > 0) {
-        imgElement.src = currentImages[currentImgIndex];
-        imgElement.style.display = 'block';
-      } else {
-        imgElement.style.display = 'none';
-      }
-
-      if (currentImages.length <= 1) {
-        prevBtn.style.display = 'none';
-        nextBtn.style.display = 'none';
-      } else {
-        prevBtn.style.display = 'flex';
-        nextBtn.style.display = 'flex';
-      }
-    }
-
-    function changeImage(direction) {
-      currentImgIndex += direction;
-      if (currentImgIndex >= currentImages.length) currentImgIndex = 0;
-      else if (currentImgIndex < 0) currentImgIndex = currentImages.length - 1;
-      updateImageDisplay();
-    }
-
-    function closeModal() {
-      modal.style.display = 'none';
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = 'auto';
-      history.pushState(null, '', '/');
-      document.title = "Square Frames | Hardware, Timber, Tools & OHS Supplies in Fiji";
-    }
-
-    // ✅ X works always
-    document.getElementById('modalClose').addEventListener('click', closeModal);
-
-    // ✅ Arrows wired
-    document.getElementById('prevBtn').addEventListener('click', () => changeImage(-1));
-    document.getElementById('nextBtn').addEventListener('click', () => changeImage(1));
-
-    // ✅ Close on backdrop click
-    modal.addEventListener('click', (e) => {
-      if (e.target === modal) closeModal();
-    });
-
-    // ✅ Close on ESC
-    window.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && modal.style.display === 'block') closeModal();
-    });
-
-    // Keep for back/forward
-    window.onpopstate = () => {
-  function getSlugFromPath() {
-    let path = window.location.pathname.replace(/\/+$/, ""); // trim trailing slash
-    if (!path || path === "/") return "";
-
-    // support /p/<slug>
-    if (path.startsWith("/p/")) return path.slice(3);
-
-    // support /<slug>
-    return path.slice(1);
-  }
-
-  let slug = getSlugFromPath();
-
-  // ✅ force canonical if /p/
-  if (window.location.pathname.startsWith("/p/") && slug) {
-    history.replaceState({ slug }, "", "/" + slug);
-  }
-
-  if (slug && slug.length > 1) {
-    openProduct(slug, false);
-  } else {
-    closeModal(); // ✅ important
-  }
-};
-
-
-    // =========================
-    // Filters
-    // =========================
     function initCategories() {
       const cats = [...new Set(products.map(p => p.category).filter(Boolean))];
       const sel = document.getElementById('categorySelect');
@@ -468,66 +175,33 @@
       cats.forEach(c => sel.innerHTML += `<option value="${escapeHtml(c)}">${escapeHtml(c)}</option>`);
     }
 
+    // Load from local products.json (static repo)
+    fetch('/products.json')
+      .then(r => r.json())
+      .then(data => {
+        products = Array.isArray(data) ? data : [];
+        if (!products.length) {
+          document.getElementById('grid').innerHTML = '<p style="text-align:center;">No items found.</p>';
+          return;
+        }
+        initCategories();
+        renderProducts(products);
+      })
+      .catch(() => {
+        document.getElementById('grid').innerHTML = '<p style="text-align:center;">System Error.</p>';
+      });
+
     document.getElementById('searchInput').addEventListener('input', (e) => {
       const term = e.target.value.toLowerCase();
-      const filtered = products.filter(p => (p.name && p.name.toLowerCase().includes(term)));
-      renderProducts(filtered);
+      renderProducts(products.filter(p => (p.name || '').toLowerCase().includes(term)));
     });
 
     document.getElementById('categorySelect').addEventListener('change', (e) => {
       const cat = e.target.value;
-      const filtered = cat === 'all' ? products : products.filter(p => p.category === cat);
-      renderProducts(filtered);
+      renderProducts(cat === 'all' ? products : products.filter(p => p.category === cat));
     });
-
-    // =========================
-    // Header shrink/snap behavior
-    // =========================
-    (function () {
-      const header = document.querySelector('.site-header');
-      if (!header) return;
-
-      let lastY = window.scrollY;
-      let ticking = false;
-      let snapTimer = null;
-
-      function update() {
-        const y = window.scrollY;
-        if (y > 18) header.classList.add('is-scrolled');
-        else header.classList.remove('is-scrolled');
-
-        const goingUp = y < lastY;
-        const wasScrolled = lastY > 18;
-
-        if (goingUp && wasScrolled) {
-          header.classList.add('snap-back');
-          clearTimeout(snapTimer);
-          snapTimer = setTimeout(() => header.classList.remove('snap-back'), 560);
-        }
-
-        lastY = y;
-        ticking = false;
-      }
-
-      function onScroll() {
-        if (!ticking) {
-          window.requestAnimationFrame(update);
-          ticking = true;
-        }
-      }
-
-      window.addEventListener('scroll', onScroll, { passive: true });
-    })();
   </script>
 
-  <!-- ✅ Shared overlay + submit handler + inert fix (prevents aria-hidden warning) -->
   <script src="/site.js"></script>
-
 </body>
 </html>
-
-
-
-
-
-
