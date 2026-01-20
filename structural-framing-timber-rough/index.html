@@ -50,7 +50,8 @@
         <img src="/images/sqf_logo_transparent.png" alt="Square Frames" />
       </a>
 
-      <div class="header-controls modern-controls">
+      <!-- Product pages don't use search/filter; keep visual balance but don't intercept clicks -->
+      <div class="header-controls modern-controls" aria-hidden="true" style="opacity:.35; pointer-events:none;">
         <div class="search-wrap" aria-hidden="true" style="opacity:.35">
           <input type="text" placeholder="Search products..." disabled />
         </div>
@@ -69,24 +70,12 @@
   </header>
 
   <main>
-    <section class="hero">
-      <h1 class="tagline">Structural Framing Timber (Rough)</h1>
-      <p class="subline">Timber · Servicing Suva, Nasinu, Nausori, Lami, Lautoka, Nadi, Labasa and all of Fiji.</p>
-
-      <div class="badges" aria-label="Highlights">
-        <span class="badge">Fast Response</span>
-        <span class="badge">Trade &amp; Business Support</span>
-        <span class="badge">Customer Centric</span>
-        <span class="badge">Nationwide Service</span>
-      </div>
-    </section>
-
-    <section class="page-wrap">
+    <section class="page-wrap" style="padding-top: 34px;">
       <div class="about-grid">
 
         <div class="about-main">
           <div class="tile tile-strong">
-            <h2>Product details</h2>
+            <h2 class="product-details-title">Structural Framing Timber (Rough)</h2>
 
             <!-- OPTIONAL: sizes/details pills -->
             <div class="dimension-box">
@@ -108,9 +97,10 @@
 
           <div class="tile">
             <h2>Images</h2>
-            <div style="display:grid; gap:12px;">
-              <img class="prod-img" src="https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png" alt="Structural Framing Timber (Rough) - Square Frames Fiji" loading="lazy">
-              <img class="prod-img" src="https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png" alt="Structural Framing Timber (Rough) - Square Frames Fiji" loading="lazy">
+            <div class="carousel-container product-carousel" data-carousel data-images='[&quot;https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png&quot;]' aria-label="Product images">
+              <button type="button" class="nav-arrow prev" data-carousel-prev aria-label="Previous image">&#10094;</button>
+              <img class="modal-img prod-carousel-img" src="https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png" alt="Structural Framing Timber (Rough) - Square Frames Fiji" loading="lazy" decoding="async">
+              <button type="button" class="nav-arrow next" data-carousel-next aria-label="Next image">&#10095;</button>
             </div>
           </div>
         </div>
