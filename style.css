@@ -450,5 +450,10 @@ footer {
   color: var(--gray);
   margin-bottom: 6px;
 }
+.dim-label {
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
 
 
