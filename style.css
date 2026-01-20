@@ -329,7 +329,7 @@ img { max-width: 100%; display: block; }
   font-weight: var(--fw-body);
 }
 
-/* Keep card bullets layout stable (no distortion) */
+/* default: single-line tidy bullets */
 .card-points li {
   display: grid;
   grid-template-columns: 14px 1fr;
@@ -337,32 +337,9 @@ img { max-width: 100%; display: block; }
   align-items: start;
   margin: 0 0 4px 0;
 
-  /* restore original behavior */
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-
-/* ✅ Only make the 2nd bullet show 2 lines (partial description) */
-.card-points li:nth-child(2) {
-  white-space: normal;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  overflow: hidden;
-}
-
-/* Ensure the caret stays aligned */
-.card-points li:nth-child(2)::before {
-  transform: translateY(2px);
-}
-
-
-/* If your points are plain text (not wrapped), clamp the li itself */
-.card-points li {
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
 }
 
 .card-points li::before {
@@ -373,7 +350,20 @@ img { max-width: 100%; display: block; }
   transform: translateY(1px);
 }
 
-.card-points li:nth-child(2) { opacity: 0.78; }
+/* ✅ only the 2nd bullet shows 2 lines */
+.card-points li:nth-child(2) {
+  opacity: 0.78;
+
+  white-space: normal;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.card-points li:nth-child(2)::before {
+  transform: translateY(2px);
+}
 
 /* ==========================
    Modal (HOME modal)
@@ -551,7 +541,7 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 14px 32px rgba(0,0,0,0.06);
   overflow: hidden;
 
-  /* ✅ HARD cap: prevents giant image like your screenshot */
+  /* ✅ HARD cap: prevents giant image */
   height: 420px;
 
   display: flex;
@@ -602,7 +592,6 @@ img { max-width: 100%; display: block; }
 
 /* Dimensions box on product pages */
 .product-grid .dimension-box { margin: 16px 0 14px 0; }
-.product-grid .dim-label { content: none; }
 
 /* Product page description list */
 .about-list{
@@ -1046,66 +1035,9 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   }
 }
 
-/* Home tiles: prevent huge/distorted images */
-.prod-img{
-  width: 100%;
-  height: 100%;
-  display: block;
-  object-fit: cover;       /* keep tiles clean */
-  border-radius: 12px;
-  border: 1px solid rgba(0,0,0,0.06);
-  background: #fff;
-}
-.card,
-.grid .card{
-  height: 100%;
-}
-/* =========================================
-   HOME GRID FIX (force tiles to behave)
-   This prevents "giant images" + distortion
-========================================= */
-
-/* ensure grid children behave like cards */
-.grid > * {
-  min-height: 0;
-}
-
-/* force the card to fill the grid cell */
-.grid .card,
-.grid a.card,
-.grid .card-link {
-  height: 100%;
-  display: block;
-}
-
-/* force ANY image inside a grid card to fill and crop nicely */
-.grid .card img,
-.grid a.card img,
-.grid .card-link img,
-.grid > a img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  display: block;
-}
-
-/* keep your overlay pinned to bottom and visible */
-.grid .card-overlay {
-  position: absolute;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-/* optional: prevent overlay contents from pushing layout */
-.grid .card {
-  position: relative;
-  overflow: hidden;
-}
-
 /* ==========================
-   HOME GRID HOTFIX (prevents giant/distorted tiles)
-   Your tiles use: <a class="card"><img class="card-img">...
+   FINAL HOME GRID SAFETY (prevents tile distortion)
+   Your home tiles use: <a class="card"><img class="card-img">...
 ========================== */
 
 .grid .card {
@@ -1114,15 +1046,9 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   overflow: hidden;
 }
 
-/* force image to fill the grid cell */
 .grid .card-img {
   width: 100% !important;
   height: 100% !important;
   object-fit: cover !important;
   display: block;
 }
-
-
-
-
-
