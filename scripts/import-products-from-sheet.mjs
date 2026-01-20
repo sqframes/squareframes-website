@@ -1,24 +1,14 @@
-/**
- * scripts/import-products-from-sheet.mjs
- *
- * Pulls product rows from your Google Sheet (tab: External) and writes products.json
- *
- * Usage:
- *   node scripts/import-products-from-sheet.mjs
- *
- * Notes:
- * - Sheet must be viewable (public or shared in a way that CSV export works)
- * - Reads columns: slug, name, category, description, dimensions, price, images, tags
- */
-
 import fs from "node:fs";
 import path from "node:path";
 
-const SHEET_ID = "1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0";
-const SHEET_TAB = "External"; // seen in your sheet UI
-const OUT_FILE = path.join(process.cwd(), "products.json");
+const ROOT = process.cwd();
+const OUT_FILE = path.join(ROOT, "products.json");
 
-// Google "gviz" CSV export (works for viewable sheets)
+// Your Google Sheet
+const SHEET_ID = "1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0";
+const SHEET_TAB = "External"; // change if your tab name differs
+
+// Works when sheet is viewable (public/shared)
 const CSV_URL =
   `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:csv&sheet=${encodeURIComponent(SHEET_TAB)}`;
 
@@ -30,17 +20,16 @@ function normalizeNewlines(s) {
 }
 
 function splitImages(s) {
-  // images in your sheet are comma-separated; some have spaces after commas
   const raw = normalizeNewlines(s);
   if (!raw) return [];
+  // Support comma-separated OR newline separated
   return raw
-    .split(",")
+    .split(/,|\n/)
     .map(x => x.trim())
     .filter(Boolean);
 }
 
 function splitTags(s) {
-  // tags might be comma-separated or newline-separated
   const raw = normalizeNewlines(s);
   if (!raw) return [];
   return raw
@@ -49,16 +38,24 @@ function splitTags(s) {
     .filter(Boolean);
 }
 
+function slugifyFallback(name) {
+  return String(name || "")
+    .toLowerCase()
+    .trim()
+    .replace(/&/g, "and")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/-+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
 function makeShort(desc) {
   const d = normalizeNewlines(desc);
   if (!d) return "";
-  // Use first non-empty line as "short"
   const firstLine = d.split("\n").map(x => x.trim()).filter(Boolean)[0] || "";
-  // Keep short from becoming huge
   return firstLine.length > 140 ? firstLine.slice(0, 137) + "..." : firstLine;
 }
 
-// Minimal CSV parser that handles quoted fields + commas correctly
+// Robust CSV parser (handles quotes/commas)
 function parseCSV(csvText) {
   const rows = [];
   let row = [];
@@ -97,64 +94,38 @@ function parseCSV(csvText) {
     }
   }
 
-  // last cell
   row.push(cur);
   rows.push(row);
 
-  // remove trailing empty last row
   if (rows.length && rows[rows.length - 1].every(c => String(c).trim() === "")) {
     rows.pop();
   }
   return rows;
 }
 
-function slugifyFallback(name) {
-  return String(name || "")
-    .toLowerCase()
-    .trim()
-    .replace(/&/g, "and")
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/-+/g, "-")
-    .replace(/^-|-$/g, "");
-}
-
-function cleanPrice(p) {
-  const s = String(p ?? "").trim();
-  // keep as-is; you have both "Contact for Price" and "$125.00"
-  return s;
-}
-
 async function main() {
-  console.log("Fetching CSV:", CSV_URL);
+  console.log("Fetching products from:", CSV_URL);
 
-  const res = await fetch(CSV_URL, {
-    headers: { "user-agent": "sqframes-importer" }
-  });
-
+  const res = await fetch(CSV_URL, { headers: { "user-agent": "sqframes-importer" } });
   if (!res.ok) {
-    throw new Error(`Failed to fetch sheet CSV (${res.status})`);
+    throw new Error(`Failed to fetch sheet CSV (${res.status}). Make sure the sheet/tab is accessible.`);
   }
 
   const csv = await res.text();
   const rows = parseCSV(csv);
-
   if (!rows.length) throw new Error("CSV returned no rows.");
 
   const header = rows[0].map(h => String(h).trim().toLowerCase());
   const idx = (name) => header.indexOf(name);
 
-  const required = ["slug", "name", "category", "description", "dimensions", "price", "images", "tags"];
-  for (const col of required) {
-    if (idx(col) === -1) {
-      console.warn(`Warning: Missing expected column "${col}" in sheet header.`);
-    }
-  }
-
+  // Expected columns (case-insensitive)
+  // slug, name, category, description, dimensions, price, images, tags
   const products = [];
-  const seenSlugs = new Set();
+  const seen = new Set();
 
   for (let r = 1; r < rows.length; r++) {
     const cells = rows[r];
+
     const get = (col) => {
       const i = idx(col);
       return i >= 0 ? (cells[i] ?? "") : "";
@@ -163,42 +134,37 @@ async function main() {
     const name = String(get("name")).trim();
     const slugRaw = String(get("slug")).trim();
     const slug = slugRaw || slugifyFallback(name);
+
+    if (!slug || !name) continue; // require at least slug+name
+
+    if (seen.has(slug)) continue;
+    seen.add(slug);
+
     const category = String(get("category")).trim();
     const description = normalizeNewlines(get("description"));
     const dimensions = normalizeNewlines(get("dimensions"));
-    const price = cleanPrice(get("price"));
+    const price = String(get("price")).trim();
     const images = splitImages(get("images"));
     const tags = splitTags(get("tags"));
 
-    if (!name && !slug) continue;
-
-    const finalSlug = slug || slugifyFallback(name);
-    if (!finalSlug) continue;
-
-    if (seenSlugs.has(finalSlug)) {
-      console.warn(`Duplicate slug "${finalSlug}" (row ${r + 1}) — skipping duplicate.`);
-      continue;
-    }
-    seenSlugs.add(finalSlug);
-
     products.push({
-      slug: finalSlug,
-      name: name || finalSlug,
-      category: category || "",
+      slug,
+      name,
+      category,
+      price,
+      description,
       short: makeShort(description),
-      description: description || "",
-      dimensions: dimensions || "",
-      price: price || "",
-      images: images,
-      tags: tags
+      dimensions,
+      images,
+      tags
     });
   }
 
-  // Stable sort (helps diffs)
+  // Stable ordering (helps diffs)
   products.sort((a, b) => a.name.localeCompare(b.name, "en"));
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(products, null, 2) + "\n", "utf8");
-  console.log(`Wrote ${products.length} products -> ${OUT_FILE}`);
+  console.log(`Wrote ${products.length} products -> products.json`);
 }
 
 main().catch((e) => {
