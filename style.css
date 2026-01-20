@@ -1,18 +1,37 @@
+/* =========================
+   Square Frames - style.css (FULL)
+   - Keeps existing layout/style
+   - Fixes:
+     1) Remove double framing around product images (single frame)
+     2) Product category above product name (styling)
+     3) "Available sizes" label handled as "Dimensions" (styling only)
+     4) Home product tile description = 2 lines clamp
+     5) Inquiry overlay styling + toast
+     6) Product image sizing reduced (no cropping)
+========================= */
+
 :root {
   --bg: #ffffff;
   --text: #111111;
-  --gray: #6b7280;
-  --muted: #f6f7f9;
-  --border: #e5e7eb;
-  --radius: 12px;
-  --shadow: 0 8px 24px rgba(0,0,0,0.06);
+  --gray: #757575;
   --brand: #216BBF;
+  --brand2: #34B0E0;
+
+  --muted: #f6f7f9;
+  --border: #eeeeee;
+
+  --radius: 12px;
+  --shadow: 0 12px 28px rgba(0,0,0,0.08);
+
+  --max: 1200px;
+  --pad: 20px;
 }
 
-/* --------------------
+/* =========================
    Base
--------------------- */
+========================= */
 * { box-sizing: border-box; }
+html, body { height: 100%; }
 body {
   margin: 0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -20,87 +39,246 @@ body {
   background: var(--bg);
   line-height: 1.5;
 }
-a { color: inherit; text-decoration: none; }
 img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+p { margin: 0 0 14px 0; }
+ul { margin: 0; padding-left: 18px; }
+.muted { color: var(--gray); }
+.text-link { color: var(--brand); text-decoration: underline; text-underline-offset: 2px; }
 
-/* --------------------
-   Header (CONSISTENT)
--------------------- */
+/* =========================
+   Header
+========================= */
 .site-header {
   position: sticky;
   top: 0;
+  z-index: 50;
   background: #fff;
   border-bottom: 1px solid var(--border);
-  z-index: 50;
 }
+
 .header-inner {
-  max-width: 1200px;
-  margin: auto;
-  padding: 14px 20px;
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 14px var(--pad);
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
 }
-.brand img { height: 42px; }
+
+.brand img {
+  height: 44px; /* keep logo size consistent */
+  width: auto;
+  display: block;
+}
 
 .header-controls {
   display: flex;
+  align-items: center;
   gap: 10px;
   flex: 1;
+  min-width: 220px;
 }
+
 .search-wrap input,
 .select-wrap select {
-  padding: 8px 10px;
+  width: 100%;
+  padding: 10px 12px;
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 10px;
+  background: #fff;
+  outline: none;
 }
 
 .nav-pills {
   display: flex;
   align-items: center;
   gap: 18px;
-}
-.nav-pills a {
-  font-weight: 500;
-}
-.btn-cta {
-  background: var(--brand);
-  color: #fff;
-  padding: 10px 16px;
-  border-radius: 999px;
-  font-weight: 600;
-  border: none;
-  cursor: pointer;
+  white-space: nowrap;
 }
 
-/* --------------------
-   Layout helpers
--------------------- */
-.page-wrap {
-  max-width: 1200px;
-  margin: auto;
-  padding: 40px 20px;
+.nav-pills a {
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: #111;
+  opacity: 0.92;
 }
+
+.nav-pills a[aria-current="page"] {
+  color: var(--brand);
+}
+
+.btn-cta, .cta-btn {
+  background: linear-gradient(135deg, var(--brand2) 0%, var(--brand) 100%);
+  color: #fff;
+  border: none;
+  padding: 10px 16px;
+  border-radius: 999px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.btn-cta:active, .cta-btn:active { transform: translateY(1px); }
+
+/* =========================
+   Page sections
+========================= */
+main { display: block; }
+
+.page-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 36px var(--pad);
+}
+
+/* =========================
+   Tiles / Cards
+========================= */
 .tile {
   background: #fff;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  padding: 20px;
+  padding: 18px;
 }
+
 .tile-strong {
   box-shadow: var(--shadow);
 }
 
-/* --------------------
-   PRODUCT GRID
--------------------- */
+/* =========================
+   Hero blocks (Home/About/FAQ)
+========================= */
+.hero {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 34px var(--pad) 18px var(--pad);
+}
+
+.tagline {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin: 0 0 12px 0;
+}
+
+.subline {
+  margin: 0;
+  color: var(--gray);
+  max-width: 820px;
+}
+
+.badges {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.badge {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--muted);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   Product listing grid (Home)
+========================= */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.product-tile {
+  background: #fff;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.04);
+}
+
+.product-thumb {
+  background: #fff;
+  border-bottom: 1px solid var(--border);
+  aspect-ratio: 16/10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+}
+
+.product-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.product-body {
+  padding: 14px 14px 16px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-name {
+  font-weight: 800;
+  font-size: 1.05rem;
+  line-height: 1.25;
+  margin: 0;
+}
+
+.product-cat {
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--gray);
+  margin-top: -2px;
+}
+
+.product-desc {
+  color: #3f3f3f;
+  font-size: 0.95rem;
+
+  /* FIX: 2 lines clamp (was 1 line on your site) */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+}
+
+.product-price {
+  font-weight: 800;
+  margin-top: 2px;
+}
+
+.product-actions {
+  margin-top: 6px;
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+/* =========================
+   Product Page (2-column)
+========================= */
 .product-grid {
   display: grid;
   grid-template-columns: 1.05fr 1fr;
-  gap: 32px;
+  gap: 28px;
+  align-items: start;
 }
 
-/* REMOVE double frame */
+/* FIX: Remove double frame around image
+   Many pages have .tile + .carousel-container borders; keep only one. */
 .product-grid .tile {
   background: transparent;
   border: none;
@@ -108,158 +286,304 @@ img { max-width: 100%; display: block; }
   padding: 0;
 }
 
-/* --------------------
-   Carousel (single frame)
--------------------- */
+/* Use ONE frame on carousel container OR image */
 .carousel-container {
   position: relative;
   border: 1px solid var(--border);
   border-radius: var(--radius);
   background: #fff;
   overflow: hidden;
+
+  /* FIX: image block not too tall */
+  max-height: 520px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
+.modal-img,
 .prod-carousel-img {
   width: 100%;
-  aspect-ratio: 1 / 1;
+  max-height: 480px; /* FIX: reduce oversized product image */
   object-fit: contain;
-  transition: opacity .2s ease;
+  margin: auto;
+  transition: opacity .18s ease;
 }
-.prod-carousel-img.is-fading { opacity: .35; }
+
+/* Fade effect for carousel */
+.is-fading { opacity: .35; }
 
 .nav-arrow {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  background: rgba(255,255,255,0.9);
-  border: 1px solid var(--border);
+  width: 38px;
+  height: 38px;
   border-radius: 999px;
-  width: 36px;
-  height: 36px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,0.92);
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  user-select: none;
 }
 .nav-arrow.prev { left: 12px; }
 .nav-arrow.next { right: 12px; }
+.nav-arrow:disabled { opacity: .4; cursor: not-allowed; }
 
-/* --------------------
-   Product meta
--------------------- */
 .product-category {
-  font-size: 0.75rem;
+  /* FIX: category sits above title */
+  font-size: 0.78rem;
   text-transform: uppercase;
-  letter-spacing: .06em;
+  letter-spacing: 0.06em;
   color: var(--gray);
   margin-bottom: 6px;
 }
+
 .product-title {
-  font-size: 1.9rem;
   margin: 0 0 14px 0;
+  font-size: 1.95rem;
+  line-height: 1.15;
+  font-weight: 900;
 }
+
 .product-meta {
   display: flex;
   gap: 14px;
-  margin-bottom: 18px;
-}
-.product-price {
-  font-weight: 700;
-}
-.product-category-chip {
-  font-size: 0.85rem;
-  color: var(--gray);
+  align-items: baseline;
+  margin-bottom: 16px;
 }
 
-/* --------------------
-   Dimensions
--------------------- */
+.product-meta .product-price {
+  font-size: 1.05rem;
+}
+
 .dimension-box {
-  margin-bottom: 20px;
+  margin: 10px 0 18px 0;
+  padding: 14px;
+  border-radius: var(--radius);
+  background: var(--muted);
+  border: 1px solid var(--border);
 }
+
 .dim-label {
-  font-weight: 600;
-  margin-bottom: 8px;
+  font-weight: 800;
+  margin-bottom: 10px;
 }
+
 .dim-list {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
 }
+
 .dim-pill {
-  padding: 6px 10px;
-  border: 1px solid var(--border);
+  padding: 7px 10px;
   border-radius: 999px;
-  font-size: 0.85rem;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-size: 0.9rem;
+  font-weight: 700;
 }
 
-/* --------------------
-   Description list
--------------------- */
-.about-list {
-  margin: 0 0 24px 18px;
+.about-list li { margin-bottom: 6px; }
+
+/* =========================
+   About page layout
+========================= */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 22px;
 }
-.about-list li {
+
+.about-list { margin-top: 10px; }
+.pill-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+.pill {
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #fff;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+/* =========================
+   Contact mini / forms
+========================= */
+.contact-mini {
+  display: grid;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.inline-form .form-group,
+form .form-group {
+  display: grid;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+label { font-weight: 700; font-size: 0.92rem; }
+
+input, textarea, select {
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  outline: none;
+  background: #fff;
+}
+
+textarea { resize: vertical; }
+
+.form-help { margin-top: 10px; }
+
+/* =========================
+   FAQ styles
+========================= */
+.faq-wrap {
+  max-width: var(--max);
+  margin: 0 auto;
+  padding: 30px var(--pad) 40px var(--pad);
+}
+
+.faq-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 18px;
+}
+
+.faq-section-title {
+  margin: 18px 0 10px 0;
+  font-size: 1.25rem;
+  font-weight: 900;
+}
+
+.faq-accordion details {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: #fff;
+  padding: 0;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.faq-accordion summary {
+  cursor: pointer;
+  padding: 14px 16px;
+  font-weight: 800;
+  list-style: none;
+}
+.faq-accordion summary::-webkit-details-marker { display:none; }
+
+.faq-answer {
+  padding: 0 16px 14px 16px;
+  color: #333;
+}
+
+.faq-bottom-cta {
+  margin-top: 22px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  background: var(--muted);
+}
+
+.faq-bottom-title {
+  font-weight: 900;
+  font-size: 1.1rem;
   margin-bottom: 6px;
 }
+.faq-bottom-sub { color: var(--gray); margin-bottom: 12px; }
 
-/* --------------------
-   Home product cards (2 lines)
--------------------- */
-.product-desc {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-/* --------------------
-   Inquiry overlay
--------------------- */
+/* =========================
+   Inquiry overlay + toast
+========================= */
 #inquiry-form-overlay {
-  display: none;
+  display: none; /* toggled by JS */
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,.45);
+  background: rgba(0,0,0,0.48);
   z-index: 100;
   justify-content: center;
   align-items: center;
-}
-.form-box {
-  background: #fff;
-  padding: 28px;
-  border-radius: var(--radius);
-  width: 100%;
-  max-width: 420px;
-  position: relative;
-}
-.form-group {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 12px;
-}
-.form-group input,
-.form-group textarea {
-  padding: 8px 10px;
-  border-radius: 8px;
-  border: 1px solid var(--border);
+  padding: 18px;
 }
 
-/* --------------------
+#inquiry-form-overlay .form-box {
+  width: 100%;
+  max-width: 440px;
+  background: #fff;
+  border-radius: 16px;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+  padding: 22px;
+  position: relative;
+}
+
+.close-btn {
+  font-size: 28px;
+  line-height: 1;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  color: #111;
+}
+
+#toast {
+  display: none;
+  position: fixed;
+  left: 50%;
+  bottom: 22px;
+  transform: translateX(-50%);
+  background: #111;
+  color: #fff;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 700;
+  z-index: 120;
+  max-width: min(520px, calc(100% - 40px));
+  text-align: center;
+}
+
+/* =========================
    Footer
--------------------- */
+========================= */
 footer {
   border-top: 1px solid var(--border);
-  padding: 24px 20px;
+  padding: 26px var(--pad);
   text-align: center;
-  font-size: 0.9rem;
   color: var(--gray);
 }
 
-/* --------------------
+/* =========================
    Responsive
--------------------- */
+========================= */
+@media (max-width: 1000px) {
+  .products-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .about-grid { grid-template-columns: 1fr; }
+}
+
 @media (max-width: 900px) {
-  .product-grid {
-    grid-template-columns: 1fr;
-  }
-  .header-controls {
-    display: none;
-  }
+  .product-grid { grid-template-columns: 1fr; }
+  .header-controls { display: none; }
+  .header-inner { gap: 12px; }
+}
+
+@media (max-width: 640px) {
+  .products-grid { grid-template-columns: 1fr; }
+  .tagline { font-size: 1.75rem; }
+  .brand img { height: 40px; }
+
+  /* Product image sizing on mobile */
+  .carousel-container { max-height: 340px; }
+  .modal-img, .prod-carousel-img { max-height: 320px; }
 }
