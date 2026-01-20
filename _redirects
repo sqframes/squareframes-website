@@ -1,4 +1,7 @@
-/p/*        /index.html   200
-/about.html /about.html   200
-/faq.html   /faq.html     200
-/*          /index.html   200
+# Keep one URL type: /slug
+# Old shared links: /p/slug -> /slug
+/p/*        /:splat     301
+
+# Optional nice aliases
+/about      /about.html 301
+/faq        /faq.html   301
