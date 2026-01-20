@@ -1,16 +1,14 @@
 export async function onRequestGet() {
   const base = "https://sqframes.com";
 
-  const SHEET_ID = "1g5GT6RsbSW4qpfzcUbd1_mrdcakjRiylB5fzsmTMaD0";
-  const SHEET_NAME = "Sheet1";
-
+  // Source of truth: /products.json in this repo.
+  // This avoids dependencies on external sheet endpoints and guarantees sitemap matches the live catalogue.
   let slugs = [];
-
   try {
-    const res = await fetch(`https://opensheet.elk.sh/${SHEET_ID}/${SHEET_NAME}`, {
+    const res = await fetch(`${base}/products.json`, {
       headers: { accept: "application/json" }
     });
-    if (!res.ok) throw new Error(`Upstream fetch failed: ${res.status}`);
+    if (!res.ok) throw new Error(`Fetch failed: ${res.status}`);
     const rows = await res.json();
 
     slugs = [...new Set(
@@ -25,12 +23,12 @@ export async function onRequestGet() {
   const staticUrls = [
     { loc: `${base}/`, changefreq: "weekly", priority: "1.0" },
     { loc: `${base}/about.html`, changefreq: "monthly", priority: "0.7" },
-    { loc: `${base}/contact.html`, changefreq: "monthly", priority: "0.7" },
     { loc: `${base}/faq.html`, changefreq: "monthly", priority: "0.6" }
   ];
 
+  // Product pages are generated as /<slug>/index.html (served at /<slug>/)
   const productUrls = slugs.map(s => ({
-    loc: `${base}/p/${encodeURIComponent(s)}`,
+    loc: `${base}/${encodeURIComponent(s)}/`,
     changefreq: "weekly",
     priority: "0.7"
   }));
