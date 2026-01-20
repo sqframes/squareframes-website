@@ -1061,3 +1061,53 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   }
 }
 
+/* =====================================================
+   PRODUCT PAGE — KILL TILE PADDING (SINGLE FRAME FIX)
+   ===================================================== */
+
+/* Remove inherited tile padding ONLY for product page */
+.tile.product-card{
+  padding: 0 !important;          /* ← THIS is the root cause */
+  overflow: hidden;
+}
+
+/* Keep the border + radius (outer frame stays) */
+.tile.product-card{
+  border-radius: 16px;
+}
+
+/* Ensure grid fills the card */
+.tile.product-card > .product-grid{
+  margin: 0;
+  padding: 0;
+  gap: 0;
+}
+
+/* Image side: absolutely no inset */
+.tile.product-card .product-media{
+  margin: 0;
+  padding: 0;
+}
+
+/* Kill inner frame around carousel */
+.tile.product-card .carousel-container{
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+/* Image flush to edges */
+.tile.product-card .prod-carousel-img{
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0 !important;
+}
+
+/* Restore padding ONLY on text side */
+.tile.product-card .product-info{
+  padding: 18px;
+}
+
