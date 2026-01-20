@@ -1,13 +1,11 @@
-<!-- product-template.html (MASTER TEMPLATE) -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
 
-  <!-- CHANGE THESE -->
   <title>PRODUCT_NAME | Square Frames Fiji</title>
-  <meta name="description" content="PRODUCT_NAME - CATEGORY. Request pricing and availability from Square Frames (Fiji). Servicing Suva, Nasinu, Nausori, Lami, Lautoka, Nadi, Labasa and all of Fiji." />
+  <meta name="description" content="META_DESCRIPTION" />
   <meta name="robots" content="index,follow" />
   <meta name="theme-color" content="#ffffff" />
   <link rel="canonical" href="https://sqframes.com/SLUG" />
@@ -16,18 +14,26 @@
   <link rel="icon" href="/images/tab_icon.png" type="image/png" />
   <link rel="apple-touch-icon" href="/images/tab_icon.png" />
 
-  <meta property="og:type" content="website" />
+  <!-- Open Graph (Facebook/WhatsApp/etc) -->
+  <meta property="og:type" content="product" />
   <meta property="og:url" content="https://sqframes.com/SLUG" />
   <meta property="og:title" content="PRODUCT_NAME | Square Frames Fiji" />
-  <meta property="og:description" content="Request pricing & availability. Servicing all of Fiji." />
+  <meta property="og:description" content="OG_DESCRIPTION" />
   <meta property="og:image" content="IMAGE_1" />
+  <meta property="og:site_name" content="Square Frames" />
+  <meta property="og:image:alt" content="PRODUCT_NAME" />
 
+  <!-- Optional but helps FB choose the right image crop -->
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+
+  <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
   <meta name="twitter:title" content="PRODUCT_NAME | Square Frames Fiji" />
-  <meta name="twitter:description" content="Request pricing & availability. Servicing all of Fiji." />
+  <meta name="twitter:description" content="OG_DESCRIPTION" />
   <meta name="twitter:image" content="IMAGE_1" />
 
-  <!-- CHANGE JSON-LD -->
+  <!-- Product schema -->
   <script type="application/ld+json">
   {
     "@context":"https://schema.org",
@@ -37,7 +43,7 @@
     "image":["IMAGE_1","IMAGE_2"],
     "description":"SHORT_DESCRIPTION",
     "brand":{"@type":"Brand","name":"Square Frames"},
-    "url":"https://sqframes.com/SLUG"
+    "url":"https://sqframes.com/SLUG"SCHEMA_OFFERS
   }
   </script>
 </head>
@@ -50,85 +56,91 @@
         <img src="/images/sqf_logo_transparent.png" alt="Square Frames" />
       </a>
 
-      <!-- Product pages don't use search/filter; keep visual balance but don't intercept clicks -->
+      <!-- keep visual balance but never block clicks -->
       <div class="header-controls modern-controls" aria-hidden="true" style="opacity:.35; pointer-events:none;">
-        <div class="search-wrap" aria-hidden="true" style="opacity:.35">
+        <div class="search-wrap">
           <input type="text" placeholder="Search products..." disabled />
         </div>
-        <div class="select-wrap" aria-hidden="true" style="opacity:.35">
+        <div class="select-wrap">
           <select disabled><option>All Categories</option></select>
         </div>
       </div>
 
       <nav class="nav-pills" aria-label="Main navigation">
         <a href="/">Home</a>
-        <a href="/about.html">About</a>
-        <a href="/faq.html">FAQ</a>
+        <a href="/about/">About</a>
+        <a href="/faq/">FAQ</a>
         <a class="btn-cta" href="#" data-open-inquiry data-product="PRODUCT_NAME">Request Quote</a>
       </nav>
     </div>
   </header>
 
   <main>
-    <section class="page-wrap" style="padding-top: 34px;">
-      <div class="about-grid">
+    <section class="page-wrap product-page">
+      <div class="product-grid">
 
-        <div class="about-main">
-          <div class="tile tile-strong">
-            <h2 class="product-details-title">PRODUCT_NAME</h2>
-
-            <!-- OPTIONAL: sizes/details pills -->
-            <div class="dimension-box">
-              <div class="dim-label">Sizes / details</div>
-              <div class="dim-list">
-                <span class="dim-pill">DETAIL 1</span>
-                <span class="dim-pill">DETAIL 2</span>
-                <span class="dim-pill">DETAIL 3</span>
-              </div>
-            </div>
-
-            <!-- OPTIONAL: bullet details -->
-            <ul class="about-list">
-              <li>POINT 1</li>
-              <li>POINT 2</li>
-              <li>POINT 3</li>
-            </ul>
-
-            <p style="margin-top:12px;">
-              <a href="/" class="text-link">Back to catalogue</a>
-            </p>
-          </div>
-
+        <!-- LEFT: image deck -->
+        <div class="product-left">
           <div class="tile">
-            <h2>Images</h2>
-            <div class="carousel-container product-carousel" data-carousel data-images='IMAGES_JSON' aria-label="Product images">
+            <div class="carousel-container product-carousel"
+                 data-carousel
+                 data-images='IMAGES_JSON'
+                 aria-label="Product images">
               <button type="button" class="nav-arrow prev" data-carousel-prev aria-label="Previous image">&#10094;</button>
-              <img class="modal-img prod-carousel-img" src="IMAGE_1" alt="PRODUCT_NAME - Square Frames Fiji" loading="lazy" decoding="async">
+              <img class="modal-img prod-carousel-img"
+                   src="IMAGE_1"
+                   alt="PRODUCT_NAME"
+                   loading="lazy"
+                   decoding="async">
               <button type="button" class="nav-arrow next" data-carousel-next aria-label="Next image">&#10095;</button>
             </div>
           </div>
         </div>
 
-        <aside class="about-aside">
+        <!-- RIGHT: details -->
+        <div class="product-right">
           <div class="tile tile-strong">
-            <h2>Send an enquiry</h2>
-            <p class="muted">Include quantities (if known) and your location for the quickest quote.</p>
+            <h1 class="product-title">PRODUCT_NAME</h1>
 
+            <div class="product-meta">
+              <div class="product-price">PRICE_TEXT</div>
+              <div class="product-category">CATEGORY_TEXT</div>
+            </div>
+
+            <div class="dimension-box">
+              <div class="dim-label">Sizes / dimensions</div>
+              <div class="dim-list">
+                <span class="dim-pill">Ask for sizes</span>
+              </div>
+            </div>
+
+            <div class="product-description">
+              <h2 class="product-subtitle">Description</h2>
+              <ul class="about-list">
+                <li>Request pricing, availability, and suitable specifications for your application.</li>
+              </ul>
+            </div>
+
+            <div class="product-actions">
+              <button type="button" class="cta-btn" onclick="openInquiry('PRODUCT_NAME')">Request Quote</button>
+              <a href="/" class="text-link">Back to catalogue</a>
+            </div>
+          </div>
+
+          <div class="tile">
+            <h2>Contact</h2>
             <div class="contact-mini">
               <a href="tel:+6797855919">📞 +679 785 5919</a>
               <a href="mailto:admin@sqframes.com">✉️ admin@sqframes.com</a>
             </div>
-
-            <button type="button" class="cta-btn" onclick="openInquiry('PRODUCT_NAME')">Request Quote</button>
-            <div class="form-help muted">This opens the enquiry form overlay.</div>
           </div>
-        </aside>
+        </div>
 
       </div>
     </section>
   </main>
 
-  <!-- Shared inquiry overlay -->
+  <!-- Inquiry overlay -->
   <div id="inquiry-form-overlay" role="dialog" aria-modal="true" aria-hidden="true">
     <div class="form-box">
       <button type="button" class="close-btn" onclick="closeInquiry()" style="position:absolute; top:16px; right:16px; background:none;" aria-label="Close">&times;</button>
