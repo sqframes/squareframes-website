@@ -904,192 +904,26 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 }
 
 /* =========================================================
-   PRODUCT PAGE SINGLE-FRAME FIX (ONLY CHANGE)
-   Removes the "frame inside a frame" around the carousel image
-   so the ONLY frame is: .tile.product-card
+   PRODUCT PAGE — SINGLE FRAME ONLY (FINAL)
+   Removes the inner “frame” by removing .tile padding ONLY on product pages
    ========================================================= */
 
-/* keep your existing layout intact */
-.product-wrap{
-  padding: 10px 5% 90px 5%;
-}
-
-.product-card{
-  max-width: var(--maxw);
-  margin: 0 auto;
-}
-
-/* your HTML uses .product-grid inside .tile.product-card */
-.product-card .product-grid{
-  display: grid;
-  grid-template-columns: 1.5fr 1fr;
-  gap: 28px;
-  align-items: start;
-}
-
-/* ✅ remove inner "card" styling from carousel container */
-.product-card .carousel-container{
-  background: transparent !important;
-  border: none !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  overflow: visible !important;
-}
-
-/* ✅ remove inner panel feel from the product image itself */
-.product-card .prod-carousel-img{
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: contain;
-  background: transparent !important;
-  border-radius: 0 !important;
-}
-
-/* responsive: stack (only for product page) */
-@media (max-width: 980px){
-  .product-card .product-grid{
-    grid-template-columns: 1fr;
-  }
-}
-
-/* =========================================
-   PRODUCT PAGE: SINGLE FRAME (NO DOUBLE BOX)
-   Paste at END of style.css
-========================================= */
-
-/* Outer card is the ONLY frame */
 .tile.product-card{
-  padding: 0;              /* removes inner inset box look */
-  overflow: hidden;        /* clips image to same radius */
+  padding: 0 !important;      /* removes inner inset */
+  overflow: hidden;           /* keeps corners clean */
 }
 
-/* Remove the "gap" that looks like a second frame */
-.tile.product-card .product-grid{
-  gap: 0;
-  padding: 0;              /* in case any padding was added elsewhere */
-  margin: 0;
-}
-
-/* Make carousel/image area full-bleed */
-.tile.product-card .product-media{
-  padding: 0;
-}
-
-/* Kill inner carousel panel styling (no border/background/rounding) */
-.tile.product-card .carousel-container{
-  border: none !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  border-radius: 0 !important;
-  overflow: hidden;        /* keep arrows inside and image clean */
-}
-
-/* Image flush to the frame */
-.tile.product-card .prod-carousel-img{
-  width: 100%;
-  height: auto;
-  display: block;
-  object-fit: cover;       /* fills nicely like your screenshot */
-  background: transparent !important;
-  border-radius: 0 !important;
-}
-
-/* Put padding ONLY on the right column content */
+/* Keep spacing only on the right side content */
 .tile.product-card .product-info{
-  padding: 28px;
+  padding: 18px;
 }
 
-/* Mobile: keep padding nice */
-@media (max-width: 980px){
-  .tile.product-card .product-info{
-    padding: 22px;
-  }
-}
-
-/* =========================================
-   PRODUCT PAGE — SINGLE FRAME ONLY
-   Fixes the double-frame caused by .tile padding on .product-card
-   (Add at END of style.css)
-========================================= */
-
-/* Make the product-card be the ONE outer frame (no inner inset) */
-.tile.product-card{
-  padding: 0;           /* <-- removes the inner frame/inset */
-  overflow: hidden;     /* keeps corners clean */
-}
-
-/* Remove any spacing that creates a second “panel” */
-.tile.product-card .product-grid{
-  gap: 0;
-  margin: 0;
-  padding: 0;
-}
-
-/* Image area should be flush to the outer frame */
+/* Make carousel/media flush (no second card look) */
 .tile.product-card .product-media{
-  padding: 0;
-  margin: 0;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 
-/* Kill the inner carousel "frame" so it doesn't look like a second card */
-.tile.product-card .carousel-container{
-  border: none !important;
-  box-shadow: none !important;
-  background: transparent !important;
-  border-radius: 0 !important;
-}
-
-/* Keep image clean + flush */
-.tile.product-card .prod-carousel-img{
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 0 !important;
-  background: transparent !important;
-}
-
-/* Put the spacing back ONLY on the right-hand info column */
-.tile.product-card .product-info{
-  padding: 18px;        /* matches your tile padding */
-}
-
-/* Mobile: give the info some breathing room */
-@media (max-width: 980px){
-  .tile.product-card .product-info{
-    padding: 16px;
-  }
-}
-
-/* =====================================================
-   PRODUCT PAGE — KILL TILE PADDING (SINGLE FRAME FIX)
-   ===================================================== */
-
-/* Remove inherited tile padding ONLY for product page */
-.tile.product-card{
-  padding: 0 !important;          /* ← THIS is the root cause */
-  overflow: hidden;
-}
-
-/* Keep the border + radius (outer frame stays) */
-.tile.product-card{
-  border-radius: 16px;
-}
-
-/* Ensure grid fills the card */
-.tile.product-card > .product-grid{
-  margin: 0;
-  padding: 0;
-  gap: 0;
-}
-
-/* Image side: absolutely no inset */
-.tile.product-card .product-media{
-  margin: 0;
-  padding: 0;
-}
-
-/* Kill inner frame around carousel */
 .tile.product-card .carousel-container{
   border: none !important;
   box-shadow: none !important;
@@ -1098,16 +932,11 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   padding: 0 !important;
 }
 
-/* Image flush to edges */
+/* Image flush to the outer card */
 .tile.product-card .prod-carousel-img{
   display: block;
   width: 100%;
   height: auto;
   border-radius: 0 !important;
+  background: transparent !important;
 }
-
-/* Restore padding ONLY on text side */
-.tile.product-card .product-info{
-  padding: 18px;
-}
-
