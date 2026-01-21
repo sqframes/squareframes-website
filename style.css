@@ -994,3 +994,21 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     height: 300px;
   }
 }
+/* =========================================
+   PRODUCT PAGE — RESTORE 2-COLUMN LAYOUT
+   (keeps stack on mobile)
+========================================= */
+
+.tile.product-card .product-grid{
+  display: grid !important;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: start;
+  gap: 0;                /* keep your single-frame look */
+}
+
+@media (max-width: 980px){
+  .tile.product-card .product-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
