@@ -474,10 +474,10 @@ button, input, optgroup, select, textarea {
 .dim-pill {
   background: #111;
   color: #fff;
-  padding: 10px 14px;
+  padding: 6px 10px;
   border-radius: 999px;
   font-weight: var(--fw-semibold);
-  font-size: 0.9rem;
+  font-size: 0.8rem;
 }
 
 /* ==========================
@@ -969,3 +969,4 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     padding: 18px;
   }
 }
+
