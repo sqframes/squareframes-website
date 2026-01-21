@@ -1012,3 +1012,21 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   }
 }
 
+/* ==========================
+   PRODUCT PAGE LAYOUT (DESKTOP)
+   ========================== */
+
+.product-grid{
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: start;
+  gap: 0;
+}
+
+/* Mobile stack */
+@media (max-width: 900px){
+  .product-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
