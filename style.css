@@ -1029,4 +1029,25 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     grid-template-columns: 1fr;
   }
 }
+/* ===== PRODUCT PAGE: FORCE 2-COLUMN LAYOUT (FINAL OVERRIDE) ===== */
+.tile.product-card > .product-grid{
+  display: grid !important;
+  grid-template-columns: 1.5fr 1fr;
+  align-items: start;
+  gap: 0;
+}
+
+/* allow columns to shrink nicely */
+.tile.product-card .product-media,
+.tile.product-card .product-info{
+  min-width: 0;
+}
+
+/* mobile stack */
+@media (max-width: 900px){
+  .tile.product-card > .product-grid{
+    grid-template-columns: 1fr;
+  }
+}
+
 
