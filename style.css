@@ -970,5 +970,13 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     padding: 18px;
   }
 }
+/* === FORCE smaller dimension pills (product page only) === */
+.tile.product-card .dim-list .dim-pill{
+  padding: 5px 9px !important;
+  font-size: 0.75rem !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+}
+
 
 
