@@ -471,14 +471,15 @@ button, input, optgroup, select, textarea {
 
 .dim-list { display: flex; flex-wrap: wrap; gap: 10px; }
 
-.dim-pill {
-  background: #111;
-  color: #fff;
-  padding: 6px 10px;
+/* Smaller, tighter dimension pills */
+.dim-pill{
+  padding: 6px 10px;        /* reduced from 10px 14px */
+  font-size: 0.8rem;        /* smaller text */
+  font-weight: 600;
   border-radius: 999px;
-  font-weight: var(--fw-semibold);
-  font-size: 0.8rem;
+  line-height: 1.2;
 }
+
 
 /* ==========================
    Forms & Buttons
@@ -969,4 +970,5 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     padding: 18px;
   }
 }
+
 
