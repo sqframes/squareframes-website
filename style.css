@@ -905,8 +905,8 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 }
 
 /* =========================================================
-   PRODUCT PAGE — SINGLE FRAME + 2-COLUMN (ONLY BLOCK)
-   Paste ONCE at the END of style.css
+   PRODUCT PAGE — SINGLE FRAME + 2-COLUMN + NO-CROP
+   (ONLY BLOCK — keep once at end)
    ========================================================= */
 
 .product-wrap{
@@ -914,8 +914,8 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 }
 
 .tile.product-card{
-  padding: 0;          /* remove inner inset */
-  overflow: hidden;    /* keep corners clean */
+  padding: 0;
+  overflow: hidden;
 }
 
 /* 2-column layout on desktop */
@@ -941,19 +941,32 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   overflow: hidden;
 }
 
-/* consistent image height */
+/* ✅ NO CROP: show full image inside a fixed-height frame */
 .tile.product-card .prod-carousel-img{
   display: block;
   width: 100%;
   height: 420px;
-  object-fit: cover;
-  background: transparent;
+  object-fit: contain;     /* ✅ show full image */
+  background: #fff;        /* clean letterbox */
   border-radius: 0;
 }
 
 /* keep padding ONLY on the info side */
 .tile.product-card .product-info{
   padding: 28px;
+}
+
+/* dimension pills (smaller) */
+.tile.product-card .dim-list{
+  gap: 6px;
+}
+
+.tile.product-card .dim-pill{
+  padding: 4px 8px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  line-height: 1.2;
+  border-radius: 999px;
 }
 
 /* mobile stack */
@@ -970,48 +983,3 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     padding: 18px;
   }
 }
-/* =====================================================
-   PRODUCT PAGE — DIMENSION PILLS (FINAL, CLEAN)
-   ===================================================== */
-
-.tile.product-card .dim-list{
-  gap: 6px;
-}
-
-.tile.product-card .dim-pill{
-  padding: 4px 8px;
-  font-size: 0.72rem;
-  font-weight: 600;
-  line-height: 1.2;
-  border-radius: 999px;
-}
-.tile.product-card .dim-list{
-  gap: 6px;
-}
-
-.tile.product-card .dim-pill{
-  padding: 4px 8px;
-  font-size: 0.72rem;
-}
-/* === PRODUCT PAGE: NO CROP (HARD OVERRIDE) === */
-.tile.product-card .prod-carousel-img{
-  width: 100% !important;
-  height: 420px !important;
-  object-fit: contain !important;  /* ✅ show full image */
-  background: #fff !important;
-}
-
-@media (max-width: 900px){
-  .tile.product-card .prod-carousel-img{
-    height: 300px !important;
-  }
-}
-
-
-
-
-
-
-
-
-
