@@ -966,3 +966,31 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
     padding: 18px;
   }
 }
+
+/* =========================================
+   PRODUCT PAGE — IMAGE HEIGHT FIX (FINAL)
+   Prevents image from bleeding under header
+========================================= */
+
+.tile.product-card .carousel-container {
+  max-height: 420px;        /* controls hero height */
+  overflow: hidden;
+}
+
+.tile.product-card .prod-carousel-img {
+  width: 100%;
+  height: 420px;            /* MUST match container */
+  object-fit: cover;        /* crop instead of stretch */
+  display: block;
+}
+
+/* Mobile adjustment */
+@media (max-width: 980px) {
+  .tile.product-card .carousel-container {
+    max-height: 300px;
+  }
+
+  .tile.product-card .prod-carousel-img {
+    height: 300px;
+  }
+}
