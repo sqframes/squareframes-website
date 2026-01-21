@@ -993,6 +993,30 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   padding: 4px 8px;
   font-size: 0.72rem;
 }
+/* =========================================
+   PRODUCT PAGE — SHOW FULL IMAGE (NO CROP)
+   ========================================= */
+
+.tile.product-card .carousel-container{
+  background: #fff;      /* nice backdrop for letterboxing */
+  overflow: hidden;
+}
+
+/* show entire image */
+.tile.product-card .prod-carousel-img{
+  height: 420px;         /* keep your consistent block height */
+  width: 100%;
+  object-fit: contain;   /* ✅ NO CROPPING */
+  background: #fff;
+}
+
+/* mobile */
+@media (max-width: 900px){
+  .tile.product-card .prod-carousel-img{
+    height: 300px;
+  }
+}
+
 
 
 
