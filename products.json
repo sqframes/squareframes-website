@@ -27,6 +27,19 @@
     "tags": ["Timber", "DAR", "Planed", "Joinery"]
   },
   {
+    "slug": "decking",
+    "name": "Decking",
+    "category": "Timber Products",
+    "price": "",
+    "short": "Strong and durable timber decking for outdoor decks, walkways, and verandas.",
+    "description": "Ideal for outdoor decks, walkways, and verandas.\nStrong, durable with a natural timber finish.\nEasy to install and finish.\nResidential and commercial decking projects",
+    "dimensions": "100 x 25mm",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1769508953/decking_yfztme.png"
+    ],
+    "tags": ["Timber", "Decking", "Outdoor", "Construction"]
+  },
+  {
     "slug": "rough-sawn-timber-non-load-bearing",
     "name": "Rough Sawn Timber - Non Load Bearing",
     "category": "Timber Products",
