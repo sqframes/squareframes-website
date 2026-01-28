@@ -79,6 +79,19 @@
     "tags": ["Concrete", "Blocks", "Masonry", "Construction"]
   },
   {
+    "slug": "weatherboard",
+    "name": "Weatherboard",
+    "category": "Timber Products",
+    "price": "",
+    "short": "Durable weatherboard for exterior cladding and decorative wall finishes.",
+    "description": "For exterior cladding and decorative wall finishes.\nDurable and weather resistant.\nSuitable for residential and commercial buildings, easy to install and paint.",
+    "dimensions": "100 x 25mm",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1769508896/weatherboard_klezym.png"
+    ],
+    "tags": ["Timber", "Weatherboard", "Cladding", "Exterior"]
+  },
+  {
     "slug": "safety-harness",
     "name": "Safety Harness",
     "category": "OH&S",
