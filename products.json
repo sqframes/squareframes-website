@@ -53,6 +53,19 @@
     "tags": ["Screws", "Zinc Plated", "Countersunk", "Cabinetry"]
   },
   {
+  "slug": "concrete-blocks",
+  "name": "Concrete Blocks",
+  "category": "Concrete Products",
+  "price": "",
+  "short": "Ideal for residential, commercial, and industrial applications with excellent load-bearing capacity and weather resistance.",
+  "description": "Ideal for residential, commercial, and industrial applications.\nExcellent load-bearing capacity and weather resistance.\nBuilt to meet standard building requirements",
+  "dimensions": "100mm (4 inch)\n150mm (6 inch)\n200mm (8 inch)",
+  "images": [
+    "https://res.cloudinary.com/dydfvc4lz/image/upload/v1769508263/standard_concrete_block_lxynu7.jpg"
+  ],
+  "tags": ["Concrete", "Blocks", "Masonry", "Construction"]
+  }
+  {
     "slug": "safety-harness",
     "name": "Safety Harness",
     "category": "OH&S",
