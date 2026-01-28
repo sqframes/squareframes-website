@@ -27,6 +27,19 @@
     "tags": ["Timber", "DAR", "Planed", "Joinery"]
   },
   {
+    "slug": "rough-sawn-timber-non-load-bearing",
+    "name": "Rough Sawn Timber - Non Load Bearing",
+    "category": "Timber Products",
+    "price": "",
+    "short": "Rough sawn non-load-bearing timber treated to H3 standard for general construction and exterior applications.",
+    "description": "Rough sawn non-load-bearing timber treated to H3 standard.\nSuitable for general construction and exterior applications.\nDurable",
+    "dimensions": "2×1 (50×25mm)\n3×1 (75×25mm)\n4×1 (100×25mm)\n6×1 (150×25mm)\n8×1 (200×25mm)\n10×1 (250×25mm)\n12×1 (300×25mm)",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1769508846/rough-sawn-timber-non-load-bearing_jrulpe.png"
+    ],
+    "tags": ["Timber", "Rough Sawn", "H3 Treated", "Non Load Bearing"]
+  },
+  {
     "slug": "plywood",
     "name": "Plywood",
     "category": "Boards",
@@ -53,17 +66,17 @@
     "tags": ["Screws", "Zinc Plated", "Countersunk", "Cabinetry"]
   },
   {
-  "slug": "concrete-blocks",
-  "name": "Concrete Blocks",
-  "category": "Concrete Products",
-  "price": "",
-  "short": "Ideal for residential, commercial, and industrial applications with excellent load-bearing capacity and weather resistance.",
-  "description": "Ideal for residential, commercial, and industrial applications.\nExcellent load-bearing capacity and weather resistance.\nBuilt to meet standard building requirements",
-  "dimensions": "100mm (4 inch)\n150mm (6 inch)\n200mm (8 inch)",
-  "images": [
-    "https://res.cloudinary.com/dydfvc4lz/image/upload/v1769508263/standard_concrete_block_lxynu7.jpg"
-  ],
-  "tags": ["Concrete", "Blocks", "Masonry", "Construction"]
+    "slug": "concrete-blocks",
+    "name": "Concrete Blocks",
+    "category": "Concrete Products",
+    "price": "",
+    "short": "Ideal for residential, commercial, and industrial applications with excellent load-bearing capacity and weather resistance.",
+    "description": "Ideal for residential, commercial, and industrial applications.\nExcellent load-bearing capacity and weather resistance.\nBuilt to meet standard building requirements",
+    "dimensions": "100mm (4 inch)\n150mm (6 inch)\n200mm (8 inch)",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1769508263/standard_concrete_block_lxynu7.jpg"
+    ],
+    "tags": ["Concrete", "Blocks", "Masonry", "Construction"]
   },
   {
     "slug": "safety-harness",
