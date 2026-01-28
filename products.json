@@ -66,6 +66,19 @@
     "tags": ["Boards", "Plywood", "Construction", "Formwork"]
   },
   {
+    "slug": "tng-flooring",
+    "name": "TnG Flooring",
+    "category": "Timber Products",
+    "price": "",
+    "short": "Tongue and groove flooring designed for a strong, seamless floor finish with enhanced stability.",
+    "description": "Designed for a strong, seamless floor finish.\nProvides a tight interlocking fit that enhances stability and reduces movement.\nIdeal for residential and commercial use",
+    "dimensions": "100 x 25mm",
+    "images": [
+      "https://res.cloudinary.com/dydfvc4lz/image/upload/v1769509004/tng-flooring_eed6vc.png"
+    ],
+    "tags": ["Timber", "TnG", "Flooring", "Interior"]
+  },
+  {
     "slug": "zinc-plated-particle-board-screws",
     "name": "Zinc-Plated Particle Board Screws",
     "category": "Screws",
