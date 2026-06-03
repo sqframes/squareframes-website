@@ -94,12 +94,12 @@
           e.target.reset();
           closeOverlay();
         } else {
-          toast("Send failed. Please email admin@sqframes.com", 6000);
+          toast("Send failed. Please email info@sqframes.com", 6000);
           console.error(out);
         }
       } catch (err) {
         console.error(err);
-        toast("Send failed. Please email admin@sqframes.com", 6000);
+        toast("Send failed. Please email info@sqframes.com", 6000);
       }
     });
   }
