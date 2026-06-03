@@ -34,9 +34,9 @@ export async function onRequestPost({ request, env }) {
 
     // IMPORTANT:
     // Resend requires FROM to be an address on a verified sending domain.
-    // You asked to use admin@sqframes.com as the sender:
-    const from = "Square Frames <admin@sqframes.com>";
-    const to = ["admin@sqframes.com"];
+    // You asked to use info@sqframes.com as the sender:
+    const from = "Square Frames <info@sqframes.com>";
+    const to = ["info@sqframes.com"];
 
     const subject = product
       ? `Quote Request: ${product} — ${name}`
