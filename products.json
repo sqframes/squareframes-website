@@ -261,5 +261,18 @@
       "https://res.cloudinary.com/dydfvc4lz/image/upload/v1765751568/154_qrt2cx.jpg"
     ],
     "tags": ["OH&S", "Traffic", "Signage", "CoPTTM"]
+  },
+  {
+    "slug": "pine-posts",
+    "name": "Pine Posts",
+    "category": "Timber Products",
+    "price": "Contact for Price",
+    "short": "H4 treated pine posts available in various sizes and lengths.",
+    "description": "H4 treated pine posts\nAvailable in various sizes and lengths\nSuitable for fencing, landscaping, property improvements, and general outdoor projects\nWholesale & Retail across Fiji",
+    "dimensions": "Various sizes\nVarious lengths",
+    "images": [
+      "/images/pine-posts-h4.png"
+    ],
+    "tags": ["Timber", "Pine Posts", "H4 Treated", "Fencing", "Landscaping"]
   }
 ]
