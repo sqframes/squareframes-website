@@ -913,6 +913,21 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   padding: 26px 5% 90px 5%;
 }
 
+.breadcrumbs{
+  max-width: 1180px;
+  margin: 0 auto 14px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: #64748b;
+  font-size: .9rem;
+}
+
+.breadcrumbs a{
+  color: #216BBF;
+  font-weight: 650;
+}
+
 .tile.product-card{
   padding: 0;
   overflow: hidden;
@@ -969,6 +984,76 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
   border-radius: 999px;
 }
 
+.seo-content,
+.product-seo-copy{
+  padding: 34px 5% 70px;
+}
+
+.seo-content-inner,
+.product-seo-copy{
+  max-width: 1180px;
+  margin: 0 auto;
+}
+
+.seo-content h2,
+.product-seo-copy h2{
+  margin: 28px 0 10px;
+  color: #0f172a;
+  font-size: clamp(1.35rem, 2.3vw, 1.9rem);
+}
+
+.seo-content h2:first-child,
+.product-seo-copy h2:first-child{
+  margin-top: 0;
+}
+
+.seo-content h3,
+.product-seo-copy h3{
+  margin: 0 0 8px;
+  color: #0f172a;
+}
+
+.seo-content p,
+.product-seo-copy p,
+.product-seo-copy li{
+  color: #475569;
+  line-height: 1.75;
+}
+
+.seo-content a,
+.product-seo-copy a{
+  color: #216BBF;
+  font-weight: 650;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.seo-link-grid,
+.product-info-grid{
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin: 24px 0 34px;
+}
+
+.product-info-grid{
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.seo-link-grid article,
+.product-info-grid article{
+  padding: 22px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: #fff;
+  box-shadow: var(--shadow);
+}
+
+.product-info-grid ul{
+  margin: 0;
+  padding-left: 20px;
+}
+
 /* mobile stack */
 @media (max-width: 900px){
   .tile.product-card > .product-grid{
@@ -981,5 +1066,10 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
   .tile.product-card .product-info{
     padding: 18px;
+  }
+
+  .seo-link-grid,
+  .product-info-grid{
+    grid-template-columns: 1fr;
   }
 }
