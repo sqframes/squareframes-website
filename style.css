@@ -142,6 +142,7 @@ button, input, optgroup, select, textarea {
   justify-content: flex-end;
   align-items: center;
   gap: 10px;
+  min-width: max-content;
 }
 
 .nav-pills a {
@@ -175,6 +176,9 @@ button, input, optgroup, select, textarea {
   font-weight: var(--fw-semibold);
   text-align: center;
   white-space: nowrap;
+  min-width: 118px;
+  box-sizing: border-box;
+  flex: 0 0 auto;
 }
 
 .btn-cta:hover {
