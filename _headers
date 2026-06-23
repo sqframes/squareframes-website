@@ -12,3 +12,6 @@
 
 /images/*
   Cache-Control: public, max-age=2592000, immutable
+
+/product-template.html
+  X-Robots-Tag: noindex, nofollow

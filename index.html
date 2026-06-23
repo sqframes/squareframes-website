@@ -12,6 +12,7 @@
 
   <link rel="canonical" href="https://sqframes.com/">
   <link rel="preconnect" href="https://res.cloudinary.com" crossorigin>
+  <link rel="manifest" href="/manifest.webmanifest">
   <link rel="stylesheet" href="/style.css?v=1007">
 
   <link rel="icon" href="/images/tab-icon-192.png" type="image/png">
@@ -75,8 +76,8 @@
       </div>
 
       <nav class="nav-pills" aria-label="Main navigation">
-        <a href="/about.html">About</a>
-        <a href="/faq.html">FAQ</a>
+        <a href="/about/">About</a>
+        <a href="/faq/">FAQ</a>
         <a class="btn-cta" href="#" data-open-inquiry>Request Quote</a>
       </nav>
     </div>
@@ -299,24 +300,20 @@
       return index > timberPriority.length && index % 9 === 0 ? 'wide' : '';
     }
 
-    function renderProducts(list) {
-      const grid = document.getElementById('grid');
-      const sorted = sortTimberFirst(list);
+    function productCardHtml(p, index) {
+      const sizeClass = cardSizeClass(p, index);
+      const timberClass = isTimberProduct(p) ? 'timber-card' : '';
+      const boardClass = p.slug === 'plywood' ? 'featured-board-card' : '';
+      const thumb = optimizeImageUrl(
+        (p.images && p.images.length > 0) ? p.images[0] : '',
+        sizeClass === 'wide' || sizeClass === 'top-featured' ? 900 : 700
+      );
 
-      grid.innerHTML = sorted.map((p, index) => {
-        const sizeClass = cardSizeClass(p, index);
-        const timberClass = isTimberProduct(p) ? 'timber-card' : '';
-        const boardClass = p.slug === 'plywood' ? 'featured-board-card' : '';
-        const thumb = optimizeImageUrl(
-          (p.images && p.images.length > 0) ? p.images[0] : '',
-          sizeClass === 'wide' || sizeClass === 'top-featured' ? 900 : 700
-        );
+      const pointsHtml = p.short
+        ? `<ul class="card-points"><li>${escapeHtml(p.short)}</li></ul>`
+        : `<ul class="card-points"></ul>`;
 
-        const pointsHtml = p.short
-          ? `<ul class="card-points"><li>${escapeHtml(p.short)}</li></ul>`
-          : `<ul class="card-points"></ul>`;
-
-        return `
+      return `
           <a class="card ${sizeClass} ${timberClass} ${boardClass}" href="/${escapeHtml(p.slug)}/" data-cat="${escapeHtml(p.category || '')}">
             <img src="${escapeHtml(thumb)}" class="card-img" loading="lazy" decoding="async" alt="${escapeHtml(p.name || '')} - ${escapeHtml(p.category || '')}">
             <div class="card-overlay">
@@ -325,7 +322,26 @@
             </div>
           </a>
         `;
-      }).join('');
+    }
+
+    function renderProducts(list) {
+      const grid = document.getElementById('grid');
+      const sorted = sortTimberFirst(list);
+      grid.innerHTML = sorted.map(productCardHtml).join('');
+    }
+
+    function appendMissingProducts(list) {
+      const grid = document.getElementById('grid');
+      const existing = new Set(
+        [...grid.querySelectorAll('a.card[href]')]
+          .map((card) => card.getAttribute('href').replaceAll('/', ''))
+          .filter(Boolean)
+      );
+      const sorted = sortTimberFirst(list);
+      const missingHtml = sorted
+        .map((product, index) => existing.has(product.slug) ? '' : productCardHtml(product, index))
+        .join('');
+      grid.insertAdjacentHTML('beforeend', missingHtml);
     }
 
     function initCategories() {
@@ -345,7 +361,7 @@
           return;
         }
         initCategories();
-        renderProducts(products);
+        appendMissingProducts(products);
       })
       .catch(() => {
         document.getElementById('grid').innerHTML = '<p style="text-align:center;">System Error.</p>';
