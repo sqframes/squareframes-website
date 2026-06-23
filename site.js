@@ -3,6 +3,7 @@
   const overlay = document.getElementById("inquiry-form-overlay");
   const form = document.getElementById("inquiryForm");
   const pageRoot = document.querySelector("main") || document.body;
+  let lastFocusedElement = null;
 
   function setInert(on) {
     if (on) {
@@ -25,6 +26,7 @@
 
   function openOverlay(productName = "") {
     if (!overlay) return;
+    lastFocusedElement = document.activeElement;
     overlay.style.display = "flex";
     overlay.setAttribute("aria-hidden", "false");
     setInert(true);
@@ -41,6 +43,9 @@
     overlay.style.display = "none";
     overlay.setAttribute("aria-hidden", "true");
     setInert(false);
+    if (lastFocusedElement instanceof HTMLElement) {
+      lastFocusedElement.focus();
+    }
   }
 
   window.openInquiry = openOverlay;
@@ -110,8 +115,31 @@
   function optimizeCloudinaryImage(url, width = 1000) {
     const value = String(url || "");
     if (!value.includes("res.cloudinary.com/") || !value.includes("/image/upload/")) return value;
-    if (value.includes("/image/upload/f_auto,")) return value;
-    return value.replace("/image/upload/", `/image/upload/f_auto,q_auto,w_${width}/`);
+    return value
+      .replace(/\/image\/upload\/f_auto,q_auto,w_\d+\//, "/image/upload/")
+      .replace("/image/upload/", `/image/upload/f_auto,q_auto,w_${width}/`);
+  }
+
+  function cloudinarySrcset(url) {
+    const value = String(url || "");
+    if (!value.includes("res.cloudinary.com/") || !value.includes("/image/upload/")) return "";
+    return [480, 768, 1000]
+      .map((width) => `${optimizeCloudinaryImage(value, width)} ${width}w`)
+      .join(", ");
+  }
+
+  function enhanceResponsiveImages() {
+    document.querySelectorAll("img").forEach((img) => {
+      const source = img.currentSrc || img.getAttribute("src") || "";
+      const srcset = cloudinarySrcset(source);
+      if (srcset && !img.hasAttribute("srcset")) {
+        img.srcset = srcset;
+        img.sizes = img.classList.contains("prod-carousel-img")
+          ? "(max-width: 900px) 100vw, 60vw"
+          : "(max-width: 768px) 100vw, 33vw";
+      }
+      if (!img.hasAttribute("decoding")) img.decoding = "async";
+    });
   }
 
   function initCarousels() {
@@ -132,12 +160,32 @@
       const nextBtn = root.querySelector("[data-carousel-next]");
       if (!imgEl) return;
       imgEl.decoding = "async";
+      imgEl.loading = "eager";
+      imgEl.fetchPriority = "high";
+      if (!imgEl.hasAttribute("width")) imgEl.width = 1200;
+      if (!imgEl.hasAttribute("height")) imgEl.height = 900;
+
+      root.setAttribute("role", "region");
+      root.setAttribute("aria-roledescription", "carousel");
+      if (prevBtn) {
+        prevBtn.type = "button";
+        if (!prevBtn.hasAttribute("aria-label")) prevBtn.setAttribute("aria-label", "Previous image");
+      }
+      if (nextBtn) {
+        nextBtn.type = "button";
+        if (!nextBtn.hasAttribute("aria-label")) nextBtn.setAttribute("aria-label", "Next image");
+      }
 
       let i = 0;
       function render() {
         imgEl.classList.add("is-fading");
         const src = images[i];
         imgEl.src = src;
+        const srcset = cloudinarySrcset(src);
+        if (srcset) {
+          imgEl.srcset = srcset;
+          imgEl.sizes = "(max-width: 900px) 100vw, 60vw";
+        }
         imgEl.addEventListener(
           "load",
           () => {
@@ -197,5 +245,6 @@
     });
   }
 
+  enhanceResponsiveImages();
   initCarousels();
 })();
