@@ -304,9 +304,14 @@ button, input, optgroup, select, textarea {
 
 @media (min-width: 1200px) {
   .grid {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(12, minmax(0, 1fr));
     grid-auto-rows: 260px;
   }
+
+  .card{ grid-column: span 3; }
+  .card.top-featured{ grid-column: span 4; }
+  .card.wide{ grid-column: span 6; }
+  .card.big{ grid-column: span 6; }
 }
 
 .card {
@@ -354,6 +359,15 @@ button, input, optgroup, select, textarea {
 .card.wide { grid-column: span 2; }
 .card.tall { grid-row: span 2; }
 .card.big  { grid-column: span 2; grid-row: span 2; }
+
+@media (min-width: 1200px) {
+  .card.wide{ grid-column: span 6; }
+  .card.big{ grid-column: span 6; }
+  .card.top-featured{
+    grid-column: span 4;
+    grid-row: span 1;
+  }
+}
 
 .card-img {
   width: 100%;
@@ -979,9 +993,8 @@ footer a:hover { text-decoration: underline; text-underline-offset: 4px; }
 
 @media (max-width: 768px) {
   .grid { grid-template-columns: 1fr; grid-auto-rows: auto; }
-  .card.wide, .card.tall, .card.big { grid-column: auto; grid-row: auto; }
+  .card.wide, .card.tall, .card.big, .card.top-featured { grid-column: auto; grid-row: auto; }
   .card{ min-height: 280px; }
-  .card.big{ min-height: 340px; }
   .catalogue-section{ padding: 8px 5% 60px; }
   .catalogue-heading{ padding: 22px 20px; }
   .catalogue-quote{ width: 100%; }

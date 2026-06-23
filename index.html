@@ -107,21 +107,21 @@
       </div>
 
       <div id="grid" class="grid">
-        <a class="card big timber-card" href="/pine-posts/" data-cat="Timber Products">
+        <a class="card top-featured timber-card" href="/pine-posts/" data-cat="Timber Products">
           <img src="/images/pine-posts-h4.png" class="card-img" alt="H4 treated pine posts available in Fiji">
           <div class="card-overlay">
             <h3 class="card-title">H4 Treated Pine Posts</h3>
             <ul class="card-points"><li>Various sizes and lengths for fencing and outdoor projects.</li></ul>
           </div>
         </a>
-        <a class="card big featured-board-card" href="/plywood/" data-cat="Boards">
+        <a class="card top-featured featured-board-card" href="/plywood/" data-cat="Boards">
           <img src="https://res.cloudinary.com/dydfvc4lz/image/upload/v1767780711/exterior-plywood_tu4xty.png" class="card-img" alt="Interior and exterior plywood sheets in Fiji">
           <div class="card-overlay">
             <h3 class="card-title">Interior &amp; Exterior Plywood</h3>
             <ul class="card-points"><li>Multiple sheet thicknesses for construction, formwork, flooring and roofing.</li></ul>
           </div>
         </a>
-        <a class="card wide timber-card" href="/structural-framing-timber-rough-sawn/" data-cat="Timber Products">
+        <a class="card top-featured timber-card" href="/structural-framing-timber-rough-sawn/" data-cat="Timber Products">
           <img src="https://res.cloudinary.com/dydfvc4lz/image/upload/v1767609826/framing-timber01_b8fgdr.png" class="card-img" alt="H3 structural framing timber in Fiji">
           <div class="card-overlay">
             <h3 class="card-title">H3 Structural Framing Timber</h3>
@@ -285,9 +285,9 @@
 
     function cardSizeClass(p, index) {
       const featuredSizes = {
-        'pine-posts': 'big',
-        'plywood': 'big',
-        'structural-framing-timber-rough-sawn': 'wide',
+        'pine-posts': 'top-featured',
+        'plywood': 'top-featured',
+        'structural-framing-timber-rough-sawn': 'top-featured',
         'weatherboard': 'wide',
       };
       if (featuredSizes[p.slug]) return featuredSizes[p.slug];
