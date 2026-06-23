@@ -1,8 +1,6 @@
 /* style.css */
 
 /* ✅ Inter Variable (lighter, premium weights) */
-@import url('https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&display=swap');
-
 :root {
   --bg: #ffffff;
   --text: #111111;
@@ -19,7 +17,7 @@
   --header-maxw: 1360px;
 
   /* ✅ Typography tokens (lighter system) */
-  --font-sans: "Inter", "Inter Variable", system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  --font-sans: system-ui, -apple-system, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
 
   /* Core scale */
   --fw-body: 400;      /* body text */

@@ -107,6 +107,13 @@
   // ==========================
   // Simple product image carousel (no layout changes)
   // ==========================
+  function optimizeCloudinaryImage(url, width = 1000) {
+    const value = String(url || "");
+    if (!value.includes("res.cloudinary.com/") || !value.includes("/image/upload/")) return value;
+    if (value.includes("/image/upload/f_auto,")) return value;
+    return value.replace("/image/upload/", `/image/upload/f_auto,q_auto,w_${width}/`);
+  }
+
   function initCarousels() {
     const carousels = document.querySelectorAll("[data-carousel]");
     carousels.forEach((root) => {
@@ -117,13 +124,14 @@
         images = [];
       }
 
-      images = (images || []).map(String).filter(Boolean);
+      images = (images || []).map((src) => optimizeCloudinaryImage(src)).filter(Boolean);
       if (!images.length) return;
 
       const imgEl = root.querySelector("img");
       const prevBtn = root.querySelector("[data-carousel-prev]");
       const nextBtn = root.querySelector("[data-carousel-next]");
       if (!imgEl) return;
+      imgEl.decoding = "async";
 
       let i = 0;
       function render() {
