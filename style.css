@@ -236,7 +236,9 @@ button, input, optgroup, select, textarea {
    ========================== */
 
 .catalogue-section{
-  padding: 8px 5% 82px;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 10px 5% 82px;
   max-width: 1600px;
   margin: 0 auto;
 }
@@ -245,7 +247,7 @@ button, input, optgroup, select, textarea {
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0 22px;
+  margin: 0 auto 22px;
   text-align: center;
 }
 
